@@ -1,15 +1,19 @@
 import fetch from 'isomorphic-fetch';
+
+import {SendRequest, ProcessRequest} from '../types';
+import {VKAPIInterface, VKAPIConstructorProps} from './types';
+import {RequestsQueue} from '../RequestsQueue';
 import {
   UsersRepository,
   UsersRepositoryInterface,
 } from '../repositories/UsersRepository';
-import {SendRequest, ProcessRequest} from '../types';
-import {VKAPIInterface, VKAPIConstructorProps} from './types';
-import {RequestsQueue} from '../RequestsQueue';
-import {recursiveToCamelCase, toSnakeCase} from './utils';
-import {NotificationsRepositoryInterface} from '../repositories/NotificationsRepository';
-import {NotificationsRepository} from '../repositories/NotificationsRepository';
-import {formatQuery, stringifyValue} from '../utils';
+import {
+  NotificationsRepository,
+  NotificationsRepositoryInterface,
+} from '../repositories/NotificationsRepository';
+
+import {recursiveToCamelCase} from './utils';
+import {formatQuery} from '../utils';
 
 /**
  * Class to perform request to VKontakte API

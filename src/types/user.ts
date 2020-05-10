@@ -193,14 +193,16 @@ export enum SexEnum {
 }
 
 export type UserCareer =
-  ({ groupId: number; company: number } | { groupId: string; company: string; })
+  ({ groupId: number; company: number } |
+    { groupId: string; company: string })
   & {
   countryId: number;
   from: number;
   until: number;
   position: string;
 }
-  & ({ cityId: number; cityName: number } | { cityId: string; cityName: string; })
+  & ({ cityId: number; cityName: number }
+  | { cityId: string; cityName: string })
 
 export interface UserContacts {
   mobilePhone?: string;
@@ -265,7 +267,7 @@ export interface UserOccupation {
 
 type Online =
   { online: PseudoBooleanType }
-  & ({ onlineMobile?: 1 } | { onlineMobile: 1, onlineApp: number })
+  & ({ onlineMobile?: 1 } | { onlineMobile: 1; onlineApp: number })
 
 interface Personal {
   political: number;
@@ -334,13 +336,17 @@ export interface UserBaseProps {
 //   & (F extends 'activities' ? { activities: string } : {})
 //   & (F extends 'bdate' ? { bdate?: string } : {})
 //   & (F extends 'blacklisted' ? { blacklisted: PseudoBooleanType } : {})
-//   & (F extends 'blacklisted_by_me' ? { blacklistedByMe: PseudoBooleanType } : {})
+//   & (F extends 'blacklisted_by_me'
+//   ? { blacklistedByMe: PseudoBooleanType } : {})
 //   & (F extends 'books' ? { books: string } : {})
 //   & (F extends 'can_post' ? { canPost: PseudoBooleanType } : {})
-//   & (F extends 'can_see_all_posts' ? { canSeeAllPosts: PseudoBooleanType } : {})
+//   & (F extends 'can_see_all_posts'
+//   ? { canSeeAllPosts: PseudoBooleanType } : {})
 //   & (F extends 'can_see_audio' ? { canSeeAudio: PseudoBooleanType } : {})
-//   & (F extends 'can_send_friend_request' ? { canSendFriendRequest: PseudoBooleanType } : {})
-//   & (F extends 'can_write_private_message' ? { canWritePrivateMessage: PseudoBooleanType } : {})
+//   & (F extends 'can_send_friend_request'
+//   ? { canSendFriendRequest: PseudoBooleanType } : {})
+//   & (F extends 'can_write_private_message'
+//   ? { canWritePrivateMessage: PseudoBooleanType } : {})
 //   & (F extends 'career' ? { career: Career } : {})
 //   & (F extends 'city' ? { city: IdTitlePair } : {})
 //   & (F extends 'common_count' ? { commonCount: number } : {})
@@ -366,7 +372,8 @@ export interface UserBaseProps {
 //   & (F extends 'interests' ? { interests: string } : {})
 //   & (F extends 'is_favorite' ? { isFavorite: PseudoBooleanType } : {})
 //   & (F extends 'is_friend' ? { isFriend: PseudoBooleanType } : {})
-//   & (F extends 'is_hidden_from_feed' ? { isHiddenFromFeed: PseudoBooleanType } : {})
+//   & (F extends 'is_hidden_from_feed'
+//   ? { isHiddenFromFeed: PseudoBooleanType } : {})
 //   & (F extends 'last_name_nom' ? { lastNameNom: string } : {})
 //   & (F extends 'last_name_gen' ? { lastNameGen: string } : {})
 //   & (F extends 'last_name_dat' ? { lastNameDat: string } : {})
@@ -477,7 +484,7 @@ export type User =
   photoMaxOrig?: string;
   quotes?: string;
   relatives?: UserRelative[];
-  relation?: RelationEnum,
+  relation?: RelationEnum;
   relationPartner?: {
     id?: number;
     name?: string;
