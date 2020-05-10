@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "test": "tsc --noEmit"
+    "test": "tsc --noEmit",
+    "commit": "git-cz"
   },
   "devDependencies": {
     "@types/event-emitter": "^0.3.3",
@@ -15,6 +16,8 @@
     "@types/node": "^13.13.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "3.2.0",
     "eslint": "^7.0.0",
     "husky": "^4.2.5",
     "rimraf": "^3.0.2",
@@ -23,5 +26,10 @@
   "dependencies": {
     "event-emitter": "^0.3.5",
     "isomorphic-fetch": "^2.2.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
