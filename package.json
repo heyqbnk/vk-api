@@ -1,0 +1,27 @@
+{
+  "name": "vk-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:wolframdeus/vk-api.git",
+  "author": "Vladislav Kibenko <wolfram.deus@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "test": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/event-emitter": "^0.3.3",
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/node": "^13.13.5",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "eslint": "^7.0.0",
+    "husky": "^4.2.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "event-emitter": "^0.3.5",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
