@@ -10,7 +10,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "gulp",
     "test": "tsc --noEmit",
     "lint": "eslint src/**",
     "validate": "npm-run-all test lint",
