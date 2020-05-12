@@ -1,6 +1,5 @@
 import {Worker} from 'cluster';
 import {VKAPIInterface} from '../../VKAPI';
-import {VKAPIMessageBase} from '../types';
 
 export interface VKAPIMasterConstructorProps {
   /**

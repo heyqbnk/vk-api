@@ -25,7 +25,7 @@ function removeSource() {
 }
 
 function removeDirectory() {
-  return gulp.src('./dist').pipe(clean({force: true}));
+  return gulp.src('./dist', {allowEmpty: true}).pipe(clean({force: true}));
 }
 
 exports.default = gulp.series(removeDirectory, compile, removeSource);
