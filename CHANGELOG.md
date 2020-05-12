@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/wolframdeus/vk-api/compare/v1.1.0...v1.1.1) (2020-05-12)
+
+
+### Bug Fixes
+
+* **types:** removed unused type ([1a57fc6](https://github.com/wolframdeus/vk-api/commit/1a57fc6013319194d129972b6cfe1486afe0a4db))
+
 ## [1.1.0](https://github.com/wolframdeus/vk-api/compare/v1.0.6...v1.1.0) (2020-05-12)
 
 
