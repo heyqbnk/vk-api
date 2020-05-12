@@ -1,5 +1,6 @@
 import {UsersRepositoryInterface} from '../repositories/UsersRepository';
 import {NotificationsRepositoryInterface} from '../repositories/NotificationsRepository';
+import {ProcessRequest} from '../types';
 
 export interface VKAPIConstructorProps {
   /**
@@ -22,6 +23,19 @@ export interface VKAPIConstructorProps {
  * VKAPI class interface
  */
 export interface VKAPIInterface {
+  /**
+   * Notifications repository
+   */
   notifications: NotificationsRepositoryInterface;
+
+  /**
+   * Users repository
+   */
   users: UsersRepositoryInterface;
+
+  /**
+   * In outer context, executes a request. Internally, places a request into
+   * the requests queue and executes it after it becomes available
+   */
+  processRequest: ProcessRequest;
 }

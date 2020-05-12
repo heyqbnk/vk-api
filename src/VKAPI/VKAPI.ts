@@ -55,11 +55,6 @@ export class VKAPI implements VKAPIInterface {
     });
   }
 
-  /**
-   * In outer context, performs a request. Internally, places a request into
-   * the requests queue
-   * @type {{}}
-   */
   public processRequest: ProcessRequest = config => {
     return this.requestsQueue.add(config);
   };

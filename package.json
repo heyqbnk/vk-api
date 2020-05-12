@@ -19,7 +19,6 @@
     "postrelease": "npm-run-all release:*",
     "release:tags": "git push --follow-tags origin master & yarn publish --non-interactive",
     "release:github": "dotenv -e .env -- conventional-github-releaser -p eslint",
-    "ci:validate": "rimraf node_modules && yarn ci && yarn validate",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
