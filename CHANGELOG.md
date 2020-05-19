@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/wolframdeus/vk-api/compare/v1.1.2...v1.1.3) (2020-05-19)
+
+
+### Bug Fixes
+
+* **vkapislave:** added VKAPISlave to exports ([7a77a9e](https://github.com/wolframdeus/vk-api/commit/7a77a9e604d09cb5696dafc6291934a4b0e986a6))
+
 ### [1.1.2](https://github.com/wolframdeus/vk-api/compare/v1.1.1...v1.1.2) (2020-05-12)
 
 ### [1.1.1](https://github.com/wolframdeus/vk-api/compare/v1.1.0...v1.1.1) (2020-05-12)
