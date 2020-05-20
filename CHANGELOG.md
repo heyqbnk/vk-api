@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com/wolframdeus/vk-api/compare/v1.1.3...v1.1.4) (2020-05-20)
+
+
+### Bug Fixes
+
+* **fetch:** fetch decoding bug fix ([7808f84](https://github.com/wolframdeus/vk-api/commit/7808f84cb9ad669d14bbe9c431340457ea1044dd))
+
 ### [1.1.3](https://github.com/wolframdeus/vk-api/compare/v1.1.2...v1.1.3) (2020-05-19)
 
 
