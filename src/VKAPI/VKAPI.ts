@@ -73,8 +73,8 @@ export class VKAPI implements VKAPIInterface {
     });
 
     // Send request
-    const {json} = await fetch(`https://api.vk.com/method/${method}?` + query);
-    const data = json();
+    const data = await fetch(`https://api.vk.com/method/${method}?` + query)
+      .then(response => response.json());
 
     if (data.error) {
       const {errorCode, errorMsg} = recursiveToCamelCase(data.error);
