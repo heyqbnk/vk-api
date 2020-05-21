@@ -16,7 +16,7 @@ export function stringifyValue(value: any): string {
       .join('&');
   }
 
-  return String(value);
+  return escape(String(value));
 }
 
 /**
