@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.5](https://github.com/wolframdeus/vk-api/compare/v1.1.4...v1.1.5) (2020-05-21)
+
+
+### Bug Fixes
+
+* **notifications.sendmessage:** applied message escaping ([528f253](https://github.com/wolframdeus/vk-api/commit/528f2532a10146c61459736d230517e39a784aaf))
+
 ### [1.1.4](https://github.com/wolframdeus/vk-api/compare/v1.1.3...v1.1.4) (2020-05-20)
 
 
