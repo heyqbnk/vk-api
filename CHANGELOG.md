@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.6](https://github.com/wolframdeus/vk-api/compare/v1.1.5...v1.1.6) (2020-05-21)
+
+
+### Bug Fixes
+
+* **query:** fixed query creation ([76c4fdb](https://github.com/wolframdeus/vk-api/commit/76c4fdbf1142521b7ee41ccb5d4245891443d5bd))
+
 ### [1.1.5](https://github.com/wolframdeus/vk-api/compare/v1.1.4...v1.1.5) (2020-05-21)
 
 
