@@ -13,6 +13,8 @@ export type MarkAsViewedMethod =
 interface SendMessageOptions extends RequestOptionalParams {
   userIds: Array<string | number>;
   message: string;
+  fragment?: string;
+  groupId?: number;
 }
 
 interface SendMessageResultOk {
