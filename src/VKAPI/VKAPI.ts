@@ -16,6 +16,7 @@ import {} from '../repositories/MessagesRepository';
 
 import {recursiveToCamelCase} from './utils';
 import {formatQuery} from '../utils';
+import {VKError} from '../VKError';
 
 /**
  * Class to perform request to VKontakte API
@@ -83,8 +84,7 @@ export class VKAPI implements VKAPIInterface {
       .then(response => response.json());
 
     if (data.error) {
-      const {errorCode, errorMsg} = recursiveToCamelCase(data.error);
-      throw new Error(`${errorCode}: ${errorMsg}`);
+      throw new VKError(data.error);
     }
 
     return recursiveToCamelCase(data.response);
