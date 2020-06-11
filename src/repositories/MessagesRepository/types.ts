@@ -30,7 +30,7 @@ interface SendMethodOptions extends RequestOptionalParams {
   dontParseLinks?: boolean;
   disableMentions?: boolean;
   // TODO: Move to separate type
-  intent: 'promo_newsletter' | 'bot_ad_invite' | 'bot_ad_promo';
+  intent?: 'promo_newsletter' | 'bot_ad_invite' | 'bot_ad_promo';
 }
 
 export type SendMethodResult = number | Array<{
