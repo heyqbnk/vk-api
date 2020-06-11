@@ -316,8 +316,8 @@ interface UserUniversity {
 
 export interface UserBaseProps {
   id: number;
-  firstName: number;
-  lastName: number;
+  firstName: string;
+  lastName: string;
   isClosed: boolean;
   canAccessClosed: boolean;
 }

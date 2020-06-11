@@ -3,14 +3,16 @@ import fetch from 'isomorphic-fetch';
 import {SendRequest, ProcessRequest} from '../types';
 import {VKAPIInterface, VKAPIConstructorProps} from './types';
 import {RequestsQueue} from '../RequestsQueue';
+import {} from '../repositories/UsersRepository';
 import {
-  UsersRepository,
-  UsersRepositoryInterface,
-} from '../repositories/UsersRepository';
-import {
+  MessagesRepository,
+  MessagesRepositoryInterface,
   NotificationsRepository,
   NotificationsRepositoryInterface,
-} from '../repositories/NotificationsRepository';
+  UsersRepository,
+  UsersRepositoryInterface,
+} from '../repositories';
+import {} from '../repositories/MessagesRepository';
 
 import {recursiveToCamelCase} from './utils';
 import {formatQuery} from '../utils';
@@ -21,6 +23,7 @@ import {formatQuery} from '../utils';
 export class VKAPI implements VKAPIInterface {
   public notifications: NotificationsRepositoryInterface;
   public users: UsersRepositoryInterface;
+  public messages: MessagesRepositoryInterface;
 
   /**
    * Queue of requests
@@ -51,6 +54,9 @@ export class VKAPI implements VKAPIInterface {
     // Create repositories
     this.users = new UsersRepository({processRequest: this.processRequest});
     this.notifications = new NotificationsRepository({
+      processRequest: this.processRequest,
+    });
+    this.messages = new MessagesRepository({
       processRequest: this.processRequest,
     });
   }

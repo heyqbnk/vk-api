@@ -12,5 +12,3 @@ export interface VKAPIMasterConstructorProps {
    */
   client: VKAPIInterface;
 }
-
-
