@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.3](https://github.com/wolframdeus/vk-api/compare/v1.3.2...v1.3.3) (2020-06-11)
+
+
+### Bug Fixes
+
+* **messages.send:** fixed method prop ([daff8d7](https://github.com/wolframdeus/vk-api/commit/daff8d7e06c51e73b53cae3ed4287d8e87f5b808))
+
 ### [1.3.2](https://github.com/wolframdeus/vk-api/compare/v1.3.1...v1.3.2) (2020-06-11)
 
 
