@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/wolframdeus/vk-api/compare/v1.1.7...v1.2.0) (2020-06-11)
+
+
+### Features
+
+* **messages repository:** added messages repo ([7641da6](https://github.com/wolframdeus/vk-api/commit/7641da645326086c284b819ce3d71b13da00f775))
+
 ### [1.1.7](https://github.com/wolframdeus/vk-api/compare/v1.1.6...v1.1.7) (2020-06-04)
 
 
