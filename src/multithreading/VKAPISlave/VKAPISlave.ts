@@ -1,6 +1,9 @@
 import {VKAPIInterface} from '../../VKAPI';
-import {UsersRepository} from '../../repositories/UsersRepository';
-import {NotificationsRepository} from '../../repositories/NotificationsRepository';
+import {
+  MessagesRepository,
+  NotificationsRepository,
+  UsersRepository,
+} from '../../repositories';
 import {ProcessRequest} from '../../types';
 import {MessageTypeEnum, VKAPIProcessRequestMessage} from '../types';
 import {isVKAPIRequestProcessedMessage} from './utils';
@@ -12,6 +15,7 @@ import {isVKAPIRequestProcessedMessage} from './utils';
 export class VKAPISlave implements VKAPIInterface {
   public users: UsersRepository;
   public notifications: NotificationsRepository;
+  public messages: MessagesRepository;
 
   /**
    * Internal request counter. Required to send and get answers from master
@@ -30,6 +34,9 @@ export class VKAPISlave implements VKAPIInterface {
 
     this.users = new UsersRepository({processRequest: this.processRequest});
     this.notifications = new NotificationsRepository({
+      processRequest: this.processRequest,
+    });
+    this.messages = new MessagesRepository({
       processRequest: this.processRequest,
     });
   }
