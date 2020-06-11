@@ -3,7 +3,6 @@ import fetch from 'isomorphic-fetch';
 import {SendRequest, ProcessRequest} from '../types';
 import {VKAPIInterface, VKAPIConstructorProps} from './types';
 import {RequestsQueue} from '../RequestsQueue';
-import {} from '../repositories/UsersRepository';
 import {
   MessagesRepository,
   MessagesRepositoryInterface,
@@ -12,11 +11,10 @@ import {
   UsersRepository,
   UsersRepositoryInterface,
 } from '../repositories';
-import {} from '../repositories/MessagesRepository';
+import {VKError} from '../VKError';
 
 import {recursiveToCamelCase} from './utils';
 import {formatQuery} from '../utils';
-import {VKError} from '../VKError';
 
 /**
  * Class to perform request to VKontakte API
@@ -80,13 +78,16 @@ export class VKAPI implements VKAPIInterface {
     });
 
     // Send request
-    const data = await fetch(`https://api.vk.com/method/${method}?` + query)
-      .then(response => response.json());
+    try {
+      const data = await fetch(`https://api.vk.com/method/${method}?` + query)
+        .then(response => response.json());
 
-    if (data.error) {
-      throw new VKError(data.error);
+      return recursiveToCamelCase(data.response);
+    } catch (e) {
+      if (e.error) {
+        throw new VKError(e.error);
+      }
+      throw new Error('Unknown error');
     }
-
-    return recursiveToCamelCase(data.response);
   };
 }
