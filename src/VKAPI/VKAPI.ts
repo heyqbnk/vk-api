@@ -78,16 +78,13 @@ export class VKAPI implements VKAPIInterface {
     });
 
     // Send request
-    try {
-      const data = await fetch(`https://api.vk.com/method/${method}?` + query)
-        .then(response => response.json());
+    const data = await fetch(`https://api.vk.com/method/${method}?` + query)
+      .then(response => response.json());
 
-      return recursiveToCamelCase(data.response);
-    } catch (e) {
-      if (e.error) {
-        throw new VKError(e.error);
-      }
-      throw new Error('Unknown error');
+    if (data.error) {
+      throw new VKError(data.error);
     }
+
+    return recursiveToCamelCase(data.response);
   };
 }
