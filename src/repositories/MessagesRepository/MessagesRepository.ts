@@ -12,7 +12,7 @@ export class MessagesRepository extends Repository implements MessagesRepository
   }
 
   public send: SendMethod = options => this.processRequest({
-    method: 'get',
+    method: 'send',
     options,
   });
 }
