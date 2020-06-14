@@ -6,5 +6,5 @@ import {VKError} from './VKError';
  * @returns {value is VKError}
  */
 export function isVKError(value: any): value is VKError {
-  return value instanceof VKError;
+  return value instanceof Error && 'data' in value;
 }
