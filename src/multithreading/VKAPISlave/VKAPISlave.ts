@@ -1,12 +1,12 @@
 import {VKAPIInterface} from '../../VKAPI';
+import {VKAPIProcessRequestMessage} from '../types';
+import {isVKAPIRequestProcessedMessage} from './utils';
 import {
+  UsersRepository,
   MessagesRepository,
   NotificationsRepository,
-  UsersRepository,
 } from '../../repositories';
-import {ProcessRequest} from '../../types';
-import {MessageTypeEnum, VKAPIProcessRequestMessage} from '../types';
-import {isVKAPIRequestProcessedMessage} from './utils';
+import {SendRequest} from '../../types';
 
 /**
  * Stub class which wants to get data from API VKontakte and has to
@@ -14,8 +14,8 @@ import {isVKAPIRequestProcessedMessage} from './utils';
  */
 export class VKAPISlave implements VKAPIInterface {
   public users: UsersRepository;
-  public notifications: NotificationsRepository;
   public messages: MessagesRepository;
+  public notifications: NotificationsRepository;
 
   /**
    * Internal request counter. Required to send and get answers from master
@@ -31,17 +31,12 @@ export class VKAPISlave implements VKAPIInterface {
         'but not in fork',
       );
     }
-
-    this.users = new UsersRepository({processRequest: this.processRequest});
-    this.notifications = new NotificationsRepository({
-      processRequest: this.processRequest,
-    });
-    this.messages = new MessagesRepository({
-      processRequest: this.processRequest,
-    });
+    this.users = new UsersRepository(this.addRequestToQueue);
+    this.messages = new MessagesRepository(this.addRequestToQueue);
+    this.notifications = new NotificationsRepository(this.addRequestToQueue);
   }
 
-  public processRequest: ProcessRequest = config => {
+  public addRequestToQueue: SendRequest = config => {
     if (!process.send) {
       throw new Error(
         'Unable to process VKAPI request from slave due to there is no ' +
@@ -56,7 +51,7 @@ export class VKAPISlave implements VKAPIInterface {
       processId,
       requestId,
       isVKAPIMessage: true,
-      type: MessageTypeEnum.ProcessRequest,
+      type: 'process-request',
       config,
     };
 

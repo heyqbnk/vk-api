@@ -1,3 +1,6 @@
+/**
+ * Enum of available languages
+ */
 export enum LangEnum {
   RU = 0,
   UK = 1,
@@ -9,6 +12,10 @@ export enum LangEnum {
   IT = 7
 }
 
+/**
+ * Type which describes available languages
+ * @see https://vk.com/dev/api_requests?f=2.%20Общие%20параметры
+ */
 export type LangType =
   | 'ru'
   | 'uk'
@@ -20,6 +27,14 @@ export type LangType =
   | 'it'
   | LangEnum;
 
+/**
+ * Pseudo boolean type. Means boolean converted to number
+ */
+export type PseudoBooleanType = 0 | 1;
+
+/**
+ * Shared optional request parameters.
+ */
 export interface RequestOptionalParams {
   /**
    * Access token
@@ -28,27 +43,42 @@ export interface RequestOptionalParams {
 
   /**
    * Language
+   * @default "ru"
    */
   lang?: LangType;
 
   /**
    * API version
+   * @default "5.110"
    */
   v?: string;
 }
 
 /**
- * Pseudo boolean type
+ * Config to execute request
  */
-export type PseudoBooleanType = 0 | 1;
+export interface RequestConfig<M extends string = string, P extends {} = any> {
+  /**
+   * API method name
+   */
+  method: M;
 
-/**
- * Config to perform request
- */
-export interface ProcessRequestConfig {
-  method: string;
-  options: object;
+  /**
+   * List of params for passed method
+   */
+  params: P;
 }
 
-export type ProcessRequest = <T>(config: ProcessRequestConfig) => Promise<T>;
-export type SendRequest = ProcessRequest;
+/**
+ * Function that sends request
+ */
+export type SendRequest = <M extends string = string, P extends {} = any, R = any>(
+  config: RequestConfig<M, P>,
+) => Promise<R>;
+
+/**
+ * Describes repository method
+ */
+export type RepositoryMethod<P extends {} = any, R = any> = (
+  params: P & RequestOptionalParams,
+) => Promise<R>;

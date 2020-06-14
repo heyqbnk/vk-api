@@ -1,13 +1,15 @@
-import {ProcessRequest, RequestOptionalParams} from '../../types';
-
-export interface MessagesRepositoryConstructorProps {
-  processRequest: ProcessRequest;
-}
-
-/* SEND */
+/**
+ * @see https://vk.com/dev/messages.send
+ */
+// TODO: Refactor depending on params
+export type SendResult = number | Array<{
+  peerId: number;
+  messageId: number;
+  error?: string;
+}>
 
 // TODO: Refactor. Not sure we can pass both userIds and userId at the same time
-interface SendMethodOptions extends RequestOptionalParams {
+export interface SendParams {
   userId?: number;
   randomId?: number;
   peerId?: number;
@@ -31,17 +33,4 @@ interface SendMethodOptions extends RequestOptionalParams {
   disableMentions?: boolean;
   // TODO: Move to separate type
   intent?: 'promo_newsletter' | 'bot_ad_invite' | 'bot_ad_promo';
-}
-
-export type SendMethodResult = number | Array<{
-  peerId: number;
-  messageId: number;
-  error?: string;
-}>
-
-export type SendMethod = (options: SendMethodOptions) => Promise<SendMethodResult>
-
-export interface MessagesRepositoryInterface {
-  // https://vk.com/dev/messages.send
-  send: SendMethod;
 }

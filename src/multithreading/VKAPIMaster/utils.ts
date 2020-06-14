@@ -1,4 +1,5 @@
-import {MessageTypeEnum, VKAPIProcessRequestMessage} from '../types';
+import {VKAPIProcessRequestMessage} from '../types';
+import {extendsVKAPIMessage, isNonNullObject} from '../utils';
 
 /**
  * States if message is VKAPIProcessRequestMessage
@@ -8,12 +9,9 @@ import {MessageTypeEnum, VKAPIProcessRequestMessage} from '../types';
 export function isVKAPIProcessRequestMessage(
   message: any,
 ): message is VKAPIProcessRequestMessage {
-  return typeof message === 'object'
-    && typeof message.processId === 'number'
-    && typeof message.requestId === 'string'
-    && message.isVKAPIMessage === true
-    && message.type === MessageTypeEnum.ProcessRequest
-    && typeof message.config === 'object'
-    && typeof message.config.method === 'string'
-    && typeof message.config.options === 'object';
+  return extendsVKAPIMessage(message) &&
+    message.type === 'process-request' &&
+    isNonNullObject(message.config) &&
+    typeof message.config.method === 'string' &&
+    isNonNullObject(message.config.params);
 }

@@ -1,13 +1,15 @@
+import {ErrorInfo} from './types';
+
 /**
  * Represents an error sent from VKontakte
  */
-export class VKError<D> extends Error {
+export class VKError extends Error {
   /**
    * Contains data error
    */
-  public data: D;
+  public data: ErrorInfo;
 
-  constructor(data: D) {
+  constructor(data: ErrorInfo) {
     super(JSON.stringify(data));
     this.data = data;
   }

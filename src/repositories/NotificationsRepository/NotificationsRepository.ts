@@ -1,43 +1,38 @@
 import {
-  NotificationsRepositoryInterface,
-  NotificationsRepositoryConstructorProps,
-  SendMessageMethod,
-  SendMessageResultType,
-  MarkAsViewedMethod,
-  MarkAsViewedResultType,
+  MarkAsViewedResult,
+  SendMessageResult,
+  SendMessageParams, MarkAsViewedParams,
 } from './types';
-import {Repository} from '../../Repository';
+import {Repository} from '../Repository';
+import {RepositoryMethod, SendRequest} from '../../types';
 
 /**
  * Repository to work with notifications
  */
-export class NotificationsRepository
-  extends Repository
-  implements NotificationsRepositoryInterface {
-
-  constructor(props: NotificationsRepositoryConstructorProps) {
-    super({processRequest: props.processRequest, name: 'notifications'});
+export class NotificationsRepository extends Repository {
+  constructor(sendRequest: SendRequest) {
+    super('notifications', sendRequest);
   }
 
   /**
-   * Marks notifications as viewed
-   * @param {RequestOptionalParams | undefined} options
-   * @returns {Promise<MarkAsViewedResultType>}
+   * @see https://vk.com/dev/notifications.markAsViewed
+   * @returns {Promise<any>}
    */
-  public markAsViewed: MarkAsViewedMethod = options =>
-    this.processRequest<MarkAsViewedResultType>({
-      method: 'sendMessage',
-      options: options || {},
-    });
+  public markAsViewed: RepositoryMethod<MarkAsViewedParams,
+    MarkAsViewedResult> = () => this.sendRequest({
+    method: 'markAsViewed',
+    params: {},
+  });
 
   /**
-   * Sends notification
-   * @param options
-   * @returns {Promise<SendMessageResultType[]>}
+   * @see https://vk.com/dev/notifications.sendMessage
+   * @param {SendMessageParams & RequestOptionalParams} params
+   * @returns {Promise<any>}
    */
-  public sendMessage: SendMessageMethod = options =>
-    this.processRequest<SendMessageResultType[]>({
-      method: 'sendMessage',
-      options,
-    });
+  public sendMessage: RepositoryMethod<SendMessageParams, SendMessageResult> = (
+    params,
+  ) => this.sendRequest({
+    method: 'sendMessage',
+    params,
+  });
 }

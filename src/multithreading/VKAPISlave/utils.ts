@@ -1,4 +1,5 @@
-import {MessageTypeEnum, VKAPIRequestProcessedMessage} from '../types';
+import {VKAPIRequestProcessedMessage} from '../types';
+import {extendsVKAPIMessage} from '../utils';
 
 /**
  * States if message is VKAPIRequestProcessedMessage
@@ -8,11 +9,8 @@ import {MessageTypeEnum, VKAPIRequestProcessedMessage} from '../types';
 export function isVKAPIRequestProcessedMessage(
   message: any,
 ): message is VKAPIRequestProcessedMessage {
-  return typeof message === 'object'
-    && typeof message.processId === 'number'
-    && typeof message.requestId === 'string'
-    && message.isVKAPIMessage === true
-    && message.type === MessageTypeEnum.RequestProcessed
-    && (message.error instanceof Error || message.error === null)
-    && ('data' in message);
+  return extendsVKAPIMessage(message) &&
+    message.type === 'request-processed' &&
+    (typeof message.error !== 'undefined' || message.error === null) &&
+    ('data' in message);
 }

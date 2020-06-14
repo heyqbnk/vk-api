@@ -2,7 +2,7 @@ import {VKAPIMasterConstructorProps} from './types';
 import {Worker} from 'cluster';
 import {VKAPIInterface} from '../../VKAPI';
 import {isVKAPIProcessRequestMessage} from './utils';
-import {MessageTypeEnum, VKAPIRequestProcessedMessage} from '../types';
+import {VKAPIRequestProcessedMessage} from '../types';
 
 /**
  * Master class which receives orders to perform requests to VKAPI
@@ -11,37 +11,35 @@ export class VKAPIMaster {
   /**
    * Slave threads
    */
-  private readonly threads: Worker[];
+  private readonly workers: Worker[];
 
   /**
    * API client which executes requests
    */
-  private readonly client: VKAPIInterface;
+  private readonly instance: VKAPIInterface;
 
   constructor(props: VKAPIMasterConstructorProps) {
-    const {client, threads} = props;
-    this.client = client;
-    this.threads = threads;
-
-    this.init();
+    const {instance, workers} = props;
+    this.instance = instance;
+    this.workers = workers;
   }
 
   /**
    * Initializes threads listening
    */
   private init() {
-    this.threads.forEach(thread => {
+    this.workers.forEach(w => {
       // Listen to incoming messages from threads
-      thread.on('message', async message => {
+      w.on('message', async message => {
         // Work only with process-request messages
         if (isVKAPIProcessRequestMessage(message)) {
           const {requestId, processId, config} = message;
           let error: Error | null = null;
-          let data: any | null = null;
+          let data: any = null;
 
           // Trying to execute request
           try {
-            data = await this.client.processRequest(config);
+            data = await this.instance.addRequestToQueue(config);
           } catch (e) {
             error = e;
           }
@@ -49,11 +47,11 @@ export class VKAPIMaster {
             processId,
             requestId,
             isVKAPIMessage: true,
-            type: MessageTypeEnum.RequestProcessed,
+            type: 'request-processed',
             error,
             data,
           };
-          thread.send(answerMessage);
+          w.send(answerMessage);
         }
       });
     });

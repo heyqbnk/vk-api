@@ -1,90 +1,194 @@
 import fetch from 'isomorphic-fetch';
 
-import {SendRequest, ProcessRequest} from '../types';
-import {VKAPIInterface, VKAPIConstructorProps} from './types';
-import {RequestsQueue} from '../RequestsQueue';
-import {
-  MessagesRepository,
-  MessagesRepositoryInterface,
-  NotificationsRepository,
-  NotificationsRepositoryInterface,
-  UsersRepository,
-  UsersRepositoryInterface,
-} from '../repositories';
+import {LangType, RequestConfig, SendRequest} from '../types';
+import {VKAPIInterface, VKAPIConstructorProps, QueueRequest} from './types';
 import {VKError} from '../VKError';
-
-import {recursiveToCamelCase} from './utils';
-import {formatQuery} from '../utils';
+import {EventEmitter} from '../EventEmitter';
+import {recursiveToCamelCase, recursiveToSnakeCase} from '../utils';
+import {
+  UsersRepository,
+  MessagesRepository,
+  NotificationsRepository,
+} from '../repositories';
 
 /**
  * Class to perform request to VKontakte API
  */
 export class VKAPI implements VKAPIInterface {
-  public notifications: NotificationsRepositoryInterface;
-  public users: UsersRepositoryInterface;
-  public messages: MessagesRepositoryInterface;
+  public users: UsersRepository;
+  public messages: MessagesRepository;
+  public notifications: NotificationsRepository;
 
   /**
    * Queue of requests
+   * @type {any[]}
    */
-  private requestsQueue: RequestsQueue;
+  private readonly queue: QueueRequest[] = [];
+
+  /**
+   * Mutex which states if queue is currently processing
+   * @type {boolean}
+   */
+  private isQueueProcessing = false;
+
+  /**
+   * Event emitter which notifies about completed requests
+   * @type {EventEmitter}
+   */
+  private eventEmitter = new EventEmitter();
+
+  /**
+   * Timeout between requests
+   */
+  private readonly timeout: number;
 
   /**
    * Access token to perform requests
-   * @type {null}
+   * @type {string | null}
    */
   private readonly accessToken: string | null = null;
 
   /**
    * API version
    */
-  private readonly version: string;
+  private readonly v: string;
 
-  public constructor(props: VKAPIConstructorProps) {
-    const {requestsPerSecond, accessToken, version} = props;
+  /**
+   * Language
+   */
+  private readonly lang: LangType;
+
+  public constructor(props: VKAPIConstructorProps = {}) {
+    const {
+      rps = 3,
+      accessToken,
+      v = '5.110',
+      lang = 'ru',
+    } = props;
 
     this.accessToken = accessToken || null;
-    this.version = version || '5.122';
-    this.requestsQueue = new RequestsQueue({
-      requestsPerSecond,
-      sendRequest: this.sendRequest,
-    });
+    this.v = v;
+    this.lang = lang;
+    this.timeout = Math.ceil(1000 / rps);
 
-    // Create repositories
-    this.users = new UsersRepository({processRequest: this.processRequest});
-    this.notifications = new NotificationsRepository({
-      processRequest: this.processRequest,
-    });
-    this.messages = new MessagesRepository({
-      processRequest: this.processRequest,
-    });
+    this.users = new UsersRepository(this.addRequestToQueue);
+    this.messages = new MessagesRepository(this.addRequestToQueue);
+    this.notifications = new NotificationsRepository(this.addRequestToQueue);
   }
 
-  public processRequest: ProcessRequest = config => {
-    return this.requestsQueue.add(config);
+  /**
+   * Sends request via http client
+   */
+  private sendRequest = async (config: RequestConfig) => {
+    const {method, params} = config;
+
+    // Mix data with defaults. Format body to snake case
+    const formattedData = recursiveToSnakeCase({
+      v: this.v,
+      accessToken: this.accessToken,
+      lang: this.lang,
+      ...params,
+    });
+
+    // Create FormData from formatted data
+    const form = Object
+      .keys(formattedData)
+      .map(k => encodeURIComponent(k) + '=' +
+        encodeURIComponent(formattedData[k]))
+      .join('&');
+
+    // Send request
+    const response = await fetch(`https://api.vk.com/method/${method}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: form,
+    });
+    const json = await response.json();
+
+    if (json.error) {
+      throw new VKError(recursiveToCamelCase(json.error));
+    }
+
+    return recursiveToCamelCase(json.response);
   };
 
   /**
-   * Executes request with http client
+   * Processes queue of requests
    */
-  private sendRequest: SendRequest = async config => {
-    const {method, options} = config;
+  private async processQueue() {
+    if (this.isQueueProcessing || this.queue.length === 0) {
+      return;
+    }
+    // Set mutex value
+    this.isQueueProcessing = true;
 
-    // Mix data with access token and API version. Format body to snake case
-    const query = formatQuery({
-      v: this.version,
-      accessToken: this.accessToken,
-      ...options,
+    // For each request create a promise with specific timeout
+    await Promise.all(
+      this.queue.map((r, idx) => {
+        return new Promise(res => {
+          setTimeout(async () => {
+            const {config, ref} = r;
+            let error: Error | null = null;
+            let data: any = null;
+
+            try {
+              // Execute request
+              data = await this.sendRequest(config);
+            } catch (e) {
+              error = e;
+            }
+            // Emit event that request was performed
+            this.eventEmitter.emit('request-performed', ref, error, data);
+
+            // Remove request from queue
+            this.queue.splice(this.queue.indexOf(r), 1);
+            res();
+          }, idx * this.timeout);
+        });
+      }),
+    );
+
+    // Release mutex
+    this.isQueueProcessing = false;
+
+    // Run processor again
+    this.processQueue();
+  }
+
+  public addRequestToQueue: SendRequest = config => {
+    // Create reference to detect request is performed. Reference is unique
+    // request identifier
+    const ref = Symbol();
+
+    // Push request to queue
+    this.queue.push({config, ref});
+
+    // Create promise which waits for request to be executed
+    const promise = new Promise<any>((res, rej) => {
+      // Create event emitter listener
+      const listener = (reference: symbol, error: Error | null, data: any) => {
+        // Skip different references
+        if (ref !== reference) {
+          return;
+        }
+        // Remove event listener due to request was performed
+        this.eventEmitter.off('request-performed', listener);
+
+        if (error) {
+          return rej(error);
+        }
+        res(data);
+      };
+
+      // Add event listener
+      this.eventEmitter.on('request-performed', listener);
     });
 
-    // Send request
-    const data = await fetch(`https://api.vk.com/method/${method}?` + query)
-      .then(response => response.json());
+    // Run queue processor which sends requests
+    this.processQueue();
 
-    if (data.error) {
-      throw new VKError(data.error);
-    }
-
-    return recursiveToCamelCase(data.response);
+    return promise;
   };
 }

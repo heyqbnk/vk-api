@@ -5,10 +5,10 @@ export interface VKAPIMasterConstructorProps {
   /**
    * Slave threads which should communicate with master thread
    */
-  threads: Worker[];
+  workers: Worker[];
 
   /**
    * API client which performs requests
    */
-  client: VKAPIInterface;
+  instance: VKAPIInterface;
 }

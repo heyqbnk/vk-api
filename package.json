@@ -24,8 +24,8 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@types/event-emitter": "^0.3.3",
     "@types/isomorphic-fetch": "^0.0.35",
+    "@types/isomorphic-form-data": "^2.0.0",
     "@types/node": "^13.13.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
@@ -44,10 +44,10 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "standard-version": "^8.0.0",
+    "ts-node": "^8.10.2",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "event-emitter": "^0.3.5",
     "isomorphic-fetch": "^2.2.1"
   },
   "config": {

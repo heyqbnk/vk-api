@@ -1,47 +1,36 @@
-import {UsersRepositoryInterface} from '../repositories/UsersRepository';
-import {NotificationsRepositoryInterface} from '../repositories/NotificationsRepository';
-import {ProcessRequest} from '../types';
-import {MessagesRepositoryInterface} from '../repositories/MessagesRepository';
+import {RequestConfig, RequestOptionalParams, SendRequest} from '../types';
+import {UsersRepository} from '../repositories/UsersRepository';
+import {MessagesRepository} from '../repositories/MessagesRepository';
+import {NotificationsRepository} from '../repositories/NotificationsRepository';
 
-export interface VKAPIConstructorProps {
+export interface QueueRequest {
   /**
-   * Requests per second, API instance can perform
+   * Request config
    */
-  requestsPerSecond: number;
-
-  /**
-   * Access token which will be used for each request
-   */
-  accessToken?: string;
+  config: RequestConfig;
 
   /**
-   * API version
+   * Reference required to detect which request was performed
    */
-  version?: string;
+  ref: symbol;
 }
 
-/**
- * VKAPI class interface
- */
+export interface VKAPIConstructorProps extends RequestOptionalParams {
+  /**
+   * Requests per second instance can perform. Required to prevent block from
+   * VKontakte API
+   * @default 3
+   */
+  rps?: number;
+}
+
 export interface VKAPIInterface {
-  /**
-   * Notifications repository
-   */
-  notifications: NotificationsRepositoryInterface;
+  users: UsersRepository;
+  messages: MessagesRepository;
+  notifications: NotificationsRepository;
 
   /**
-   * Users repository
+   * Adds request to queue and performs it after some time
    */
-  users: UsersRepositoryInterface;
-
-  /**
-   * Messages repository
-   */
-  messages: MessagesRepositoryInterface;
-
-  /**
-   * In outer context, executes a request. Internally, places a request into
-   * the requests queue and executes it after it becomes available
-   */
-  processRequest: ProcessRequest;
+  addRequestToQueue: SendRequest;
 }

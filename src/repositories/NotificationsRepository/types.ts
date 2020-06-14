@@ -1,28 +1,22 @@
-import {ProcessRequest, RequestOptionalParams} from '../../types';
+import {PseudoBooleanType} from '../../types';
 
-export interface NotificationsRepositoryConstructorProps {
-  processRequest: ProcessRequest;
+/**
+ * @see https://vk.com/dev/notifications.markAsViewed
+ */
+export type MarkAsViewedResult = PseudoBooleanType;
+
+export interface MarkAsViewedParams {
 }
 
-/* MARK AS VIEWED */
-export type MarkAsViewedResultType = 0 | 1;
-export type MarkAsViewedMethod =
-  (options?: RequestOptionalParams) => Promise<MarkAsViewedResultType>;
-
-/* SEND MESSAGE */
-interface SendMessageOptions extends RequestOptionalParams {
-  userIds: Array<string | number>;
-  message: string;
-  fragment?: string;
-  groupId?: number;
-}
-
-interface SendMessageResultOk {
+/**
+ * @see https://vk.com/dev/notifications.sendMessage
+ */
+export interface SendMessageResultOk {
   userId: number;
   status: true;
 }
 
-interface SendMessageResultError {
+export interface SendMessageResultError {
   userId: number;
   status: false;
   error: {
@@ -31,14 +25,11 @@ interface SendMessageResultError {
   };
 }
 
-export type SendMessageResultType =
-  | SendMessageResultOk
-  | SendMessageResultError;
-export type SendMessageMethod = (options: SendMessageOptions) => Promise<SendMessageResultType[]>;
+export type SendMessageResult = Array<SendMessageResultOk | SendMessageResultError>;
 
-export interface NotificationsRepositoryInterface {
-  // https://vk.com/dev/notifications.markAsViewed
-  markAsViewed: MarkAsViewedMethod;
-  // https://vk.com/dev/notifications.sendMessage
-  sendMessage: SendMessageMethod;
+export interface SendMessageParams {
+  userIds: Array<string | number>;
+  message: string;
+  fragment?: string;
+  groupId?: number;
 }

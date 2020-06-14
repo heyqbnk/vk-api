@@ -1,27 +1,24 @@
-import {
-  GetMethod,
-  UsersRepositoryInterface,
-  UsersRepositoryConstructorProps,
-} from './types';
-import {User} from '../../types';
-import {Repository} from '../../Repository';
+import {Repository} from '../Repository';
+import {RepositoryMethod, SendRequest} from '../../types';
+import {GetParams, GetResult} from './types';
 
 /**
  * Repository to work with users
  */
-export class UsersRepository extends Repository implements UsersRepositoryInterface {
-  constructor(props: UsersRepositoryConstructorProps) {
-    super({processRequest: props.processRequest, name: 'users'});
+export class UsersRepository extends Repository {
+  constructor(sendRequest: SendRequest) {
+    super('users', sendRequest);
   }
 
   /**
-   * Returns info about users
-   * @param {GetMethodOptions} options
-   * @returns {Promise<User[]>}
+   * @see https://vk.com/dev/users.get
+   * @param {GetParams & RequestOptionalParams} params
+   * @returns {Promise<any>}
    */
-  public get: GetMethod = options =>
-    this.processRequest<User[]>({
+  public get: RepositoryMethod<GetParams, GetResult> = params => {
+    return this.sendRequest({
       method: 'get',
-      options,
+      params,
     });
+  };
 }
