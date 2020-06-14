@@ -27,7 +27,14 @@ export interface SendParams {
   stickerId?: number;
   groupId?: number;
   // TODO: Describe
-  keyboard?: any;
+  keyboard?: {
+    buttons: Array<Array<Record<any, any>>>;
+  } & ({
+    inline: true;
+  } | {
+    inline: false;
+    oneTime: boolean;
+  });
   payload?: any;
   dontParseLinks?: boolean;
   disableMentions?: boolean;

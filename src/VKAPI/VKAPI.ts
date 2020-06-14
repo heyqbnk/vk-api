@@ -90,11 +90,17 @@ export class VKAPI implements VKAPIInterface {
       ...params,
     });
 
-    // Create FormData from formatted data
+    // Create urlencoded form
     const form = Object
-      .keys(formattedData)
-      .map(k => encodeURIComponent(k) + '=' +
-        encodeURIComponent(formattedData[k]))
+      .entries(formattedData)
+      .map(([key, value]) => {
+        const formattedValue = typeof value === 'object'
+          ? JSON.stringify(value)
+          : String(value);
+
+        return encodeURIComponent(key) + '=' +
+          encodeURIComponent(formattedValue);
+      })
       .join('&');
 
     // Send request
