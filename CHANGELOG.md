@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.8](https://github.com/wolframdeus/vk-api/compare/v1.3.7...v1.3.8) (2020-06-15)
+
+
+### Bug Fixes
+
+* **users.get:** fix userIds formatting ([ed97e83](https://github.com/wolframdeus/vk-api/commit/ed97e83feaf79d0dba3c989ac4ff7dd9dcdc2407))
+
 ### [1.3.7](https://github.com/wolframdeus/vk-api/compare/v1.3.6...v1.3.7) (2020-06-14)
 
 
