@@ -16,9 +16,13 @@ export class UsersRepository extends Repository {
    * @returns {Promise<any>}
    */
   public get: RepositoryMethod<GetParams, GetResult> = params => {
+    const {userIds, ...rest} = params;
     return this.sendRequest({
       method: 'get',
-      params,
+      params: {
+        ...rest,
+        userIds: userIds.join(',')
+      },
     });
   };
 }
