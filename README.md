@@ -1,3 +1,196 @@
-# vk-api
+[npm-badge]: https://img.shields.io/npm/v/vkontakte-api.svg
+[npm-link]: https://npmjs.com/package/vkontakte-api
 
-To be done in near future
+[<img src="https://i.imgur.com/uOIQBBR.png">](https://vk.com/dev)
+# vkontakte-api [![NPM][npm-badge]][npm-link]
+
+TypeScript library to make requests performing to VK API simple
+
+## Installation
+```bash
+yarn add vkontakte-api
+```
+or
+```bash
+npm i vkontakte-api
+```
+
+## Description
+
+`vkontakte-api` follows repositories based concept where each repository is a 
+class and represents some namespace in API. The main purpose of repository
+is to format request config for VKAPI instance, so he could perform request
+and return data.
+
+Each request is added to queue and executed only after timeout, calculated
+according to `rps` property, is elapsed. So, there is no case when you were 
+banned due to sending too many requests per second.
+
+There is a multi-thread (multi-workers) support for those projects which are
+launched in this mode.  
+
+## Usage
+
+### Creating instance
+First, it is required to create `VKAPI` instance:
+```typescript
+import {VKAPI} from 'vkontakte-api';
+
+const api = new VKAPI();
+``` 
+
+It is allowed to pass `rps` property which means `requests per second`. VK
+API has its restriction, so make sure you have passed correct value. 
+
+Additionally, you can pass properties `accessToken` and `lang` which will be 
+used as default parameters for each request. So, you have no need to pass them
+each time until overriding is needed. 
+
+Here is how it looks like:
+```typescript
+const api = new VKAPI({
+  rps: 20,
+  accessToken: 'my default token',
+  lang: 'uk',
+});
+```
+
+### Performing requests
+
+VKAPI instance contains a list of repositories which generate request parameters
+to send to API. Each repository is named according to its name in 
+[API](https://vk.com/dev/methods).
+
+Simple example of sending request and logging data:
+```typescript
+import {VKAPI} from 'vkontakte-api';
+
+const api = new VKAPI();
+
+api.users.get({userIds: ['vladkibenko']}).then(console.log);
+```
+
+Sending some notification:
+```typescript
+api.notifications.sendMessage({
+  userIds: ['vladkibenko'],
+  message: 'Hello Vlad!',
+});
+```
+
+Overriding default `lang` and `accessToken`:
+```typescript
+import {LangEnum, VKAPI} from 'vkontakte-api';
+
+const api = new VKAPI({accessToken: 'my personal user token'});
+
+// Here we will get english-localized data from some application's face
+api.users.get({
+  userIds: ['vladkibenko'],
+  accessToken: 'some application token',
+  // Or you could just use 'uk' or 1
+  lang: LangEnum.UK,
+}).then(console.log);
+```
+
+Some of methods are not currently typed or realised. So, you are free to perform
+custom requests. **Make sure, all of `Params` and `Response` fields are camel 
+cased, because internally, `vkontakte-api` moves them from snake to camel 
+case for easier usage**:
+
+```typescript
+import {VKAPI} from 'vkontakte-api';
+
+const api = new VKAPI({accessToken: 'my token'});
+
+// Description of parameters
+interface Params {
+  cityIds: string;
+}
+
+// Description of response
+type Response = Array<{
+  id: number;
+  title: string;
+}>;
+
+// @see https://vk.com/dev/database.getCitiesById
+api.addRequestToQueue<Params, Response>({
+  method: 'database.getCitiesById',
+  params: {
+    cityIds: [1].join(','),
+  },
+}).then(console.log);
+```
+
+### Errors
+
+Sometimes, API throws errors. To detect if error was thrown by VK, you could
+use function `isVKError` which detects if error is `VKError`. It contains
+property `data` which contains all error data (it is typed, by the way).
+
+Moreover, lib contains enum `ErrorsEnum` which is a set of all known errors.
+
+### Multi-threading support
+
+In case your project is ran in multi cluster mode, you could use `VKAPIMaster`
+and `VKAPISlave`.
+
+`VKAPIMaster` should be used in main thread. To create its instance, it is 
+required to pass `VKAPI` instance which will perform all of the requests and
+list of workers, containing `VKAPISlave` which should communicate with 
+`VKAPIMaster`.
+
+With this scheme we are getting single `VKAPI` instance for project and
+not overflowing API restriction connected with requests per second. 
+
+You can find more complex example [here](https://github.com/wolframdeus/backend-template/blob/master/src/index.ts).
+
+Here is example:
+```typescript
+import {fork, isMaster, Worker} from 'cluster';
+import os from 'os';
+import {VKAPI, VKAPIMaster, VKAPISlave, VKAPIInterface} from 'vkontakte-api';
+
+// Runs http server. Accepts an object which looks like VKAPI instance. So,
+// he does not know what api exactly is. It could be real VKAPI instance or
+// VKAPISlave, we dont care, it is the same in this context
+function http(api: VKAPIInterface) {
+  // Here we can use all of the VKAPI methods due to they are defined
+  // interface. We does not really care what api is
+  api.users.get({userIds: ['vladkibenko']}).then(console.log);
+}
+
+// Just a stub. You can use the logic you need
+const isDev = process.env.NODE_ENVIRONMENT === 'development';
+
+// In development mode, let us run single thread. So, no VKAPIMaster and
+// VKAPISlave are needed
+if (isDev) {
+  const api = new VKAPI();
+  
+  // Run http server
+  return http(api);
+}
+
+// In production mode, we do create as many forks as processor support
+if (isMaster) {
+  const cpuCount = os.cpus().length;
+  const workers: Worker[] = [];
+
+  for (let i = 0; i < cpuCount; i++) {
+    workers.push(fork());
+  }
+
+  // In master we do create VKAPI instance, because slaves should
+  // communicate with single its instance, which is in VKAPIMaster
+  const master = new VKAPIMaster({workers, instance: new VKAPI()});
+  master.init();
+} 
+// In slave workers, we just create http server with VKAPISlave
+else {
+  // Slave has no its own settings due to it is just a class, which communicates
+  // with master. So, all settings are set in VKAPIMaster 
+  http(new VKAPISlave());
+}
+```
