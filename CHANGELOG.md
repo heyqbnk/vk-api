@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.9](https://github.com/wolframdeus/vk-api/compare/v1.3.8...v1.3.9) (2020-06-16)
+
+
+### Bug Fixes
+
+* **types:** requestConfig.method is string ([d72ec49](https://github.com/wolframdeus/vk-api/commit/d72ec49dbf9d07a9119f742e95b5dedb754dee4c))
+* **vkapimaster:** make init public ([3f30b22](https://github.com/wolframdeus/vk-api/commit/3f30b22702fb8d5389db317ae77c7cf260519707))
+
 ### [1.3.8](https://github.com/wolframdeus/vk-api/compare/v1.3.7...v1.3.8) (2020-06-15)
 
 
