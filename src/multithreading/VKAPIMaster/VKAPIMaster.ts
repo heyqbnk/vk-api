@@ -27,7 +27,7 @@ export class VKAPIMaster {
   /**
    * Initializes threads listening
    */
-  private init() {
+  public init() {
     this.workers.forEach(w => {
       // Listen to incoming messages from threads
       w.on('message', async message => {
