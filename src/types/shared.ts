@@ -57,23 +57,23 @@ export interface RequestOptionalParams {
 /**
  * Config to execute request
  */
-export interface RequestConfig<M extends string = string, P extends {} = any> {
+export interface RequestConfig<P extends {} = any> {
   /**
    * API method name
    */
-  method: M;
+  method: string;
 
   /**
    * List of params for passed method
    */
-  params: P;
+  params: P & RequestOptionalParams;
 }
 
 /**
  * Function that sends request
  */
-export type SendRequest = <M extends string = string, P extends {} = any, R = any>(
-  config: RequestConfig<M, P>,
+export type SendRequest = <P extends {} = any, R = any>(
+  config: RequestConfig<P>,
 ) => Promise<R>;
 
 /**
