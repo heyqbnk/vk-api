@@ -130,31 +130,38 @@ export class VKAPI implements VKAPIInterface {
     // Set mutex value
     this.isQueueProcessing = true;
 
+    // Create promises for each request
+    const promises = this.queue.map((r, idx) => {
+      return new Promise(res => {
+        setTimeout(async () => {
+          const {config, ref} = r;
+          let error: Error | null = null;
+          let data: any = null;
+
+          try {
+            // Execute request
+            data = await this.sendRequest(config);
+          } catch (e) {
+            error = e;
+          }
+          // Emit event that request was performed
+          this.eventEmitter.emit('request-performed', ref, error, data);
+
+          // Remove request from queue
+          this.queue.splice(this.queue.indexOf(r), 1);
+          res();
+        }, idx * this.timeout);
+      });
+    });
+
+    // Add promise which should safely release queue processor and not
+    // allow us to be banned
+    promises.push(new Promise(res => {
+      setTimeout(res, this.queue.length * this.timeout);
+    }));
+
     // For each request create a promise with specific timeout
-    await Promise.all(
-      this.queue.map((r, idx) => {
-        return new Promise(res => {
-          setTimeout(async () => {
-            const {config, ref} = r;
-            let error: Error | null = null;
-            let data: any = null;
-
-            try {
-              // Execute request
-              data = await this.sendRequest(config);
-            } catch (e) {
-              error = e;
-            }
-            // Emit event that request was performed
-            this.eventEmitter.emit('request-performed', ref, error, data);
-
-            // Remove request from queue
-            this.queue.splice(this.queue.indexOf(r), 1);
-            res();
-          }, idx * this.timeout);
-        });
-      }),
-    );
+    await Promise.all(promises);
 
     // Release mutex
     this.isQueueProcessing = false;
