@@ -1,6 +1,7 @@
 import {RequestConfig} from '../types';
 
 export interface VKAPIMessage {
+  tunnelName: string;
   processId: number;
   requestId: string;
   isVKAPIMessage: true;

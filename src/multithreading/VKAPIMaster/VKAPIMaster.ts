@@ -18,10 +18,16 @@ export class VKAPIMaster {
    */
   private readonly instance: VKAPIInterface;
 
+  /**
+   * Tunnel name
+   */
+  private readonly tunnelName: string;
+
   constructor(props: VKAPIMasterConstructorProps) {
-    const {instance, workers} = props;
+    const {instance, workers, tunnelName = ''} = props;
     this.instance = instance;
     this.workers = workers;
+    this.tunnelName = tunnelName;
   }
 
   /**
@@ -31,8 +37,12 @@ export class VKAPIMaster {
     this.workers.forEach(w => {
       // Listen to incoming messages from threads
       w.on('message', async message => {
-        // Work only with process-request messages
-        if (isVKAPIProcessRequestMessage(message)) {
+        // Work only with process-request messages and which are forwarded
+        // to current master
+        if (
+          isVKAPIProcessRequestMessage(message) &&
+          this.tunnelName === message.tunnelName
+        ) {
           const {requestId, processId, config} = message;
           let error: Error | null = null;
           let data: any = null;
@@ -44,6 +54,7 @@ export class VKAPIMaster {
             error = e;
           }
           const answerMessage: VKAPIRequestProcessedMessage = {
+            tunnelName: this.tunnelName,
             processId,
             requestId,
             isVKAPIMessage: true,

@@ -11,4 +11,12 @@ export interface VKAPIMasterConstructorProps {
    * API client which performs requests
    */
   instance: VKAPIInterface;
+
+  /**
+   * Tunnel name. Required to avoid collisions appearing while
+   * several different masters are created and catching the same message
+   * from one slave
+   * @default ""
+   */
+  tunnelName?: string;
 }

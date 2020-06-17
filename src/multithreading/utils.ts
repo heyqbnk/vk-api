@@ -18,6 +18,7 @@ export function extendsVKAPIMessage(
   value: any,
 ): value is VKAPIMessage & Record<any, any> {
   return isNonNullObject(value) &&
+    typeof value.tunnelName === 'string' &&
     typeof value.processId === 'number' &&
     typeof value.requestId === 'string' &&
     value.isVKAPIMessage === true;

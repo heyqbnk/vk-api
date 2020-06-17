@@ -7,6 +7,7 @@ import {
   NotificationsRepository,
 } from '../../repositories';
 import {SendRequest} from '../../types';
+import {VKAPISlaveConstructorProps} from './types';
 
 /**
  * Stub class which wants to get data from API VKontakte and has to
@@ -18,12 +19,17 @@ export class VKAPISlave implements VKAPIInterface {
   public notifications: NotificationsRepository;
 
   /**
+   * Tunnel name
+   */
+  private tunnelName: string;
+
+  /**
    * Internal request counter. Required to send and get answers from master
    * @type {string}
    */
   private requestId = '0';
 
-  public constructor() {
+  public constructor(props: VKAPISlaveConstructorProps = {}) {
     if (!process.send) {
       throw new Error(
         'Unable to create VKAPISlave due to there is no "process.send" ' +
@@ -31,6 +37,8 @@ export class VKAPISlave implements VKAPIInterface {
         'but not in fork',
       );
     }
+    const {tunnelName = ''} = props;
+    this.tunnelName = tunnelName;
     this.users = new UsersRepository(this.addRequestToQueue);
     this.messages = new MessagesRepository(this.addRequestToQueue);
     this.notifications = new NotificationsRepository(this.addRequestToQueue);
@@ -48,6 +56,7 @@ export class VKAPISlave implements VKAPIInterface {
     const requestId = (parseInt(this.requestId) + 1).toString(16);
     const processId = process.pid;
     const message: VKAPIProcessRequestMessage = {
+      tunnelName: this.tunnelName,
       processId,
       requestId,
       isVKAPIMessage: true,
@@ -66,9 +75,10 @@ export class VKAPISlave implements VKAPIInterface {
       // Create listener to wait for answer
       const listener = (message: any) => {
         if (
-          isVKAPIRequestProcessedMessage(message)
-          && message.requestId === requestId
-          && message.processId === processId
+          isVKAPIRequestProcessedMessage(message) &&
+          message.tunnelName === this.tunnelName &&
+          message.requestId === requestId &&
+          message.processId === processId
         ) {
           // Unbind listener
           process.off('message', listener);
