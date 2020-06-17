@@ -1,12 +1,17 @@
 {
   "name": "vkontakte-api",
-  "version": "1.3.9",
+  "version": "1.4.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:wolframdeus/vk-api.git",
   "author": "Vladislav Kibenko <wolfram.deus@gmail.com>",
   "license": "MIT",
-  "keywords": ["vkontakte", "vk", "api", "typescript"],
+  "keywords": [
+    "vkontakte",
+    "vk",
+    "api",
+    "typescript"
+  ],
   "files": [
     "dist/**/*"
   ],
