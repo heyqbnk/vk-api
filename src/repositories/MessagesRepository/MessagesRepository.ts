@@ -16,9 +16,14 @@ export class MessagesRepository extends Repository {
    * @returns {Promise<any>}
    */
   public send: RepositoryMethod<SendParams, SendResult> = params => {
+    const {randomId, ...rest} = params;
+
     return this.sendRequest({
       method: 'send',
-      params,
+      params: {
+        ...rest,
+        randomId: randomId || Math.floor(Math.random() * 10000000),
+      },
     });
   };
 }
