@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/wolframdeus/vk-api/compare/v1.4.1...v1.5.0) (2020-06-17)
+
+
+### Features
+
+* **database:** add database repository ([519bfdc](https://github.com/wolframdeus/vk-api/commit/519bfdc60561ff184561cf560caff6e0cfd6321b))
+
+
+### Bug Fixes
+
+* **users.get:** use defined function instead of custom code for userIds ([ed59b42](https://github.com/wolframdeus/vk-api/commit/ed59b4246d33a52ff118f1132f21a8f65ff1cbe5))
+
 ### [1.4.1](https://github.com/wolframdeus/vk-api/compare/v1.4.0...v1.4.1) (2020-06-17)
 
 
