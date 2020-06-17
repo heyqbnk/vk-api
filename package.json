@@ -6,6 +6,7 @@
   "repository": "git@github.com:wolframdeus/vk-api.git",
   "author": "Vladislav Kibenko <wolfram.deus@gmail.com>",
   "license": "MIT",
+  "keywords": ["vkontakte", "vk", "api", "typescript"],
   "files": [
     "dist/**/*"
   ],
