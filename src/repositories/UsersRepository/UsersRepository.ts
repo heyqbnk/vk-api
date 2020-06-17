@@ -1,6 +1,7 @@
 import {Repository} from '../Repository';
 import {RepositoryMethod, SendRequest} from '../../types';
 import {GetParams, GetResult} from './types';
+import {arrayToString} from '../../utils';
 
 /**
  * Repository to work with users
@@ -21,7 +22,7 @@ export class UsersRepository extends Repository {
       method: 'get',
       params: {
         ...rest,
-        userIds: userIds.join(',')
+        userIds: arrayToString(userIds)
       },
     });
   };
