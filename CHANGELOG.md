@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/wolframdeus/vk-api/compare/v1.4.0...v1.4.1) (2020-06-17)
+
+
+### Bug Fixes
+
+* **messages.send:** generate randomId for user if not passed ([0e8ab33](https://github.com/wolframdeus/vk-api/commit/0e8ab339deb10cfa593866adf124bdfce9b4c6a0))
+* **requests-queue:** add promise which correctly releases processor ([75e62c1](https://github.com/wolframdeus/vk-api/commit/75e62c1ebbf9b564309d4e5585004ae57a6e0874))
+
 ## [1.4.0](https://github.com/wolframdeus/vk-api/compare/v1.3.9...v1.4.0) (2020-06-17)
 
 
