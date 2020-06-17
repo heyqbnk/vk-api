@@ -4,7 +4,7 @@ import {isVKAPIRequestProcessedMessage} from './utils';
 import {
   UsersRepository,
   MessagesRepository,
-  NotificationsRepository,
+  NotificationsRepository, DatabaseRepository,
 } from '../../repositories';
 import {SendRequest} from '../../types';
 import {VKAPISlaveConstructorProps} from './types';
@@ -14,6 +14,7 @@ import {VKAPISlaveConstructorProps} from './types';
  * communicate with master
  */
 export class VKAPISlave implements VKAPIInterface {
+  public database: DatabaseRepository;
   public users: UsersRepository;
   public messages: MessagesRepository;
   public notifications: NotificationsRepository;
@@ -39,6 +40,7 @@ export class VKAPISlave implements VKAPIInterface {
     }
     const {tunnelName = ''} = props;
     this.tunnelName = tunnelName;
+    this.database = new DatabaseRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);
     this.messages = new MessagesRepository(this.addRequestToQueue);
     this.notifications = new NotificationsRepository(this.addRequestToQueue);

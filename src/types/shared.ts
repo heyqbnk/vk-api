@@ -33,6 +33,21 @@ export type LangType =
 export type PseudoBooleanType = 0 | 1;
 
 /**
+ * Object with fields id and title
+ */
+export interface IdTitlePair {
+  /**
+   * Unique identifier
+   */
+  id: number;
+
+  /**
+   * Short name
+   */
+  title: string;
+}
+
+/**
  * Shared optional request parameters.
  */
 export interface RequestOptionalParams {

@@ -1,6 +1,8 @@
 /**
  * Function that formats string to some format
  */
+import {PseudoBooleanType} from './types';
+
 type TextFormatter = (text: string) => string;
 
 /**
@@ -49,3 +51,21 @@ export function toCamelCase(text: string): string {
 }
 
 export const recursiveToCamelCase = createRecursiveKeysFormatter(toCamelCase);
+
+/**
+ * Converts boolean to pseudo boolean type
+ * @param {boolean} value
+ * @returns {PseudoBooleanType}
+ */
+export function toBoolean(value: boolean): PseudoBooleanType {
+  return value ? 1 : 0;
+}
+
+/**
+ * Converts array of simple values to compatible string format
+ * @param {Array<string | number>} arr
+ * @returns {string}
+ */
+export function arrayToString(arr: Array<string | number>): string {
+  return arr.join(',');
+}

@@ -8,20 +8,21 @@ import {recursiveToCamelCase, recursiveToSnakeCase} from '../utils';
 import {
   UsersRepository,
   MessagesRepository,
-  NotificationsRepository,
+  NotificationsRepository, DatabaseRepository,
 } from '../repositories';
 
 /**
  * Class to perform request to VKontakte API
  */
 export class VKAPI implements VKAPIInterface {
+  public database: DatabaseRepository;
   public users: UsersRepository;
   public messages: MessagesRepository;
   public notifications: NotificationsRepository;
 
   /**
    * Queue of requests
-   * @type {any[]}
+   * @type {QueueRequest[]}
    */
   private readonly queue: QueueRequest[] = [];
 
@@ -71,6 +72,7 @@ export class VKAPI implements VKAPIInterface {
     this.lang = lang;
     this.timeout = Math.ceil(1000 / rps);
 
+    this.database = new DatabaseRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);
     this.messages = new MessagesRepository(this.addRequestToQueue);
     this.notifications = new NotificationsRepository(this.addRequestToQueue);
