@@ -27,7 +27,7 @@ import {
   GetUniversitiesParams,
   GetUniversitiesResult,
 } from './types';
-import {arrayToString, toBoolean} from '../../utils';
+import {arrayToString, toPseudoBoolean} from '../../utils';
 
 /**
  * Repository to work with users
@@ -60,10 +60,10 @@ export class DatabaseRepository extends Repository {
     const result: FormatBooleansOverridden<P> = rest;
 
     if (typeof needAll !== 'undefined') {
-      result.needAll = toBoolean(needAll);
+      result.needAll = toPseudoBoolean(needAll);
     }
     if (typeof extended !== 'undefined') {
-      result.extended = toBoolean(extended);
+      result.extended = toPseudoBoolean(extended);
     }
     return result;
   };

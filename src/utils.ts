@@ -57,7 +57,7 @@ export const recursiveToCamelCase = createRecursiveKeysFormatter(toCamelCase);
  * @param {boolean} value
  * @returns {PseudoBooleanType}
  */
-export function toBoolean(value: boolean): PseudoBooleanType {
+export function toPseudoBoolean(value: boolean): PseudoBooleanType {
   return value ? 1 : 0;
 }
 

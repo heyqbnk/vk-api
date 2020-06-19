@@ -13,7 +13,7 @@ import {
   GetShortLinkParams,
   GetShortLinkResult, ResolveScreenNameParams, ResolveScreenNameResult,
 } from './types';
-import {toBoolean} from '../../utils';
+import {toPseudoBoolean} from '../../utils';
 
 /**
  * Repository to work with users
@@ -72,7 +72,7 @@ export class UtilsRepository extends Repository {
     ({extended, ...rest}) => ({
       ...rest,
       extended: typeof extended === 'boolean'
-        ? toBoolean(extended)
+        ? toPseudoBoolean(extended)
         : undefined,
     }),
   );
@@ -94,7 +94,7 @@ export class UtilsRepository extends Repository {
     ({private: isPrivate, ...rest}) => ({
       ...rest,
       private: typeof isPrivate === 'boolean'
-        ? toBoolean(isPrivate)
+        ? toPseudoBoolean(isPrivate)
         : undefined,
     }),
   );
