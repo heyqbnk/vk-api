@@ -30,6 +30,7 @@ export enum ErrorsEnum {
   NotImplemented= 33,
   ParameterMissingOrInvalid = 100,
   InvalidAppId = 101,
+  NotFound = 104,
   InvalidUserId = 113,
   InvalidTimestamp = 150,
   AlbumAccessDenied = 200,

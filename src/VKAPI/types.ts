@@ -3,6 +3,7 @@ import {UsersRepository} from '../repositories/UsersRepository';
 import {MessagesRepository} from '../repositories/MessagesRepository';
 import {NotificationsRepository} from '../repositories/NotificationsRepository';
 import {DatabaseRepository} from '../repositories/DatabaseRepository';
+import {UtilsRepository} from '../repositories/UtilsRepository';
 
 export interface QueueRequest {
   /**
@@ -27,9 +28,10 @@ export interface VKAPIConstructorProps extends RequestOptionalParams {
 
 export interface VKAPIInterface {
   database: DatabaseRepository;
-  users: UsersRepository;
   messages: MessagesRepository;
   notifications: NotificationsRepository;
+  users: UsersRepository;
+  utils: UtilsRepository;
 
   /**
    * Adds request to queue and performs it after some time
