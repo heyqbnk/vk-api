@@ -40,6 +40,7 @@ export enum ErrorsEnum {
   ApplicationVotesDisabled = 500,
   NoAccessToOperationsWithObject = 600,
   Ads = 603,
+  ApplicationNotInstalledInCommunity = 711,
 
   /* @see https://vk.com/dev/messages.send */
   UserInBlackList = 900,
