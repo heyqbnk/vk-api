@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/wolframdeus/vk-api/compare/v1.6.0...v1.6.1) (2020-06-19)
+
+
+### Bug Fixes
+
+* **errors:** add application is not installed in community (711) error ([7463b70](https://github.com/wolframdeus/vk-api/commit/7463b7013b1e5f29f5e356c4582a18e916c289c5))
+
 ## [1.6.0](https://github.com/wolframdeus/vk-api/compare/v1.5.0...v1.6.0) (2020-06-19)
 
 
