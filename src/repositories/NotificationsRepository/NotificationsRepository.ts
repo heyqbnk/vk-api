@@ -19,9 +19,9 @@ export class NotificationsRepository extends Repository {
    * @returns {Promise<any>}
    */
   public markAsViewed: RepositoryMethod<MarkAsViewedParams,
-    MarkAsViewedResult> = () => this.sendRequest({
+    MarkAsViewedResult> = params => this.sendRequest({
     method: 'markAsViewed',
-    params: {},
+    params,
   });
 
   /**
@@ -35,7 +35,7 @@ export class NotificationsRepository extends Repository {
     method: 'sendMessage',
     params: {
       ...rest,
-      userIds: userIds.join(',')
+      userIds: userIds.join(','),
     },
   });
 }
