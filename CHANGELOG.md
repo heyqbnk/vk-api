@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/wolframdeus/vk-api/compare/v1.5.0...v1.6.0) (2020-06-19)
+
+
+### Features
+
+* **utils:** add Utils repository ([039403e](https://github.com/wolframdeus/vk-api/commit/039403ec38bd81c7aff5c8e8e609562bac5f989b))
+
 ## [1.5.0](https://github.com/wolframdeus/vk-api/compare/v1.4.1...v1.5.0) (2020-06-17)
 
 
