@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.3](https://github.com/wolframdeus/vk-api/compare/v1.6.2...v1.6.3) (2020-06-19)
+
+
+### Bug Fixes
+
+* **notifications.markasviewed:** params are now required ([c3a16b6](https://github.com/wolframdeus/vk-api/commit/c3a16b6aa9b55dc264b3a20ee3503c2803083206))
+
 ### [1.6.2](https://github.com/wolframdeus/vk-api/compare/v1.6.1...v1.6.2) (2020-06-19)
 
 
