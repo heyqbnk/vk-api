@@ -48,6 +48,21 @@ export interface IdTitlePair {
 }
 
 /**
+ * Structure representing some pager
+ */
+export interface Pager<Item> {
+  /**
+   * Records count
+   */
+  count: number;
+
+  /**
+   * List of records
+   */
+  items: Item[];
+}
+
+/**
  * Shared optional request parameters.
  */
 export interface RequestOptionalParams {

@@ -1,12 +1,4 @@
-import {IdTitlePair, PseudoBooleanType} from '../../types';
-
-/**
- * Structure representing some pager
- */
-export interface Pager<Item> {
-  count: number;
-  items: Item[];
-}
+import {IdTitlePair, PseudoBooleanType, Pager} from '../../types';
 
 /**
  * Default pager with item as object with id and title
