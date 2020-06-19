@@ -30,9 +30,12 @@ export class NotificationsRepository extends Repository {
    * @returns {Promise<any>}
    */
   public sendMessage: RepositoryMethod<SendMessageParams, SendMessageResult> = (
-    params,
+    {userIds, ...rest},
   ) => this.sendRequest({
     method: 'sendMessage',
-    params,
+    params: {
+      ...rest,
+      userIds: userIds.join(',')
+    },
   });
 }
