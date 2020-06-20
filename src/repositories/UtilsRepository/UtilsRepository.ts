@@ -1,5 +1,5 @@
 import {Repository} from '../Repository';
-import {RepositoryMethod, SendRequest} from '../../types';
+import {SendRequest} from '../../types';
 import {
   CheckLinkParams,
   CheckLinkResult,
@@ -21,22 +21,6 @@ import {toPseudoBoolean} from '../../utils';
 export class UtilsRepository extends Repository {
   constructor(sendRequest: SendRequest) {
     super('utils', sendRequest);
-  }
-
-  /**
-   * Creates method
-   * @param {string} method
-   * @param prepare
-   * @returns {RepositoryMethod<P, R>}
-   */
-  private r<P, R>(
-    method: string,
-    prepare?: (params: P) => any,
-  ): RepositoryMethod<P, R> {
-    return params => this.sendRequest({
-      method,
-      params: prepare ? prepare(params) : params,
-    });
   }
 
   /**

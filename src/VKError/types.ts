@@ -27,7 +27,7 @@ export enum ErrorsEnum {
   AppAuthFailed = 28,
   RateLimitReached = 29,
   PrivateProfile = 30,
-  NotImplemented= 33,
+  NotImplemented = 33,
   ParameterMissingOrInvalid = 100,
   InvalidAppId = 101,
   NotFound = 104,
@@ -36,6 +36,7 @@ export enum ErrorsEnum {
   AlbumAccessDenied = 200,
   AudioAccessDenied = 201,
   GroupAccessDenied = 203,
+  WallPostAccessDenied = 210,
   AlbumFull = 300,
   ApplicationVotesDisabled = 500,
   NoAccessToOperationsWithObject = 600,
@@ -72,5 +73,5 @@ export enum ErrorsEnum {
 export interface ErrorInfo {
   errorCode: ErrorsEnum | number;
   errorMsg: string;
-  requestParams: Array<{key: string; value: string}>;
+  requestParams: Array<{ key: string; value: string }>;
 }

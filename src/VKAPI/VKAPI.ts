@@ -8,7 +8,7 @@ import {recursiveToCamelCase, recursiveToSnakeCase} from '../utils';
 import {
   UsersRepository,
   MessagesRepository,
-  NotificationsRepository, DatabaseRepository, UtilsRepository
+  NotificationsRepository, StatsRepository, DatabaseRepository, UtilsRepository,
 } from '../repositories';
 
 /**
@@ -18,6 +18,7 @@ export class VKAPI implements VKAPIInterface {
   public database: DatabaseRepository;
   public messages: MessagesRepository;
   public notifications: NotificationsRepository;
+  public stats: StatsRepository;
   public users: UsersRepository;
   public utils: UtilsRepository;
 
@@ -76,6 +77,7 @@ export class VKAPI implements VKAPIInterface {
     this.database = new DatabaseRepository(this.addRequestToQueue);
     this.messages = new MessagesRepository(this.addRequestToQueue);
     this.notifications = new NotificationsRepository(this.addRequestToQueue);
+    this.stats = new StatsRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);
     this.utils = new UtilsRepository(this.addRequestToQueue);
   }
