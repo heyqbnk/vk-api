@@ -4,7 +4,8 @@ import {
   SendMessageParams, MarkAsViewedParams,
 } from './types';
 import {Repository} from '../Repository';
-import {RepositoryMethod, SendRequest} from '../../types';
+import {SendRequest} from '../../types';
+import {formatOptionalArray} from '../../utils';
 
 /**
  * Repository to work with notifications
@@ -16,26 +17,21 @@ export class NotificationsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/notifications.markAsViewed
-   * @returns {Promise<any>}
+   * @type {RepositoryMethod<MarkAsViewedParams, MarkAsViewedResult>}
    */
-  public markAsViewed: RepositoryMethod<MarkAsViewedParams,
-    MarkAsViewedResult> = params => this.sendRequest({
-    method: 'markAsViewed',
-    params,
-  });
+  public markAsViewed = this.r<MarkAsViewedParams, MarkAsViewedResult>(
+    'markAsViewed',
+  );
 
   /**
    * @see https://vk.com/dev/notifications.sendMessage
-   * @param {SendMessageParams & RequestOptionalParams} params
-   * @returns {Promise<any>}
+   * @type {RepositoryMethod<SendMessageParams, SendMessageResult>}
    */
-  public sendMessage: RepositoryMethod<SendMessageParams, SendMessageResult> = (
-    {userIds, ...rest},
-  ) => this.sendRequest({
-    method: 'sendMessage',
-    params: {
+  public sendMessage = this.r<SendMessageParams, SendMessageResult>(
+    'sendMessage',
+    ({userIds, ...rest}) => ({
       ...rest,
-      userIds: userIds.join(','),
-    },
-  });
+      userIds: formatOptionalArray(userIds),
+    }),
+  );
 }

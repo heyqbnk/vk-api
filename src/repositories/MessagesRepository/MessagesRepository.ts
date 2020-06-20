@@ -1,5 +1,5 @@
 import {Repository} from '../Repository';
-import {RepositoryMethod, SendRequest} from '../../types';
+import {SendRequest} from '../../types';
 import {SendParams, SendResult} from './types';
 
 /**
@@ -10,20 +10,13 @@ export class MessagesRepository extends Repository {
     super('messages', sendRequest);
   }
 
-  /**
-   * @see https://vk.com/dev/messages.send
-   * @param {SendParams & RequestOptionalParams} params
-   * @returns {Promise<any>}
-   */
-  public send: RepositoryMethod<SendParams, SendResult> = params => {
-    const {randomId, ...rest} = params;
-
-    return this.sendRequest({
-      method: 'send',
-      params: {
-        ...rest,
-        randomId: randomId || Math.floor(Math.random() * 10000000),
-      },
-    });
-  };
+  public send = this.r<SendParams, SendResult>(
+    'send',
+    ({randomId, ...rest}) => ({
+      ...rest,
+      randomId: typeof randomId === 'undefined'
+        ? Math.floor(Math.random() * 10000000)
+        : randomId,
+    }),
+  );
 }

@@ -11,9 +11,11 @@ import {
   GetServerTimeParams,
   GetServerTimeResult,
   GetShortLinkParams,
-  GetShortLinkResult, ResolveScreenNameParams, ResolveScreenNameResult,
+  GetShortLinkResult,
+  ResolveScreenNameParams,
+  ResolveScreenNameResult,
 } from './types';
-import {toPseudoBoolean} from '../../utils';
+import {formatOptionalBoolean} from '../../utils';
 
 /**
  * Repository to work with users
@@ -33,19 +35,15 @@ export class UtilsRepository extends Repository {
    * @see https://vk.com/dev/utils.deleteFromLastShortened
    * @type {RepositoryMethod<DeleteFromLastShortenedParams, DeleteFromLastShortenedResult>}
    */
-  public deleteFromLastShortened =
-    this.r<DeleteFromLastShortenedParams, DeleteFromLastShortenedResult>(
-      'deleteFromLastShortened',
-    );
+  public deleteFromLastShortened = this.r<DeleteFromLastShortenedParams,
+    DeleteFromLastShortenedResult>('deleteFromLastShortened');
 
   /**
    * @see https://vk.com/dev/utils.getLastShortenedLinks
    * @type {RepositoryMethod<GetLastShortenedLinksParams, GetLastShortenedLinksResult>}
    */
-  public getLastShortenedLinks =
-    this.r<GetLastShortenedLinksParams, GetLastShortenedLinksResult>(
-      'getLastShortenedLinks',
-    );
+  public getLastShortenedLinks = this.r<GetLastShortenedLinksParams,
+    GetLastShortenedLinksResult>('getLastShortenedLinks');
 
   /**
    * @see https://vk.com/dev/utils.getLinkStats
@@ -55,9 +53,7 @@ export class UtilsRepository extends Repository {
     'getLinkStats',
     ({extended, ...rest}) => ({
       ...rest,
-      extended: typeof extended === 'boolean'
-        ? toPseudoBoolean(extended)
-        : undefined,
+      extended: formatOptionalBoolean(extended),
     }),
   );
 
@@ -77,9 +73,7 @@ export class UtilsRepository extends Repository {
     'getShortLink',
     ({private: isPrivate, ...rest}) => ({
       ...rest,
-      private: typeof isPrivate === 'boolean'
-        ? toPseudoBoolean(isPrivate)
-        : undefined,
+      private: formatOptionalBoolean(isPrivate),
     }),
   );
 

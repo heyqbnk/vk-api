@@ -1,7 +1,7 @@
 import {Repository} from '../Repository';
-import {RepositoryMethod, SendRequest} from '../../types';
+import {SendRequest} from '../../types';
 import {GetParams, GetResult} from './types';
-import {arrayToString} from '../../utils';
+import {formatOptionalArray} from '../../utils';
 
 /**
  * Repository to work with users
@@ -13,17 +13,14 @@ export class UsersRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/users.get
-   * @param {GetParams & RequestOptionalParams} params
-   * @returns {Promise<any>}
+   * @type {RepositoryMethod<GetParams, GetResult>}
    */
-  public get: RepositoryMethod<GetParams, GetResult> = params => {
-    const {userIds, ...rest} = params;
-    return this.sendRequest({
-      method: 'get',
-      params: {
-        ...rest,
-        userIds: arrayToString(userIds)
-      },
-    });
-  };
+  public get = this.r<GetParams, GetResult>(
+    'get',
+    ({userIds, fields, ...rest}) => ({
+      ...rest,
+      userIds: formatOptionalArray(userIds),
+      fields: formatOptionalArray(fields),
+    }),
+  );
 }

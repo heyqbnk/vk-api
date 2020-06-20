@@ -35,7 +35,7 @@ export type GetLastShortenedLinksResult = Pager<{
   shortUrl: string;
   key: string;
   views: number;
-  accessKey: string;
+  accessKey?: string;
 }>;
 
 /**

@@ -6,7 +6,7 @@ import {
   GetPostReachResult,
   GetResult, TrackVisitorParams, TrackVisitorResult,
 } from './types';
-import {toPseudoBoolean} from '../../utils';
+import {formatOptionalArray, formatOptionalBoolean} from '../../utils';
 
 /**
  * Repository to work with users
@@ -24,10 +24,8 @@ export class StatsRepository extends Repository {
     'get',
     ({extended, filters, ...rest}) => ({
       ...rest,
-      extended: typeof extended === 'boolean'
-        ? toPseudoBoolean(extended)
-        : undefined,
-      filters: Array.isArray(filters) ? filters.join(',') : undefined,
+      extended: formatOptionalBoolean(extended),
+      filters: formatOptionalArray(filters),
     }),
   );
 
@@ -39,7 +37,7 @@ export class StatsRepository extends Repository {
     'getPostReach',
     ({postIds, ...rest}) => ({
       ...rest,
-      postIds: Array.isArray(postIds) ? postIds.join(',') : undefined,
+      postIds: formatOptionalArray(postIds),
     }),
   );
 
@@ -48,6 +46,6 @@ export class StatsRepository extends Repository {
    * @type {RepositoryMethod<TrackVisitorParams, TrackVisitorResult>}
    */
   public trackVisitor = this.r<TrackVisitorParams, TrackVisitorResult>(
-    'trackVisitor'
+    'trackVisitor',
   );
 }

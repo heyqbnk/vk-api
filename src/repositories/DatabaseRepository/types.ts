@@ -1,25 +1,9 @@
-import {IdTitlePair, PseudoBooleanType, Pager} from '../../types';
+import {IdTitlePair, Pager} from '../../types';
 
 /**
  * Default pager with item as object with id and title
  */
 type DefaultPager = Pager<IdTitlePair>;
-
-type FormatBooleansOverridableProps = 'needAll' | 'extended';
-
-/**
- * Format booleans overridable props
- */
-export type FormatBooleansOverridable = {
-  [key in FormatBooleansOverridableProps]?: boolean;
-}
-
-/**
- * Overridden by formatBooleans return type
- */
-export type FormatBooleansOverridden<T> = Omit<T, FormatBooleansOverridableProps> & {
-  [key in FormatBooleansOverridableProps]?: PseudoBooleanType;
-}
 
 /**
  * @see https://vk.com/dev/database.getChairs
@@ -30,7 +14,7 @@ export interface GetChairsParams {
   count?: number;
 }
 
-export type GetChairsResult = IdTitlePair[];
+export type GetChairsResult = DefaultPager;
 
 /**
  * @see https://vk.com/dev/database.getCities

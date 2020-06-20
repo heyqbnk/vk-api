@@ -69,3 +69,25 @@ export function toPseudoBoolean(value: boolean): PseudoBooleanType {
 export function arrayToString(arr: Array<string | number>): string {
   return arr.join(',');
 }
+
+/**
+ * Converts optional boolean type to PseudoBooleanType or undefined
+ * @param {boolean | undefined} value
+ * @returns {PseudoBooleanType | undefined}
+ */
+export function formatOptionalBoolean(
+  value: boolean | undefined,
+): PseudoBooleanType | undefined {
+  return typeof value === 'undefined' ? value : toPseudoBoolean(value);
+}
+
+/**
+ * Converts optional array of strings or numbers to string or undefined
+ * @param {Array<string | number> | undefined} arr
+ * @returns {string | undefined}
+ */
+export function formatOptionalArray(
+  arr: Array<string | number> | undefined,
+): string | undefined {
+  return typeof arr === 'undefined' ? arr : arr.join(',');
+}

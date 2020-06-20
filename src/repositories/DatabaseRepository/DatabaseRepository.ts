@@ -1,7 +1,6 @@
 import {Repository} from '../Repository';
-import {RepositoryMethod, SendRequest} from '../../types';
+import {SendRequest} from '../../types';
 import {
-  FormatBooleansOverridable, FormatBooleansOverridden,
   GetChairsParams,
   GetChairsResult,
   GetCitiesByIdParams,
@@ -27,7 +26,7 @@ import {
   GetUniversitiesParams,
   GetUniversitiesResult,
 } from './types';
-import {arrayToString, toPseudoBoolean} from '../../utils';
+import {formatOptionalBoolean, formatOptionalArray} from '../../utils';
 
 /**
  * Repository to work with users
@@ -38,41 +37,10 @@ export class DatabaseRepository extends Repository {
   }
 
   /**
-   * Creates repo method
-   * @param {string} name
-   * @param {(params: Params) => any} prepare
-   * @returns {RepositoryMethod<Params, Response>}
-   */
-  private createMethod<Params, Response>(
-    name: string,
-    prepare?: (params: Params) => any,
-  ): RepositoryMethod<Params, Response> {
-    return params => this.sendRequest({
-      method: name,
-      params: prepare ? prepare(params) : params,
-    });
-  }
-
-  private formatBooleans = <P extends FormatBooleansOverridable>(
-    params: P,
-  ): FormatBooleansOverridden<P> => {
-    const {needAll, extended, ...rest} = params;
-    const result: FormatBooleansOverridden<P> = rest;
-
-    if (typeof needAll !== 'undefined') {
-      result.needAll = toPseudoBoolean(needAll);
-    }
-    if (typeof extended !== 'undefined') {
-      result.extended = toPseudoBoolean(extended);
-    }
-    return result;
-  };
-
-  /**
    * @see https://vk.com/dev/database.getChairs
    * @type {RepositoryMethod<GetChairsParams, GetChairsResult>}
    */
-  public getChairs = this.createMethod<GetChairsParams, GetChairsResult>(
+  public getChairs = this.r<GetChairsParams, GetChairsResult>(
     'getChairs',
   );
 
@@ -80,23 +48,23 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getCities
    * @type {RepositoryMethod<GetCitiesParams, GetCitiesResult>}
    */
-  public getCities = this.createMethod<GetCitiesParams, GetCitiesResult>(
+  public getCities = this.r<GetCitiesParams, GetCitiesResult>(
     'getCities',
-    params => this.formatBooleans(params),
+    ({needAll, ...rest}) => ({
+      ...rest,
+      needAll: formatOptionalBoolean(needAll),
+    }),
   );
 
   /**
    * @see https://vk.com/dev/database.getCitiesById
    * @type {RepositoryMethod<GetCitiesByIdParams, GetCitiesByIdResult>}
    */
-  public getCitiesById = this.createMethod<GetCitiesByIdParams,
-    GetCitiesByIdResult>(
+  public getCitiesById = this.r<GetCitiesByIdParams, GetCitiesByIdResult>(
     'getCitiesById',
     ({cityIds, ...rest}) => ({
       ...rest,
-      cityIds: typeof cityIds === 'undefined'
-        ? cityIds
-        : arrayToString(cityIds),
+      cityIds: formatOptionalArray(cityIds),
     }),
   );
 
@@ -104,14 +72,12 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getCountries
    * @type {RepositoryMethod<GetCountriesParams, GetCountriesResult>}
    */
-  public getCountries = this.createMethod<GetCountriesParams,
-    GetCountriesResult>(
+  public getCountries = this.r<GetCountriesParams, GetCountriesResult>(
     'getCountries',
-    ({code, ...rest}) => this.formatBooleans({
+    ({code, needAll, ...rest}) => ({
       ...rest,
-      code: typeof code === 'undefined'
-        ? code
-        : arrayToString(code),
+      needAll: formatOptionalBoolean(needAll),
+      code: formatOptionalArray(code),
     }),
   );
 
@@ -119,14 +85,12 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getCountriesById
    * @type {RepositoryMethod<GetCountriesByIdParams, GetCountriesByIdResult>}
    */
-  public getCountriesById = this.createMethod<GetCountriesByIdParams,
+  public getCountriesById = this.r<GetCountriesByIdParams,
     GetCountriesByIdResult>(
     'getCountriesById',
     ({countryIds, ...rest}) => ({
       ...rest,
-      countryIds: typeof countryIds === 'undefined'
-        ? countryIds
-        : arrayToString(countryIds),
+      countryIds: formatOptionalArray(countryIds),
     }),
   );
 
@@ -134,28 +98,33 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getFaculties
    * @type {RepositoryMethod<GetFacultiesParams, GetFacultiesResult>}
    */
-  public getFaculties = this.createMethod<GetFacultiesParams,
-    GetFacultiesResult>('getFaculties');
+  public getFaculties = this.r<GetFacultiesParams, GetFacultiesResult>(
+    'getFaculties',
+  );
 
   /**
    * @see https://vk.com/dev/database.getMetroStations
    * @type {RepositoryMethod<GetCountriesParams, GetCountriesResult>}
    */
-  public getMetroStations = this.createMethod<GetMetroStationsParams,
-    GetMetroStationsResult>('getMetroStations', this.formatBooleans);
+  public getMetroStations = this.r<GetMetroStationsParams,
+    GetMetroStationsResult>(
+    'getMetroStations',
+    ({extended, ...rest}) => ({
+      ...rest,
+      extended: formatOptionalBoolean(extended),
+    }),
+  );
 
   /**
    * @see https://vk.com/dev/database.getMetroStationsById
    * @type {RepositoryMethod<GetMetroStationsByIdParams, GetMetroStationsByIdResult>}
    */
-  public getMetroStationsById = this.createMethod<GetMetroStationsByIdParams,
+  public getMetroStationsById = this.r<GetMetroStationsByIdParams,
     GetMetroStationsByIdResult>(
     'getMetroStationsById',
     ({stationIds, ...rest}) => ({
       ...rest,
-      stationIds: typeof stationIds === 'undefined'
-        ? stationIds
-        : arrayToString(stationIds),
+      stationIds: formatOptionalArray(stationIds),
     }),
   );
 
@@ -163,27 +132,26 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getRegions
    * @type {RepositoryMethod<GetRegionsParams, GetRegionsResult>}
    */
-  public getRegions = this.createMethod<GetRegionsParams,
-    GetRegionsResult>('getRegions');
+  public getRegions = this.r<GetRegionsParams, GetRegionsResult>('getRegions');
 
   /**
    * @see https://vk.com/dev/database.getSchoolClasses
    * @type {RepositoryMethod<GetSchoolClassesParams, GetSchoolClassesResult>}
    */
-  public getSchoolClasses = this.createMethod<GetSchoolClassesParams,
+  public getSchoolClasses = this.r<GetSchoolClassesParams,
     GetSchoolClassesResult>('getSchoolClasses');
 
   /**
    * @see https://vk.com/dev/database.getSchools
    * @type {RepositoryMethod<GetSchoolsParams, GetSchoolsResult>}
    */
-  public getSchools = this.createMethod<GetSchoolsParams,
-    GetSchoolsResult>('getSchools');
+  public getSchools = this.r<GetSchoolsParams, GetSchoolsResult>('getSchools');
 
   /**
    * @see https://vk.com/dev/database.getUniversities
    * @type {RepositoryMethod<GetUniversitiesParams, GetUniversitiesResult>}
    */
-  public getUniversities = this.createMethod<GetUniversitiesParams,
-    GetUniversitiesResult>('getUniversities');
+  public getUniversities = this.r<GetUniversitiesParams, GetUniversitiesResult>(
+    'getUniversities',
+  );
 }
