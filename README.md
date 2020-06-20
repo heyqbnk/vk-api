@@ -194,3 +194,31 @@ else {
   http(new VKAPISlave());
 }
 ```
+
+#### Defining connection between master and slave
+
+There is a rare case, when your project contains 2 masters with 
+different `VKAPI` instances. For example, you could create separate api 
+instances for group and application which use different access tokens.
+
+So then, it is allowed to pass same property `tunnelName` for both master and 
+slave. Here is how it works:
+
+```typescript
+import {isMaster} from 'cluster'; 
+import {VKAPIMaster, VKAPISlave} from 'vkontakte-api';
+
+if (isMaster) {
+  // API provider for group API instance
+  const groupApiProvider = new VKAPIMaster({tunnelName: 'group'});
+  groupApiProvider.init();
+
+  // API provider for VK Mini Apps application API instance
+  const appApiProvider = new VKAPIMaster({tunnelName: 'app'});
+ appApiProvider.init(); 
+} else {
+  // Create API instance consumers
+  const groupApi = new VKAPISlave({tunnelName: 'group'});
+  const appApi = new VKAPISlave({tunnelName: 'app'});
+}
+``` 
