@@ -133,13 +133,13 @@ Moreover, lib contains enum `ErrorsEnum` which is a set of all known errors.
 
 ### Multi-threading support
 
-In case your project is ran in multi cluster mode, you could use `VKAPIMaster`
-and `VKAPISlave`.
+In case your project is ran in multi cluster mode, you could use `VKAPIProvider`
+and `VKAPIConsumer`.
 
-`VKAPIMaster` should be used in main thread. To create its instance, it is 
+`VKAPIProvider` should be used in main thread. To create its instance, it is 
 required to pass `VKAPI` instance which will perform all of the requests and
-list of workers, containing `VKAPISlave` which should communicate with 
-`VKAPIMaster`.
+list of workers, containing `VKAPIConsumer` which should communicate with 
+`VKAPIProvider`.
 
 With this scheme we are getting single `VKAPI` instance for project and
 not overflowing API restriction connected with requests per second. 
@@ -150,22 +150,21 @@ Here is example:
 ```typescript
 import {fork, isMaster, Worker} from 'cluster';
 import os from 'os';
-import {VKAPI, VKAPIMaster, VKAPISlave, VKAPIInterface} from 'vkontakte-api';
+import {VKAPI, VKAPIProvider, VKAPIConsumer, VKAPIInterface} from 'vkontakte-api';
 
 // Runs http server. Accepts an object which looks like VKAPI instance. So,
 // he does not know what api exactly is. It could be real VKAPI instance or
-// VKAPISlave, we dont care, it is the same in this context
+// VKAPIConsumer
 function http(api: VKAPIInterface) {
-  // Here we can use all of the VKAPI methods due to they are defined
-  // interface. We does not really care what api is
+  // Here we can use all of the VKAPI methods
   api.users.get({userIds: ['vladkibenko']}).then(console.log);
 }
 
 // Just a stub. You can use the logic you need
-const isDev = process.env.NODE_ENVIRONMENT === 'development';
+const isDev = process.env.NODE_ENV === 'development';
 
-// In development mode, let us run single thread. So, no VKAPIMaster and
-// VKAPISlave are needed
+// In development mode, let us run single thread. So, no VKAPIProvider and
+// VKAPIConsumer are needed
 if (isDev) {
   const api = new VKAPI();
   
@@ -182,43 +181,42 @@ if (isMaster) {
     workers.push(fork());
   }
 
-  // In master we do create VKAPI instance, because slaves should
-  // communicate with single its instance, which is in VKAPIMaster
-  const master = new VKAPIMaster({workers, instance: new VKAPI()});
-  master.init();
+  // In master we do create VKAPI instance, because consumers should
+  // communicate with single its instance, which is in VKAPIProvider
+  const provider = new VKAPIProvider({workers, instance: new VKAPI()});
+  provider.init();
 } 
-// In slave workers, we just create http server with VKAPISlave
+// In consumer workers, we just create http server with VKAPIConsumer
 else {
-  // Slave has no its own settings due to it is just a class, which communicates
-  // with master. So, all settings are set in VKAPIMaster 
-  http(new VKAPISlave());
+  // Create VKAPI instance consumer instance
+  http(new VKAPIConsumer());
 }
 ```
 
-#### Defining connection between master and slave
+#### Defining connection between provider and consumer
 
-There is a rare case, when your project contains 2 masters with 
+There is a rare case, when your project contains 2 providers with 
 different `VKAPI` instances. For example, you could create separate api 
 instances for group and application which use different access tokens.
 
-So then, it is allowed to pass same property `tunnelName` for both master and 
-slave. Here is how it works:
+So then, it is allowed to pass same property `tunnelName` for both provider and 
+consumer. Here is how it works:
 
 ```typescript
 import {isMaster} from 'cluster'; 
-import {VKAPIMaster, VKAPISlave} from 'vkontakte-api';
+import {VKAPIProvider, VKAPIConsumer} from 'vkontakte-api';
 
 if (isMaster) {
   // API provider for group API instance
-  const groupApiProvider = new VKAPIMaster({tunnelName: 'group'});
+  const groupApiProvider = new VKAPIProvider({tunnelName: 'group'});
   groupApiProvider.init();
 
   // API provider for VK Mini Apps application API instance
-  const appApiProvider = new VKAPIMaster({tunnelName: 'app'});
+  const appApiProvider = new VKAPIProvider({tunnelName: 'app'});
  appApiProvider.init(); 
 } else {
   // Create API instance consumers
-  const groupApi = new VKAPISlave({tunnelName: 'group'});
-  const appApi = new VKAPISlave({tunnelName: 'app'});
+  const groupApi = new VKAPIConsumer({tunnelName: 'group'});
+  const appApi = new VKAPIConsumer({tunnelName: 'app'});
 }
 ``` 
