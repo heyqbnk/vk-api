@@ -1,9 +1,13 @@
 import {RequestConfig, RequestOptionalParams, SendRequest} from '../types';
-import {UsersRepository} from '../repositories/UsersRepository';
-import {MessagesRepository} from '../repositories/MessagesRepository';
-import {NotificationsRepository} from '../repositories/NotificationsRepository';
-import {DatabaseRepository} from '../repositories/DatabaseRepository';
-import {UtilsRepository} from '../repositories/UtilsRepository';
+import {
+  UsersRepository,
+  StatsRepository,
+  UtilsRepository,
+  NotificationsRepository,
+  MessagesRepository,
+  DatabaseRepository,
+  StreamingRepository,
+} from '../repositories';
 
 export interface QueueRequest {
   /**
@@ -30,6 +34,8 @@ export interface VKAPIInterface {
   database: DatabaseRepository;
   messages: MessagesRepository;
   notifications: NotificationsRepository;
+  stats: StatsRepository;
+  streaming: StreamingRepository;
   users: UsersRepository;
   utils: UtilsRepository;
 

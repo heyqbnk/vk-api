@@ -7,9 +7,6 @@ import {Repository} from '../Repository';
 import {SendRequest} from '../../types';
 import {formatOptionalArray} from '../../utils';
 
-/**
- * Repository to work with notifications
- */
 export class NotificationsRepository extends Repository {
   constructor(sendRequest: SendRequest) {
     super('notifications', sendRequest);

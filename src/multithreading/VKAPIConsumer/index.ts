@@ -1,3 +1,3 @@
 export * from './utils';
 export * from './types';
-export * from './VKAPISlave';
+export * from './VKAPIConsumer';

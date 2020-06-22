@@ -1,5 +1,5 @@
 import {Repository} from '../Repository';
-import {RepositoryMethod, SendRequest} from '../../types';
+import {SendRequest} from '../../types';
 import {
   GetParams,
   GetPostReachParams,
@@ -8,9 +8,6 @@ import {
 } from './types';
 import {formatOptionalArray, formatOptionalBoolean} from '../../utils';
 
-/**
- * Repository to work with users
- */
 export class StatsRepository extends Repository {
   constructor(sendRequest: SendRequest) {
     super('stats', sendRequest);

@@ -2,9 +2,6 @@ import {Repository} from '../Repository';
 import {SendRequest} from '../../types';
 import {SendParams, SendResult} from './types';
 
-/**
- * Repository to work with users
- */
 export class MessagesRepository extends Repository {
   constructor(sendRequest: SendRequest) {
     super('messages', sendRequest);

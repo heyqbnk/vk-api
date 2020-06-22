@@ -28,9 +28,6 @@ import {
 } from './types';
 import {formatOptionalBoolean, formatOptionalArray} from '../../utils';
 
-/**
- * Repository to work with users
- */
 export class DatabaseRepository extends Repository {
   constructor(sendRequest: SendRequest) {
     super('database', sendRequest);

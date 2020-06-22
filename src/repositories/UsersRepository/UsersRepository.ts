@@ -3,9 +3,6 @@ import {SendRequest} from '../../types';
 import {GetParams, GetResult} from './types';
 import {formatOptionalArray} from '../../utils';
 
-/**
- * Repository to work with users
- */
 export class UsersRepository extends Repository {
   constructor(sendRequest: SendRequest) {
     super('users', sendRequest);

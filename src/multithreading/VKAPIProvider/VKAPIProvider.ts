@@ -7,7 +7,7 @@ import {VKAPIRequestProcessedMessage} from '../types';
 /**
  * Master class which receives orders to perform requests to VKAPI
  */
-export class VKAPIMaster {
+export class VKAPIProvider {
   /**
    * Slave threads
    */
@@ -68,3 +68,9 @@ export class VKAPIMaster {
     });
   }
 }
+
+/**
+ * TODO: Remove in 2.0.0
+ * @deprecated
+ */
+export {VKAPIProvider as VKAPIMaster};

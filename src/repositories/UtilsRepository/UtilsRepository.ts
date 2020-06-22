@@ -17,9 +17,6 @@ import {
 } from './types';
 import {formatOptionalBoolean} from '../../utils';
 
-/**
- * Repository to work with users
- */
 export class UtilsRepository extends Repository {
   constructor(sendRequest: SendRequest) {
     super('utils', sendRequest);

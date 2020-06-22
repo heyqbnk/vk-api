@@ -4,7 +4,11 @@ import {isVKAPIRequestProcessedMessage} from './utils';
 import {
   UsersRepository,
   MessagesRepository,
-  NotificationsRepository, DatabaseRepository, UtilsRepository, StatsRepository,
+  NotificationsRepository,
+  DatabaseRepository,
+  UtilsRepository,
+  StatsRepository,
+  StreamingRepository,
 } from '../../repositories';
 import {SendRequest} from '../../types';
 import {VKAPISlaveConstructorProps} from './types';
@@ -13,11 +17,12 @@ import {VKAPISlaveConstructorProps} from './types';
  * Stub class which wants to get data from API VKontakte and has to
  * communicate with master
  */
-export class VKAPISlave implements VKAPIInterface {
+export class VKAPIConsumer implements VKAPIInterface {
   public database: DatabaseRepository;
   public messages: MessagesRepository;
   public notifications: NotificationsRepository;
   public stats: StatsRepository;
+  public streaming: StreamingRepository;
   public users: UsersRepository;
   public utils: UtilsRepository;
 
@@ -46,6 +51,7 @@ export class VKAPISlave implements VKAPIInterface {
     this.messages = new MessagesRepository(this.addRequestToQueue);
     this.notifications = new NotificationsRepository(this.addRequestToQueue);
     this.stats = new StatsRepository(this.addRequestToQueue);
+    this.streaming = new StreamingRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);
     this.utils = new UtilsRepository(this.addRequestToQueue);
   }
@@ -101,3 +107,9 @@ export class VKAPISlave implements VKAPIInterface {
     });
   };
 }
+
+/**
+ * TODO: Remove in 2.0.0
+ * @deprecated
+ */
+export {VKAPIConsumer as VKAPISlave};
