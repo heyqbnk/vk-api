@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/wolframdeus/vk-api/compare/v1.7.0...v1.8.0) (2020-06-22)
+
+
+### Features
+
+* **streaming:** add streaming repository ([a17f38e](https://github.com/wolframdeus/vk-api/commit/a17f38e9c216296adecc892b584c3ab442a1ba41))
+
 ## [1.7.0](https://github.com/wolframdeus/vk-api/compare/v1.6.3...v1.7.0) (2020-06-20)
 
 
