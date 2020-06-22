@@ -204,15 +204,18 @@ consumer. Here is how it works:
 
 ```typescript
 import {isMaster} from 'cluster'; 
-import {VKAPIProvider, VKAPIConsumer} from 'vkontakte-api';
+import {VKAPI, VKAPIProvider, VKAPIConsumer} from 'vkontakte-api';
 
 if (isMaster) {
+  const groupApi = new VKAPI({accessToken: 'group access token'});
+  const appApi = new VKAPI({accessToken: 'application access token'});
+
   // API provider for group API instance
-  const groupApiProvider = new VKAPIProvider({tunnelName: 'group'});
+  const groupApiProvider = new VKAPIProvider({tunnelName: 'group', instance: groupApi});
   groupApiProvider.init();
 
   // API provider for VK Mini Apps application API instance
-  const appApiProvider = new VKAPIProvider({tunnelName: 'app'});
+  const appApiProvider = new VKAPIProvider({tunnelName: 'app', instance: appApi});
  appApiProvider.init(); 
 } else {
   // Create API instance consumers
