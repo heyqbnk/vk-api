@@ -62,6 +62,11 @@ export class VKAPI implements VKAPIInterface {
   private readonly v: string;
 
   /**
+   * States if current environment is browser
+   */
+  private readonly isBrowser: boolean;
+
+  /**
    * Language
    */
   private readonly lang: LangType;
@@ -72,12 +77,14 @@ export class VKAPI implements VKAPIInterface {
       accessToken,
       v = '5.110',
       lang = 'ru',
+      isBrowser = false,
     } = props;
 
     this.accessToken = accessToken || null;
     this.v = v;
     this.lang = lang;
     this.timeout = Math.ceil(1000 / rps);
+    this.isBrowser = isBrowser;
 
     this.database = new DatabaseRepository(this.addRequestToQueue);
     this.messages = new MessagesRepository(this.addRequestToQueue);
@@ -114,9 +121,35 @@ export class VKAPI implements VKAPIInterface {
           encodeURIComponent(formattedValue);
       })
       .join('&');
+    const url = `https://api.vk.com/method/${method}`;
 
-    // Send request
-    const response = await fetch(`https://api.vk.com/method/${method}`, {
+    // In case, we are in browser, it is required to use JSONP
+    if (this.isBrowser) {
+      return new Promise(((resolve, reject) => {
+        const cbName = `__vkapicallback` + Math.random().toString().slice(2);
+
+        // Create script tag and assign source
+        const script = document.createElement('script');
+        script.src = `${url}?${form}&callback=${cbName}`;
+
+        // Define JSONP callback
+        (window as any)[cbName] = (data: any) => {
+          // Remove script tag from DOM
+          document.head.removeChild(script);
+
+          if (data?.response) {
+            return resolve(recursiveToCamelCase(data.response));
+          }
+
+          reject(new VKError(recursiveToCamelCase(data?.error || {})));
+        };
+
+        // Append script to DOM
+        document.head.appendChild(script);
+      }));
+    }
+    // Send HTTP request
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -125,11 +158,11 @@ export class VKAPI implements VKAPIInterface {
     });
     const json = await response.json();
 
-    if (json.error) {
-      throw new VKError(recursiveToCamelCase(json.error));
+    if (json?.response) {
+      return recursiveToCamelCase(json.response);
     }
 
-    return recursiveToCamelCase(json.response);
+    throw new VKError(recursiveToCamelCase(json?.error || {}));
   };
 
   /**

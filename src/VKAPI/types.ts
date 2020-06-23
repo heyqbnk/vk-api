@@ -28,6 +28,13 @@ export interface VKAPIConstructorProps extends RequestOptionalParams {
    * @default 3
    */
   rps?: number;
+
+  /**
+   * States if current JS environment is browser. It will make JSONP
+   * algorithm to be used
+   * @default false
+   */
+  isBrowser?: boolean;
 }
 
 export interface VKAPIInterface {
