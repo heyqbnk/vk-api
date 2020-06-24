@@ -1,2 +1,3 @@
+export * from './objects';
+export * from './attachments';
 export * from './shared';
-export * from './user';
