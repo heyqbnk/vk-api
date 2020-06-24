@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/wolframdeus/vk-api/compare/v1.9.0...v1.10.0) (2020-06-24)
+
+
+### Features
+
+* **object:** create new objects ([ef15fb5](https://github.com/wolframdeus/vk-api/commit/ef15fb5539690a01bc82bc364f0c6f10912250bc))
+* **widgets:** add widgets repository ([1eefde0](https://github.com/wolframdeus/vk-api/commit/1eefde0f893f5632804a6c73224758ee420f1d4f))
+
+
+### Bug Fixes
+
+* **utils.getlinkstats:** fix return type ([bcff1af](https://github.com/wolframdeus/vk-api/commit/bcff1af3ac4d18e38d861bc6189566ffaac76634))
+
 ## [1.9.0](https://github.com/wolframdeus/vk-api/compare/v1.8.2...v1.9.0) (2020-06-23)
 
 
