@@ -7,7 +7,7 @@ import {
   DeleteFromLastShortenedResult,
   GetLastShortenedLinksParams,
   GetLastShortenedLinksResult,
-  GetLinkStatsParams,
+  GetLinkStatsParams, GetLinkStatsResult,
   GetServerTimeParams,
   GetServerTimeResult,
   GetShortLinkParams,
@@ -46,7 +46,7 @@ export class UtilsRepository extends Repository {
    * @see https://vk.com/dev/utils.getLinkStats
    * @type {RepositoryMethod<GetLinkStatsParams, GetLastShortenedLinksResult>}
    */
-  public getLinkStats = this.r<GetLinkStatsParams, GetLastShortenedLinksResult>(
+  public getLinkStats = this.r<GetLinkStatsParams, GetLinkStatsResult>(
     'getLinkStats',
     ({extended, ...rest}) => ({
       ...rest,
