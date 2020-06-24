@@ -1,3 +1,5 @@
+import {Button} from '../../types/objects';
+
 /**
  * @see https://vk.com/dev/messages.send
  */
@@ -9,35 +11,27 @@ export type SendResult = number | Array<{
 }>
 
 // TODO: Refactor. Not sure we can pass both userIds and userId at the same time
-export interface SendParams {
-  userId?: number;
-  randomId?: number;
-  peerId?: number;
-  domain?: string;
-  chatId?: number;
-  userIds?: number[];
-  // TODO: Not required of attachment passed
+export type SendParams = {
+    randomId?: number;
+    peerId?: number;
+    domain?: string;
+    chatId?: number;
+    lat?: number;
+    long?: number;
+    replyTo?: number;
+    forwardMessages?: number[];
+    stickerId?: number;
+    groupId?: number;
+    keyboard?: { buttons: Button[][] }
+      & ({ inline: true } | { inline: false; oneTime: boolean });
+    payload?: any;
+    dontParseLinks?: boolean;
+    disableMentions?: boolean;
+    intent?: 'promo_newsletter' | 'bot_ad_invite' | 'bot_ad_promo';
+  }
+  & ({ userId?: number } | { userIds?: number[] })
+  & ({ message: string } | {
   message?: string;
-  lat?: number;
-  long?: number;
   // TODO: Create separate class
   attachment?: string;
-  replyTo?: number;
-  forwardMessages?: number[];
-  stickerId?: number;
-  groupId?: number;
-  // TODO: Describe
-  keyboard?: {
-    buttons: Array<Array<Record<any, any>>>;
-  } & ({
-    inline: true;
-  } | {
-    inline: false;
-    oneTime: boolean;
-  });
-  payload?: any;
-  dontParseLinks?: boolean;
-  disableMentions?: boolean;
-  // TODO: Move to separate type
-  intent?: 'promo_newsletter' | 'bot_ad_invite' | 'bot_ad_promo';
-}
+})
