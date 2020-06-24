@@ -8,7 +8,7 @@ import {
   DatabaseRepository,
   UtilsRepository,
   StatsRepository,
-  StreamingRepository,
+  StreamingRepository, WidgetsRepository,
 } from '../../repositories';
 import {SendRequest} from '../../types';
 import {VKAPISlaveConstructorProps} from './types';
@@ -25,6 +25,7 @@ export class VKAPIConsumer implements VKAPIInterface {
   public streaming: StreamingRepository;
   public users: UsersRepository;
   public utils: UtilsRepository;
+  public widgets: WidgetsRepository;
 
   /**
    * Tunnel name
@@ -54,6 +55,7 @@ export class VKAPIConsumer implements VKAPIInterface {
     this.streaming = new StreamingRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);
     this.utils = new UtilsRepository(this.addRequestToQueue);
+    this.widgets = new WidgetsRepository(this.addRequestToQueue);
   }
 
   public addRequestToQueue: SendRequest = config => {

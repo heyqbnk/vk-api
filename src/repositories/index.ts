@@ -5,3 +5,4 @@ export * from './StatsRepository';
 export * from './StreamingRepository';
 export * from './UsersRepository';
 export * from './UtilsRepository';
+export * from './WidgetsRepository';

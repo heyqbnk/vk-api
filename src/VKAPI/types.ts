@@ -8,6 +8,7 @@ import {
   DatabaseRepository,
   StreamingRepository,
 } from '../repositories';
+import {WidgetsRepository} from '../repositories/WidgetsRepository';
 
 export interface QueueRequest {
   /**
@@ -45,6 +46,7 @@ export interface VKAPIInterface {
   streaming: StreamingRepository;
   users: UsersRepository;
   utils: UtilsRepository;
+  widgets: WidgetsRepository;
 
   /**
    * Adds request to queue and performs it after some time

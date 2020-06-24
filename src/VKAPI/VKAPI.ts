@@ -13,6 +13,7 @@ import {
   DatabaseRepository,
   UtilsRepository,
   StreamingRepository,
+  WidgetsRepository
 } from '../repositories';
 
 /**
@@ -26,6 +27,7 @@ export class VKAPI implements VKAPIInterface {
   public streaming: StreamingRepository;
   public users: UsersRepository;
   public utils: UtilsRepository;
+  public widgets: WidgetsRepository;
 
   /**
    * Queue of requests
@@ -93,6 +95,7 @@ export class VKAPI implements VKAPIInterface {
     this.streaming = new StreamingRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);
     this.utils = new UtilsRepository(this.addRequestToQueue);
+    this.widgets = new WidgetsRepository(this.addRequestToQueue);
   }
 
   /**
