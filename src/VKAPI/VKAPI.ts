@@ -13,7 +13,7 @@ import {
   DatabaseRepository,
   UtilsRepository,
   StreamingRepository,
-  WidgetsRepository
+  WidgetsRepository, StatEventsRepository,
 } from '../repositories';
 
 /**
@@ -23,6 +23,7 @@ export class VKAPI implements VKAPIInterface {
   public database: DatabaseRepository;
   public messages: MessagesRepository;
   public notifications: NotificationsRepository;
+  public statEvents: StatEventsRepository;
   public stats: StatsRepository;
   public streaming: StreamingRepository;
   public users: UsersRepository;
@@ -91,6 +92,7 @@ export class VKAPI implements VKAPIInterface {
     this.database = new DatabaseRepository(this.addRequestToQueue);
     this.messages = new MessagesRepository(this.addRequestToQueue);
     this.notifications = new NotificationsRepository(this.addRequestToQueue);
+    this.statEvents = new StatEventsRepository(this.addRequestToQueue);
     this.stats = new StatsRepository(this.addRequestToQueue);
     this.streaming = new StreamingRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);

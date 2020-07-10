@@ -8,7 +8,7 @@ import {
   DatabaseRepository,
   UtilsRepository,
   StatsRepository,
-  StreamingRepository, WidgetsRepository,
+  StreamingRepository, WidgetsRepository, StatEventsRepository,
 } from '../../repositories';
 import {SendRequest} from '../../types';
 import {VKAPISlaveConstructorProps} from './types';
@@ -21,6 +21,7 @@ export class VKAPIConsumer implements VKAPIInterface {
   public database: DatabaseRepository;
   public messages: MessagesRepository;
   public notifications: NotificationsRepository;
+  public statEvents: StatEventsRepository;
   public stats: StatsRepository;
   public streaming: StreamingRepository;
   public users: UsersRepository;
@@ -30,7 +31,7 @@ export class VKAPIConsumer implements VKAPIInterface {
   /**
    * Tunnel name
    */
-  private tunnelName: string;
+  private readonly tunnelName: string;
 
   /**
    * Internal request counter. Required to send and get answers from master
@@ -41,7 +42,7 @@ export class VKAPIConsumer implements VKAPIInterface {
   public constructor(props: VKAPISlaveConstructorProps = {}) {
     if (!process.send) {
       throw new Error(
-        'Unable to create VKAPISlave due to there is no "process.send" ' +
+        'Unable to create VKAPIConsumer due to there is no "process.send" ' +
         'method available. It looks like it was created in main thread, ' +
         'but not in fork',
       );
@@ -51,6 +52,7 @@ export class VKAPIConsumer implements VKAPIInterface {
     this.database = new DatabaseRepository(this.addRequestToQueue);
     this.messages = new MessagesRepository(this.addRequestToQueue);
     this.notifications = new NotificationsRepository(this.addRequestToQueue);
+    this.statEvents = new StatEventsRepository(this.addRequestToQueue);
     this.stats = new StatsRepository(this.addRequestToQueue);
     this.streaming = new StreamingRepository(this.addRequestToQueue);
     this.users = new UsersRepository(this.addRequestToQueue);

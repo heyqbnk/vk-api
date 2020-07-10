@@ -61,7 +61,7 @@ If you are using `VKAPI` on browser side, you could use property `isBrowser`
 which is `false` by default. In case, this value is `true`, api instance
 performs requests in JSONP callback mode. It does not make any influence on
 outer code flow. If this value is not passed, requests will be executed
-in usual mode, by on the browser side they will fail due to VK's CORS.
+in usual mode and on the browser side they will fail due to VK's CORS.
 
 ```typescript
 const api = new VKAPI({isBrowser: true});

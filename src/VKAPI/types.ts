@@ -6,7 +6,7 @@ import {
   NotificationsRepository,
   MessagesRepository,
   DatabaseRepository,
-  StreamingRepository,
+  StreamingRepository, StatEventsRepository,
 } from '../repositories';
 import {WidgetsRepository} from '../repositories/WidgetsRepository';
 
@@ -42,6 +42,7 @@ export interface VKAPIInterface {
   database: DatabaseRepository;
   messages: MessagesRepository;
   notifications: NotificationsRepository;
+  statEvents: StatEventsRepository;
   stats: StatsRepository;
   streaming: StreamingRepository;
   users: UsersRepository;
