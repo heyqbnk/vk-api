@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/wolframdeus/vk-api/compare/v1.10.0...v1.11.0) (2020-07-10)
+
+
+### Features
+
+* **statevents:** add statEvents repository ([7a65558](https://github.com/wolframdeus/vk-api/commit/7a65558cac061e73f3c0dec741b028720afa9520))
+
 ## [1.10.0](https://github.com/wolframdeus/vk-api/compare/v1.9.0...v1.10.0) (2020-06-24)
 
 
