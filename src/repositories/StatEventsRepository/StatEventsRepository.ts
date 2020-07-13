@@ -4,7 +4,7 @@ import {AddMiniAppsCustomParams, AddMiniAppsCustomResult} from './types';
 
 export class StatEventsRepository extends Repository {
   constructor(sendRequest: SendRequest) {
-    super('widget', sendRequest);
+    super('statEvents', sendRequest);
   }
 
   /**
