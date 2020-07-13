@@ -25,10 +25,10 @@ interface VKPayButtonAction {
 interface VKAppsButtonAction {
   type: 'open_app';
   appId: number;
-  ownerId: number;
+  ownerId?: number;
   payload: string;
   label: string;
-  hash: string;
+  hash?: string;
 }
 
 /**
