@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.2](https://github.com/wolframdeus/vk-api/compare/v1.11.1...v1.11.2) (2020-07-13)
+
+
+### Bug Fixes
+
+* **keyboard button:** make color optional ([dbdd592](https://github.com/wolframdeus/vk-api/commit/dbdd5928b0f99fc8475c178fd7ebac2cfab95c6c))
+* **keyboard open_app button:** make ownerId and hash optional ([38992db](https://github.com/wolframdeus/vk-api/commit/38992db2453e667cc1d8aa491684c68cec53f628))
+
 ### [1.11.1](https://github.com/wolframdeus/vk-api/compare/v1.11.0...v1.11.1) (2020-07-13)
 
 
