@@ -35,7 +35,7 @@ interface VKAppsButtonAction {
  * @see https://vk.com/dev/bots_docs_3
  */
 export interface Button {
-  color: string;
+  color?: string;
   action:
     | TextButtonAction
     | OpenLinkButtonAction
