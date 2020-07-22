@@ -163,7 +163,7 @@ export class VKAPI implements VKAPIInterface {
     });
     const json = await response.json();
 
-    if (json?.response) {
+    if ('response' in json) {
       return recursiveToCamelCase(json.response);
     }
 
