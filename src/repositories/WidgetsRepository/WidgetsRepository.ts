@@ -17,7 +17,7 @@ export class WidgetsRepository extends Repository {
    * @see https://vk.com/dev/widgets.getComments
    * @type {RepositoryMethod<GetCommentsParams, GetCommentsResult>}
    */
-  public getComments = this.r<GetCommentsParams, GetCommentsResult>(
+  getComments = this.r<GetCommentsParams, GetCommentsResult>(
     'getComments',
     ({fields, ...rest}) => ({
       ...rest,
@@ -29,5 +29,5 @@ export class WidgetsRepository extends Repository {
    * @see https://vk.com/dev/widgets.getPages
    * @type {RepositoryMethod<GetPagesParams, GetPagesResult>}
    */
-  public getPages = this.r<GetPagesParams, GetPagesResult>('getPages');
+  getPages = this.r<GetPagesParams, GetPagesResult>('getPages');
 }

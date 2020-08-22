@@ -5,31 +5,14 @@ import {VKAPIInterface, VKAPIConstructorProps, QueueRequest} from './types';
 import {VKError} from '../VKError';
 import {EventEmitter} from '../EventEmitter';
 import {recursiveToCamelCase, recursiveToSnakeCase} from '../utils';
-import {
-  UsersRepository,
-  MessagesRepository,
-  NotificationsRepository,
-  StatsRepository,
-  DatabaseRepository,
-  UtilsRepository,
-  StreamingRepository,
-  WidgetsRepository, StatEventsRepository,
-} from '../repositories';
+import {VKAPICore} from '../VKAPICore';
+
+const REQUEST_PERFORMED = 'request-performed';
 
 /**
- * Class to perform request to VKontakte API
+ * Class to perform requests to VK API
  */
-export class VKAPI implements VKAPIInterface {
-  public database: DatabaseRepository;
-  public messages: MessagesRepository;
-  public notifications: NotificationsRepository;
-  public statEvents: StatEventsRepository;
-  public stats: StatsRepository;
-  public streaming: StreamingRepository;
-  public users: UsersRepository;
-  public utils: UtilsRepository;
-  public widgets: WidgetsRepository;
-
+export class VKAPI extends VKAPICore implements VKAPIInterface {
   /**
    * Queue of requests
    * @type {QueueRequest[]}
@@ -49,32 +32,37 @@ export class VKAPI implements VKAPIInterface {
   private eventEmitter = new EventEmitter();
 
   /**
-   * Timeout between requests
+   * Timeout between requests. Used to prevent over-use ban from API
    */
   private readonly timeout: number;
 
   /**
-   * Access token to perform requests
+   * Access token to perform requests. Used in all requests until overridden
    * @type {string | null}
    */
   private readonly accessToken: string | null = null;
 
   /**
    * API version
+   * @default '5.110'
    */
   private readonly v: string;
 
   /**
-   * States if current environment is browser
+   * States if current environment is browser. Should be true if you
+   * are using API instance on browser side to avoid problems with CORS
+   * @default false
    */
   private readonly isBrowser: boolean;
 
   /**
-   * Language
+   * Initially selected language. Is used in all the requests until overridden
+   * @default 'ru'
    */
   private readonly lang: LangType;
 
-  public constructor(props: VKAPIConstructorProps = {}) {
+  constructor(props: VKAPIConstructorProps = {}) {
+    super();
     const {
       rps = 3,
       accessToken,
@@ -89,15 +77,8 @@ export class VKAPI implements VKAPIInterface {
     this.timeout = Math.ceil(1000 / rps);
     this.isBrowser = isBrowser;
 
-    this.database = new DatabaseRepository(this.addRequestToQueue);
-    this.messages = new MessagesRepository(this.addRequestToQueue);
-    this.notifications = new NotificationsRepository(this.addRequestToQueue);
-    this.statEvents = new StatEventsRepository(this.addRequestToQueue);
-    this.stats = new StatsRepository(this.addRequestToQueue);
-    this.streaming = new StreamingRepository(this.addRequestToQueue);
-    this.users = new UsersRepository(this.addRequestToQueue);
-    this.utils = new UtilsRepository(this.addRequestToQueue);
-    this.widgets = new WidgetsRepository(this.addRequestToQueue);
+    // Initialize repositories with specified addRequestToQueue method
+    this.init(this.addRequestToQueue);
   }
 
   /**
@@ -153,7 +134,7 @@ export class VKAPI implements VKAPIInterface {
         document.head.appendChild(script);
       }));
     }
-    // Send HTTP request
+    // Otherwise, send usual HTTP request
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -163,17 +144,19 @@ export class VKAPI implements VKAPIInterface {
     });
     const json = await response.json();
 
+    // In case, we received response, convert it to camel case
     if ('response' in json) {
       return recursiveToCamelCase(json.response);
     }
 
+    // Otherwise, throw an error
     throw new VKError(recursiveToCamelCase(json?.error || {}));
   };
 
   /**
    * Processes queue of requests
    */
-  private async processQueue() {
+  private async processQueue(): Promise<void> {
     if (this.isQueueProcessing || this.queue.length === 0) {
       return;
     }
@@ -195,7 +178,7 @@ export class VKAPI implements VKAPIInterface {
             error = e;
           }
           // Emit event that request was performed
-          this.eventEmitter.emit('request-performed', ref, error, data);
+          this.eventEmitter.emit(REQUEST_PERFORMED, ref, error, data);
 
           // Remove request from queue
           this.queue.splice(this.queue.indexOf(r), 1);
@@ -217,10 +200,10 @@ export class VKAPI implements VKAPIInterface {
     this.isQueueProcessing = false;
 
     // Run processor again
-    this.processQueue();
+    return this.processQueue();
   }
 
-  public addRequestToQueue: SendRequest = config => {
+  addRequestToQueue: SendRequest = config => {
     // Create reference to detect request is performed. Reference is unique
     // request identifier
     const ref = Symbol();
@@ -237,7 +220,7 @@ export class VKAPI implements VKAPIInterface {
           return;
         }
         // Remove event listener due to request was performed
-        this.eventEmitter.off('request-performed', listener);
+        this.eventEmitter.off(REQUEST_PERFORMED, listener);
 
         if (error) {
           return rej(error);
@@ -246,7 +229,7 @@ export class VKAPI implements VKAPIInterface {
       };
 
       // Add event listener
-      this.eventEmitter.on('request-performed', listener);
+      this.eventEmitter.on(REQUEST_PERFORMED, listener);
     });
 
     // Run queue processor which sends requests

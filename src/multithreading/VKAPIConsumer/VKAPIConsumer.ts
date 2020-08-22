@@ -1,33 +1,15 @@
 import {VKAPIInterface} from '../../VKAPI';
 import {VKAPIProcessRequestMessage} from '../types';
 import {isVKAPIRequestProcessedMessage} from './utils';
-import {
-  UsersRepository,
-  MessagesRepository,
-  NotificationsRepository,
-  DatabaseRepository,
-  UtilsRepository,
-  StatsRepository,
-  StreamingRepository, WidgetsRepository, StatEventsRepository,
-} from '../../repositories';
 import {SendRequest} from '../../types';
 import {VKAPISlaveConstructorProps} from './types';
+import {VKAPICore} from '../../VKAPICore';
 
 /**
  * Stub class which wants to get data from API VKontakte and has to
  * communicate with master
  */
-export class VKAPIConsumer implements VKAPIInterface {
-  public database: DatabaseRepository;
-  public messages: MessagesRepository;
-  public notifications: NotificationsRepository;
-  public statEvents: StatEventsRepository;
-  public stats: StatsRepository;
-  public streaming: StreamingRepository;
-  public users: UsersRepository;
-  public utils: UtilsRepository;
-  public widgets: WidgetsRepository;
-
+export class VKAPIConsumer extends VKAPICore implements VKAPIInterface {
   /**
    * Tunnel name
    */
@@ -39,7 +21,8 @@ export class VKAPIConsumer implements VKAPIInterface {
    */
   private requestId = '0';
 
-  public constructor(props: VKAPISlaveConstructorProps = {}) {
+  constructor(props: VKAPISlaveConstructorProps = {}) {
+    super();
     if (!process.send) {
       throw new Error(
         'Unable to create VKAPIConsumer due to there is no "process.send" ' +
@@ -49,18 +32,12 @@ export class VKAPIConsumer implements VKAPIInterface {
     }
     const {tunnelName = ''} = props;
     this.tunnelName = tunnelName;
-    this.database = new DatabaseRepository(this.addRequestToQueue);
-    this.messages = new MessagesRepository(this.addRequestToQueue);
-    this.notifications = new NotificationsRepository(this.addRequestToQueue);
-    this.statEvents = new StatEventsRepository(this.addRequestToQueue);
-    this.stats = new StatsRepository(this.addRequestToQueue);
-    this.streaming = new StreamingRepository(this.addRequestToQueue);
-    this.users = new UsersRepository(this.addRequestToQueue);
-    this.utils = new UtilsRepository(this.addRequestToQueue);
-    this.widgets = new WidgetsRepository(this.addRequestToQueue);
+
+    // Initialize repositories with specified addRequestToQueue method
+    this.init(this.addRequestToQueue);
   }
 
-  public addRequestToQueue: SendRequest = config => {
+  addRequestToQueue: SendRequest = config => {
     if (!process.send) {
       throw new Error(
         'Unable to process VKAPI request from slave due to there is no ' +

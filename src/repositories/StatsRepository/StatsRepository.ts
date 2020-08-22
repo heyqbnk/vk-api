@@ -17,7 +17,7 @@ export class StatsRepository extends Repository {
    * @see https://vk.com/dev/stats.get
    * @type {RepositoryMethod<GetParams, GetResult>}
    */
-  public get = this.r<GetParams, GetResult>(
+  get = this.r<GetParams, GetResult>(
     'get',
     ({extended, filters, ...rest}) => ({
       ...rest,
@@ -30,7 +30,7 @@ export class StatsRepository extends Repository {
    * @see https://vk.com/dev/stats.getPostReach
    * @type {RepositoryMethod<GetPostReachParams, GetPostReachResult>}
    */
-  public getPostReach = this.r<GetPostReachParams, GetPostReachResult>(
+  getPostReach = this.r<GetPostReachParams, GetPostReachResult>(
     'getPostReach',
     ({postIds, ...rest}) => ({
       ...rest,
@@ -42,7 +42,7 @@ export class StatsRepository extends Repository {
    * @see https://vk.com/dev/stats.trackVisitor
    * @type {RepositoryMethod<TrackVisitorParams, TrackVisitorResult>}
    */
-  public trackVisitor = this.r<TrackVisitorParams, TrackVisitorResult>(
+  trackVisitor = this.r<TrackVisitorParams, TrackVisitorResult>(
     'trackVisitor',
   );
 }

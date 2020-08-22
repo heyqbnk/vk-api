@@ -12,7 +12,7 @@ export class UsersRepository extends Repository {
    * @see https://vk.com/dev/users.get
    * @type {RepositoryMethod<GetParams, GetResult>}
    */
-  public get = this.r<GetParams, GetResult>(
+  get = this.r<GetParams, GetResult>(
     'get',
     ({userIds, fields, ...rest}) => ({
       ...rest,

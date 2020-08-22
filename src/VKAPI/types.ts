@@ -7,8 +7,8 @@ import {
   MessagesRepository,
   DatabaseRepository,
   StreamingRepository, StatEventsRepository,
+  WidgetsRepository
 } from '../repositories';
-import {WidgetsRepository} from '../repositories/WidgetsRepository';
 
 export interface QueueRequest {
   /**
@@ -25,7 +25,7 @@ export interface QueueRequest {
 export interface VKAPIConstructorProps extends RequestOptionalParams {
   /**
    * Requests per second instance can perform. Required to prevent block from
-   * VKontakte API
+   * VK, API
    * @default 3
    */
   rps?: number;
@@ -38,7 +38,7 @@ export interface VKAPIConstructorProps extends RequestOptionalParams {
   isBrowser?: boolean;
 }
 
-export interface VKAPIInterface {
+export interface VKAPIRepositories {
   database: DatabaseRepository;
   messages: MessagesRepository;
   notifications: NotificationsRepository;
@@ -48,9 +48,11 @@ export interface VKAPIInterface {
   users: UsersRepository;
   utils: UtilsRepository;
   widgets: WidgetsRepository;
+}
 
+export interface VKAPIInterface extends VKAPIRepositories {
   /**
-   * Adds request to queue and performs it after some time
+   * Adds request to queue and performs it after client is available to do it
    */
   addRequestToQueue: SendRequest;
 }

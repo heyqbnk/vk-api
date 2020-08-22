@@ -7,7 +7,7 @@ export class VKError extends Error {
   /**
    * Contains data error
    */
-  public data: ErrorInfo;
+  data: ErrorInfo;
 
   constructor(data: ErrorInfo) {
     super(JSON.stringify(data));

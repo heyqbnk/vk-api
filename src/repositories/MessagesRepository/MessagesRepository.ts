@@ -8,7 +8,7 @@ export class MessagesRepository extends Repository {
     super('messages', sendRequest);
   }
 
-  public send = this.r<SendParams, SendResult>(
+  send = this.r<SendParams, SendResult>(
     'send',
     ({randomId: _randomId, ...rest}) => {
       const randomId = typeof _randomId === 'undefined'

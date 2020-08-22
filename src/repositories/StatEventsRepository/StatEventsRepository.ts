@@ -11,6 +11,6 @@ export class StatEventsRepository extends Repository {
    * @see addMiniAppsCustom
    * @type {RepositoryMethod<GetCommentsParams, GetCommentsResult>}
    */
-  public addMiniAppsCustom = this.r<AddMiniAppsCustomParams,
+  addMiniAppsCustom = this.r<AddMiniAppsCustomParams,
     AddMiniAppsCustomResult>('addMiniAppsCustom');
 }

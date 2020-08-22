@@ -37,7 +37,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getChairs
    * @type {RepositoryMethod<GetChairsParams, GetChairsResult>}
    */
-  public getChairs = this.r<GetChairsParams, GetChairsResult>(
+  getChairs = this.r<GetChairsParams, GetChairsResult>(
     'getChairs',
   );
 
@@ -45,7 +45,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getCities
    * @type {RepositoryMethod<GetCitiesParams, GetCitiesResult>}
    */
-  public getCities = this.r<GetCitiesParams, GetCitiesResult>(
+  getCities = this.r<GetCitiesParams, GetCitiesResult>(
     'getCities',
     ({needAll, ...rest}) => ({
       ...rest,
@@ -57,7 +57,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getCitiesById
    * @type {RepositoryMethod<GetCitiesByIdParams, GetCitiesByIdResult>}
    */
-  public getCitiesById = this.r<GetCitiesByIdParams, GetCitiesByIdResult>(
+  getCitiesById = this.r<GetCitiesByIdParams, GetCitiesByIdResult>(
     'getCitiesById',
     ({cityIds, ...rest}) => ({
       ...rest,
@@ -69,7 +69,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getCountries
    * @type {RepositoryMethod<GetCountriesParams, GetCountriesResult>}
    */
-  public getCountries = this.r<GetCountriesParams, GetCountriesResult>(
+  getCountries = this.r<GetCountriesParams, GetCountriesResult>(
     'getCountries',
     ({code, needAll, ...rest}) => ({
       ...rest,
@@ -82,7 +82,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getCountriesById
    * @type {RepositoryMethod<GetCountriesByIdParams, GetCountriesByIdResult>}
    */
-  public getCountriesById = this.r<GetCountriesByIdParams,
+  getCountriesById = this.r<GetCountriesByIdParams,
     GetCountriesByIdResult>(
     'getCountriesById',
     ({countryIds, ...rest}) => ({
@@ -95,7 +95,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getFaculties
    * @type {RepositoryMethod<GetFacultiesParams, GetFacultiesResult>}
    */
-  public getFaculties = this.r<GetFacultiesParams, GetFacultiesResult>(
+  getFaculties = this.r<GetFacultiesParams, GetFacultiesResult>(
     'getFaculties',
   );
 
@@ -103,7 +103,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getMetroStations
    * @type {RepositoryMethod<GetCountriesParams, GetCountriesResult>}
    */
-  public getMetroStations = this.r<GetMetroStationsParams,
+  getMetroStations = this.r<GetMetroStationsParams,
     GetMetroStationsResult>(
     'getMetroStations',
     ({extended, ...rest}) => ({
@@ -116,7 +116,7 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getMetroStationsById
    * @type {RepositoryMethod<GetMetroStationsByIdParams, GetMetroStationsByIdResult>}
    */
-  public getMetroStationsById = this.r<GetMetroStationsByIdParams,
+  getMetroStationsById = this.r<GetMetroStationsByIdParams,
     GetMetroStationsByIdResult>(
     'getMetroStationsById',
     ({stationIds, ...rest}) => ({
@@ -129,26 +129,26 @@ export class DatabaseRepository extends Repository {
    * @see https://vk.com/dev/database.getRegions
    * @type {RepositoryMethod<GetRegionsParams, GetRegionsResult>}
    */
-  public getRegions = this.r<GetRegionsParams, GetRegionsResult>('getRegions');
+  getRegions = this.r<GetRegionsParams, GetRegionsResult>('getRegions');
 
   /**
    * @see https://vk.com/dev/database.getSchoolClasses
    * @type {RepositoryMethod<GetSchoolClassesParams, GetSchoolClassesResult>}
    */
-  public getSchoolClasses = this.r<GetSchoolClassesParams,
+  getSchoolClasses = this.r<GetSchoolClassesParams,
     GetSchoolClassesResult>('getSchoolClasses');
 
   /**
    * @see https://vk.com/dev/database.getSchools
    * @type {RepositoryMethod<GetSchoolsParams, GetSchoolsResult>}
    */
-  public getSchools = this.r<GetSchoolsParams, GetSchoolsResult>('getSchools');
+  getSchools = this.r<GetSchoolsParams, GetSchoolsResult>('getSchools');
 
   /**
    * @see https://vk.com/dev/database.getUniversities
    * @type {RepositoryMethod<GetUniversitiesParams, GetUniversitiesResult>}
    */
-  public getUniversities = this.r<GetUniversitiesParams, GetUniversitiesResult>(
+  getUniversities = this.r<GetUniversitiesParams, GetUniversitiesResult>(
     'getUniversities',
   );
 }

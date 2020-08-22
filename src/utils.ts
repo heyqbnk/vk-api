@@ -1,8 +1,8 @@
+import {PseudoBooleanType} from './types';
+
 /**
  * Function that formats string to some format
  */
-import {PseudoBooleanType} from './types';
-
 type TextFormatter = (text: string) => string;
 
 /**

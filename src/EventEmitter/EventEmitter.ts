@@ -15,7 +15,7 @@ export class EventEmitter {
    * @param {string} eventName
    * @param params
    */
-  public emit(eventName: string, ...params: any[]) {
+  emit(eventName: string, ...params: any[]) {
     this.listeners[eventName]?.forEach(l => l(...params));
   }
 
@@ -24,7 +24,7 @@ export class EventEmitter {
    * @param {string} eventName
    * @param {EventListener} listener
    */
-  public on: EventListeningController = (eventName, listener) => {
+  on: EventListeningController = (eventName, listener) => {
     if (!(eventName in this.listeners)) {
       this.listeners[eventName] = [];
     }
@@ -36,7 +36,7 @@ export class EventEmitter {
    * @param {string} eventName
    * @param {EventListener} listener
    */
-  public off: EventListeningController = (eventName, listener) => {
+  off: EventListeningController = (eventName, listener) => {
     if (eventName in this.listeners) {
       const index = this.listeners[eventName].indexOf(listener);
 

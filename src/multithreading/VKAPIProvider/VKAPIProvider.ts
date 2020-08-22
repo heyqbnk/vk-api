@@ -33,7 +33,7 @@ export class VKAPIProvider {
   /**
    * Initializes threads listening
    */
-  public init() {
+  init() {
     this.workers.forEach(w => {
       // Listen to incoming messages from threads
       w.on('message', async message => {
