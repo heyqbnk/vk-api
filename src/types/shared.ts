@@ -33,6 +33,11 @@ export type LangType =
 export type PseudoBooleanType = 0 | 1;
 
 /**
+ * All boolean types which could be accepted by lib
+ */
+export type BooleanType = boolean | PseudoBooleanType;
+
+/**
  * Object with fields id and title
  */
 export interface IdTitlePair {

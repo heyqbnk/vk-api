@@ -8,9 +8,13 @@ import {
   GetSubscriptionsParams,
   GetSubscriptionsResult,
   ReportParams,
-  ReportResult,
+  ReportResult, SearchParams, SearchResult,
 } from './types';
-import {formatOptionalArray, formatOptionalBoolean} from '../../utils';
+import {
+  formatOptionalArray,
+  formatOptionalBoolean,
+  toPseudoBoolean,
+} from '../../utils';
 
 export class UsersRepository extends Repository {
   constructor(sendRequest: SendRequest) {
@@ -37,7 +41,7 @@ export class UsersRepository extends Repository {
     ({fields, ...rest}) => ({
       ...rest,
       fields: formatOptionalArray(fields),
-    })
+    }),
   );
 
   /**
@@ -49,7 +53,7 @@ export class UsersRepository extends Repository {
       ...rest,
       extended: formatOptionalBoolean(extended),
       fields: formatOptionalArray(fields),
-    })
+    }),
   );
 
   /**
@@ -57,5 +61,19 @@ export class UsersRepository extends Repository {
    */
   report = this.r<ReportParams, ReportResult>('getSubscriptions');
 
-  // TODO: Search
+  search = this.r<SearchParams, SearchResult>(
+    'search',
+    ({sort, online, hasPhoto, ...rest}) => ({
+      sort: typeof sort === 'undefined'
+        ? undefined
+        : (
+          typeof sort === 'number'
+            ? sort
+            : toPseudoBoolean(sort === 'popularity')
+        ),
+      online: formatOptionalBoolean(online),
+      hasPhoto: formatOptionalBoolean(hasPhoto),
+      ...rest
+    }),
+  );
 }

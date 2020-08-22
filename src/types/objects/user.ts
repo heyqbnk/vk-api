@@ -72,7 +72,7 @@ export enum AlcoholEnum {
   Positive = 5,
 }
 
-export enum RelationEnum {
+export enum RelationsStatusEnum {
   Unknown = 0,
   NotMarried = 1,
   HasFriend = 2,
@@ -266,7 +266,7 @@ export type User = {
       | 'grandparent'
       | 'grandchild';
   }>;
-  relation?: RelationEnum;
+  relation?: RelationsStatusEnum;
   relationPartner?: {
     id?: number;
     name?: string;
