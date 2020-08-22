@@ -62,15 +62,6 @@ export function toPseudoBoolean(value: boolean): PseudoBooleanType {
 }
 
 /**
- * Converts array of simple values to compatible string format
- * @param {Array<string | number>} arr
- * @returns {string}
- */
-export function arrayToString(arr: Array<string | number>): string {
-  return arr.join(',');
-}
-
-/**
  * Converts optional boolean type to PseudoBooleanType or undefined
  * @param {boolean | undefined} value
  * @returns {PseudoBooleanType | undefined}
