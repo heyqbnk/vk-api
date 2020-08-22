@@ -1,4 +1,4 @@
-import {User} from '../../types';
+import {Pager, User} from '../../types';
 
 export type NameCaseType = 'nom' | 'gen' | 'dat' | 'acc' | 'ins' | 'abl';
 export type UserFieldType =
@@ -87,3 +87,80 @@ export interface GetParams {
 }
 
 export type GetResult = User[];
+
+/**
+ * @see https://vk.com/dev/users.getFollowers
+ */
+export interface GetFollowersParams {
+  userId?: number;
+  offset?: number;
+  count?: number;
+  fields?: UserFieldType[];
+  nameCase?: NameCaseType;
+}
+
+export type GetFollowersResult = Pager<User>;
+
+/**
+ * @see https://vk.com/dev/users.getSubscriptions
+ */
+export interface GetSubscriptionsParams {
+  userId?: number;
+  extended?: boolean;
+  offset?: number;
+  count?: number;
+  fields?: UserFieldType[];
+}
+
+export type GetSubscriptionsResult = Pager<User>;
+
+/**
+ * @see https://vk.com/dev/users.report
+ */
+export interface ReportParams {
+  userId: number;
+  type: 'porn' | 'spam' | 'insult' | 'advertisеment';
+  comment: string;
+}
+
+export type ReportResult = 1;
+
+/**
+ * @see https://vk.com/dev/users.search
+ * // TODO: Adapt for easier usage
+ */
+export interface SearchParams {
+  q?: string;
+  sort?: 0 | 1;
+  offset?: number;
+  count?: number;
+  fields?: UserFieldType[];
+  city?: number;
+  country?: number;
+  hometown?: string;
+  universityCountry?: number;
+  university?: number;
+  universityFaculty?: number;
+  universityChair?: number;
+  sex?: 0 | 1 | 2;
+  status?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  ageFrom?: number;
+  ageTo?: number;
+  birthDay?: number;
+  birthMonth?: number;
+  birthYear?: number;
+  online?: 0 | 1;
+  hasPhoto?: 0 | 1;
+  schoolCountry?: number;
+  schoolCity?: number;
+  schoolClass?: number;
+  school?: number;
+  schoolYear?: number;
+  religion?: string;
+  company?: string;
+  position?: string;
+  groupId?: number;
+  fromList?: Array<'friends' | 'subscriptions'>;
+}
+
+export type SearchResult = Pager<User & { trackCode?: string }>;
