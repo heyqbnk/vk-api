@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/wolframdeus/vk-api/compare/v1.11.5...v1.14.0) (2020-11-05)
+
+
+### Features
+
+* **statevents:** add addMiniApps method ([0cf9801](https://github.com/wolframdeus/vk-api/commit/0cf980140999377a5245f1ee8dac146f36485b68))
+* **users:** add new methods ([8469c13](https://github.com/wolframdeus/vk-api/commit/8469c139a41f56eafe13fc45a1613211a28ed4e4))
+
+
+### Bug Fixes
+
+* **gulp:** исправить баг сборки проекта ([1b6dfce](https://github.com/wolframdeus/vk-api/commit/1b6dfce0cdcd1f22fc98ab89b6e1b62bfa6affee))
+
 ## [1.13.0](https://github.com/wolframdeus/vk-api/compare/v1.11.5...v1.13.0) (2020-11-05)
 
 
