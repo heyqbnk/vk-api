@@ -1,4 +1,4 @@
-import {PseudoBooleanType} from './types';
+import {BooleanType, PseudoBooleanType} from './types';
 
 /**
  * Function that formats string to some format
@@ -67,9 +67,11 @@ export function toPseudoBoolean(value: boolean): PseudoBooleanType {
  * @returns {PseudoBooleanType | undefined}
  */
 export function formatOptionalBoolean(
-  value: boolean | undefined,
+  value: BooleanType | undefined,
 ): PseudoBooleanType | undefined {
-  return typeof value === 'undefined' ? value : toPseudoBoolean(value);
+  return typeof value === 'undefined'
+    ? undefined
+    : (typeof value === 'boolean' ? toPseudoBoolean(value) : value);
 }
 
 /**

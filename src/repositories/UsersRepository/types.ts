@@ -1,4 +1,10 @@
-import {Pager, User} from '../../types';
+import {
+  BooleanType,
+  Pager,
+  RelationsStatusEnum,
+  SexEnum,
+  User,
+} from '../../types';
 
 export type NameCaseType = 'nom' | 'gen' | 'dat' | 'acc' | 'ins' | 'abl';
 export type UserFieldType =
@@ -106,7 +112,7 @@ export type GetFollowersResult = Pager<User>;
  */
 export interface GetSubscriptionsParams {
   userId?: number;
-  extended?: boolean;
+  extended?: BooleanType;
   offset?: number;
   count?: number;
   fields?: UserFieldType[];
@@ -131,7 +137,7 @@ export type ReportResult = 1;
  */
 export interface SearchParams {
   q?: string;
-  sort?: 0 | 1;
+  sort?: 0 | 1 | 'popularity' | 'registration-date';
   offset?: number;
   count?: number;
   fields?: UserFieldType[];
@@ -142,15 +148,15 @@ export interface SearchParams {
   university?: number;
   universityFaculty?: number;
   universityChair?: number;
-  sex?: 0 | 1 | 2;
-  status?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  sex?: SexEnum;
+  status?: RelationsStatusEnum;
   ageFrom?: number;
   ageTo?: number;
   birthDay?: number;
   birthMonth?: number;
   birthYear?: number;
-  online?: 0 | 1;
-  hasPhoto?: 0 | 1;
+  online?: BooleanType;
+  hasPhoto?: BooleanType;
   schoolCountry?: number;
   schoolCity?: number;
   schoolClass?: number;

@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **statevents:** add addMiniApps method ([0cf9801](https://github.com/wolframdeus/vk-api/commit/0cf980140999377a5245f1ee8dac146f36485b68))
 * **users:** add new methods ([8469c13](https://github.com/wolframdeus/vk-api/commit/8469c139a41f56eafe13fc45a1613211a28ed4e4))
+<<<<<<< HEAD
 
 
 ### Bug Fixes
@@ -27,6 +28,9 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **gulp:** исправить баг сборки проекта ([1b6dfce](https://github.com/wolframdeus/vk-api/commit/1b6dfce0cdcd1f22fc98ab89b6e1b62bfa6affee))
+=======
+* **users:** add users.search method ([cbafaf5](https://github.com/wolframdeus/vk-api/commit/cbafaf5c524cf29345b2b6a4bbb74649b02d2e00))
+>>>>>>> 0b8c677dd46c1fc4438496d601f29fc3d0a08eb8
 
 ## [1.12.0](https://github.com/wolframdeus/vk-api/compare/v1.11.5...v1.12.0) (2020-08-22)
 
