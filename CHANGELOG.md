@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/wolframdeus/vk-api/compare/v1.14.0...v1.15.0) (2020-11-05)
+
+## [1.13.0](https://github.com/wolframdeus/vk-api/compare/v1.11.5...v1.13.0) (2020-08-22)
+
+
+### Features
+
+* **users:** add users.search method ([cbafaf5](https://github.com/wolframdeus/vk-api/commit/cbafaf5c524cf29345b2b6a4bbb74649b02d2e00))
+
 ## [1.14.0](https://github.com/wolframdeus/vk-api/compare/v1.11.5...v1.14.0) (2020-11-05)
 
 
