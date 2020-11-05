@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './test-drive/browser/index.ts',
+  entry: './test-drive/browser/index.js',
   context: __dirname,
   devServer: {
     contentBase: path.join(__dirname, 'test-drive', 'browser'),
