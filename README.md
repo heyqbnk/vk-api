@@ -148,8 +148,8 @@ Moreover, lib contains enum `ErrorsEnum` which is a set of all known errors.
 In case your project is ran in multi cluster mode, you could use `VKAPIProvider`
 and `VKAPIConsumer`.
 
-`VKAPIProvider` should be used in main thread. To create its instance, it is 
-required to pass `VKAPI` instance which will perform all of the requests and
+`VKAPIProvider` should be used in a main thread. To create its instance, it is 
+required to pass `VKAPI` instance which will perform all the requests and
 list of workers, containing `VKAPIConsumer` which should communicate with 
 `VKAPIProvider`.
 
@@ -158,7 +158,7 @@ not overflowing API restriction connected with requests per second.
 
 You can find more complex example [here](https://github.com/wolframdeus/backend-template/blob/master/src/index.ts).
 
-Here is example:
+Here is simple example:
 ```typescript
 import {fork, isMaster, Worker} from 'cluster';
 import os from 'os';
@@ -205,7 +205,7 @@ else {
 }
 ```
 
-#### Defining connection between provider and consumer
+#### Defining connection between the provider and consumer
 
 There is a rare case, when your project contains 2 providers with 
 different `VKAPI` instances. For example, you could create separate api 
@@ -221,14 +221,28 @@ import {VKAPI, VKAPIProvider, VKAPIConsumer} from 'vkontakte-api';
 if (isMaster) {
   const groupApi = new VKAPI({accessToken: 'group access token'});
   const appApi = new VKAPI({accessToken: 'application access token'});
+  const cpuCount = os.cpus().length;
+  const workers: Worker[] = [];
+
+  for (let i = 0; i < cpuCount; i++) {
+    workers.push(fork());
+  }
 
   // API provider for group API instance
-  const groupApiProvider = new VKAPIProvider({tunnelName: 'group', instance: groupApi});
+  const groupApiProvider = new VKAPIProvider({
+    tunnelName: 'group', 
+    instance: groupApi,
+    workers,
+  });
   groupApiProvider.init();
 
   // API provider for VK Mini Apps application API instance
-  const appApiProvider = new VKAPIProvider({tunnelName: 'app', instance: appApi});
- appApiProvider.init(); 
+  const appApiProvider = new VKAPIProvider({
+    tunnelName: 'app', 
+    instance: appApi,
+    workers,
+  });
+  appApiProvider.init(); 
 } else {
   // Create API instance consumers
   const groupApi = new VKAPIConsumer({tunnelName: 'group'});
