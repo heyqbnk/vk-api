@@ -1,22 +1,22 @@
 import {Pager} from '../../types';
 
+type TStickersPager = Pager<{
+  stickerId: number;
+  isPurchased: boolean;
+}>
+
 export interface IAddStickersParams {
   userIds: (number | string)[];
   packId: number;
   text: string;
-  stickerIds: number[];
+  stickerIds?: number[];
 }
 
-export interface IAddStickersResult {
-
-}
+export type TAddStickersResult = TStickersPager;
 
 export interface IGetStickersParams {
   userId: number | string;
   packId: number | string;
 }
 
-export type TGetStickersResult = Pager<{
-  stickerId: number;
-  isPurchased: boolean;
-}>
+export type TGetStickersResult = TStickersPager;

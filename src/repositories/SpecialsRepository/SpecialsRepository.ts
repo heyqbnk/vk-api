@@ -2,7 +2,7 @@ import {Repository} from '../Repository';
 import {SendRequest} from '../../types';
 import {
   IAddStickersParams,
-  IAddStickersResult, IGetStickersParams, TGetStickersResult,
+  TAddStickersResult, IGetStickersParams, TGetStickersResult,
 } from './types';
 import {formatOptionalArray} from '../../utils';
 
@@ -14,7 +14,7 @@ export class SpecialsRepository extends Repository {
   /**
    * @type {(params: (IAddStickersParams & RequestOptionalParams)) => Promise<IAddStickersResult>}
    */
-  addStickers = this.r<IAddStickersParams, IAddStickersResult>(
+  addStickers = this.r<IAddStickersParams, TAddStickersResult>(
     'addStickers',
     ({userIds, stickerIds, ...rest}) => ({
       ...rest,
