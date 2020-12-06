@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.16.2](https://github.com/wolframdeus/vk-api/compare/v1.16.1...v1.16.2) (2020-12-06)
+
+
+### Bug Fixes
+
+* **specials.addstickers:** add result typing. Make stickerIds optional ([b267252](https://github.com/wolframdeus/vk-api/commit/b2672528478cf2bdaa575b95d0f240fb33955e85))
+
 ### [1.16.1](https://github.com/wolframdeus/vk-api/compare/v1.16.0...v1.16.1) (2020-12-06)
 
 
