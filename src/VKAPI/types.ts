@@ -7,7 +7,7 @@ import {
   MessagesRepository,
   DatabaseRepository,
   StreamingRepository, StatEventsRepository,
-  WidgetsRepository
+  WidgetsRepository, SpecialsRepository,
 } from '../repositories';
 
 export interface QueueRequest {
@@ -42,6 +42,7 @@ export interface VKAPIRepositories {
   database: DatabaseRepository;
   messages: MessagesRepository;
   notifications: NotificationsRepository;
+  specials: SpecialsRepository;
   statEvents: StatEventsRepository;
   stats: StatsRepository;
   streaming: StreamingRepository;

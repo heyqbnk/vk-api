@@ -1,6 +1,7 @@
 export * from './DatabaseRepository';
 export * from './MessagesRepository';
 export * from './NotificationsRepository';
+export * from './SpecialsRepository';
 export * from './StatEventsRepository';
 export * from './StatsRepository';
 export * from './StreamingRepository';
