@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/wolframdeus/vk-api/compare/v1.15.0...v1.16.0) (2020-12-06)
+
+
+### Features
+
+* **special:** create specials repository ([b2aab32](https://github.com/wolframdeus/vk-api/commit/b2aab32d34549997429acd4c0c3e505f6dd9e231))
+
 ## [1.15.0](https://github.com/wolframdeus/vk-api/compare/v1.14.0...v1.15.0) (2020-11-05)
 
 ## [1.13.0](https://github.com/wolframdeus/vk-api/compare/v1.11.5...v1.13.0) (2020-08-22)
