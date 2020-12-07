@@ -19,4 +19,10 @@ export interface VKAPIMasterConstructorProps {
    * @default ""
    */
   tunnelName?: string;
+
+  /**
+   * Max process event listeners count. Required in case, you are getting
+   * warning about possible memory leak.
+   */
+  maxProcessEventListenersCount?: number;
 }

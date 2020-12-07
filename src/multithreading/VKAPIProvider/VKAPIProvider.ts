@@ -24,10 +24,17 @@ export class VKAPIProvider {
   private readonly tunnelName: string;
 
   constructor(props: VKAPIMasterConstructorProps) {
-    const {instance, workers, tunnelName = ''} = props;
+    const {
+      instance, workers, tunnelName = '',
+      maxProcessEventListenersCount,
+    } = props;
     this.instance = instance;
     this.workers = workers;
     this.tunnelName = tunnelName;
+
+    if (typeof maxProcessEventListenersCount === 'number') {
+      process.setMaxListeners(maxProcessEventListenersCount);
+    }
   }
 
   /**
