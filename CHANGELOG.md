@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.18.1](https://github.com/wolframdeus/vk-api/compare/v1.18.0...v1.18.1) (2020-12-14)
+
+
+### Bug Fixes
+
+* **storage.get:** add better typings ([6912dac](https://github.com/wolframdeus/vk-api/commit/6912dac4852ace23db278586057fc86379f208cb))
+
 ## [1.18.0](https://github.com/wolframdeus/vk-api/compare/v1.17.0...v1.18.0) (2020-12-14)
 
 
