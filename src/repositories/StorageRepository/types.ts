@@ -1,11 +1,23 @@
 /**
  * @see https://vk.com/dev/storage.get
  */
-export type TGetParams =
-  { userId?: number; }
-  & ({ key: string } | { keys: string[] })
+interface IGetSharedParams {
+  userId?: number;
+}
 
-export type TGetResult = { key: string; value: string }[];
+export interface IGetSingleKeyParams extends IGetSharedParams {
+  key: string;
+}
+
+export interface IGetMultipleKeysParams extends IGetSharedParams {
+  keys: string[];
+}
+
+export type TGetParams = IGetSingleKeyParams | IGetMultipleKeysParams;
+
+export type TGetSingleKeyResult = string;
+
+export type TGetMultipleKeysResult = { key: string; value: string }[];
 
 /**
  * @see https://vk.com/dev/storage.getKeys

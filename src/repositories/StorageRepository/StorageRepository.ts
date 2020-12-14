@@ -1,11 +1,10 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {RequestOptionalParams, SendRequest} from '../../types';
 import {
-  IGetKeysParams,
+  IGetKeysParams, IGetMultipleKeysParams, IGetSingleKeyParams,
   ISetParams,
-  TGetKeysResult,
-  TGetParams,
-  TGetResult,
+  TGetKeysResult, TGetMultipleKeysResult, TGetParams,
+  TGetSingleKeyResult,
   TSetResult,
 } from './types';
 import {formatOptionalArray} from '../../utils';
@@ -17,19 +16,22 @@ export class StorageRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/storage.get
-   * @type {(params: (({userId?: number} & {key: string} & RequestOptionalParams) | ({userId?: number} & {keys: string[]} & RequestOptionalParams))) => Promise<{key: string, value: string}[]>}
+   * @type {<P extends IGetSingleKeyParams | IGetMultipleKeysParams>(params: P) => Promise<P extends IGetSingleKeyParams ? TGetSingleKeyResult : TGetMultipleKeysResult>}
    */
-  get = this.r<TGetParams, TGetResult>('get', params => {
+  get = this.r('get', (
+    params: RequestOptionalParams & TGetParams,
+  ) => {
     if ('keys' in params) {
       const {keys, ...rest} = params;
 
-      return {
-        ...rest,
-        keys: formatOptionalArray(keys),
-      };
+      return {...rest, keys: formatOptionalArray(keys)};
     }
     return params;
-  });
+  }) as (
+    <P extends TGetParams>(params: P) => Promise<P extends IGetSingleKeyParams
+      ? TGetSingleKeyResult
+      : TGetMultipleKeysResult>
+    );
 
   /**
    * @see https://vk.com/dev/storage.getKeys
