@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/wolframdeus/vk-api/compare/v1.17.0...v1.18.0) (2020-12-14)
+
+
+### Features
+
+* **storage:** add storage repository ([b00405a](https://github.com/wolframdeus/vk-api/commit/b00405a6bf2b0178fbbb4637056e8d0d6cf59ec0))
+
 ## [1.17.0](https://github.com/wolframdeus/vk-api/compare/v1.16.2...v1.17.0) (2020-12-07)
 
 
