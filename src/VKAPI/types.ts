@@ -9,6 +9,7 @@ import {
   StreamingRepository, StatEventsRepository,
   WidgetsRepository, SpecialsRepository,
 } from '../repositories';
+import {StorageRepository} from '../repositories/StorageRepository';
 
 export interface QueueRequest {
   /**
@@ -45,6 +46,7 @@ export interface VKAPIRepositories {
   specials: SpecialsRepository;
   statEvents: StatEventsRepository;
   stats: StatsRepository;
+  storage: StorageRepository;
   streaming: StreamingRepository;
   users: UsersRepository;
   utils: UtilsRepository;

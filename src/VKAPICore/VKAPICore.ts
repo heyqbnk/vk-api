@@ -10,6 +10,7 @@ import {WidgetsRepository} from '../repositories/WidgetsRepository';
 import {DatabaseRepository} from '../repositories/DatabaseRepository';
 import {SendRequest} from '../types';
 import {SpecialsRepository} from '../repositories/SpecialsRepository';
+import {StorageRepository} from '../repositories/StorageRepository';
 
 const notImplemented: SendRequest = () => {
   throw new Error(
@@ -24,6 +25,7 @@ export abstract class VKAPICore implements VKAPIRepositories {
   specials = new SpecialsRepository(notImplemented);
   statEvents = new StatEventsRepository(notImplemented);
   stats = new StatsRepository(notImplemented);
+  storage = new StorageRepository(notImplemented);
   streaming = new StreamingRepository(notImplemented);
   users = new UsersRepository(notImplemented);
   utils = new UtilsRepository(notImplemented);
@@ -36,6 +38,7 @@ export abstract class VKAPICore implements VKAPIRepositories {
     this.specials = new SpecialsRepository(addRequestToQueue);
     this.statEvents = new StatEventsRepository(addRequestToQueue);
     this.stats = new StatsRepository(addRequestToQueue);
+    this.storage = new StorageRepository(addRequestToQueue);
     this.streaming = new StreamingRepository(addRequestToQueue);
     this.users = new UsersRepository(addRequestToQueue);
     this.utils = new UtilsRepository(addRequestToQueue);
