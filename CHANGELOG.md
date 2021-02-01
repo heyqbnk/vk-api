@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.18.2](https://github.com/wolframdeus/vk-api/compare/v1.18.1...v1.18.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* **multithreading:** fix bottle neck problem ([1271204](https://github.com/wolframdeus/vk-api/commit/1271204e0c3add66cc409354da9a42e175ad0468))
+
 ### [1.18.1](https://github.com/wolframdeus/vk-api/compare/v1.18.0...v1.18.1) (2020-12-14)
 
 
