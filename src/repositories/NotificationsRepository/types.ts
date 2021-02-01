@@ -1,22 +1,22 @@
-import {PseudoBooleanType} from '../../types';
+import {TPseudoBoolean} from '../../types';
 
 /**
  * @see https://vk.com/dev/notifications.markAsViewed
  */
-export type MarkAsViewedResult = PseudoBooleanType;
+export type TMarkAsViewedResult = TPseudoBoolean;
 
-export interface MarkAsViewedParams {
+export interface IMarkAsViewedParams {
 }
 
 /**
  * @see https://vk.com/dev/notifications.sendMessage
  */
-export interface SendMessageResultOk {
+export interface ISendMessageResultOk {
   userId: number;
   status: true;
 }
 
-export interface SendMessageResultError {
+export interface ISendMessageResultError {
   userId: number;
   status: false;
   error: {
@@ -25,9 +25,9 @@ export interface SendMessageResultError {
   };
 }
 
-export type SendMessageResult = Array<SendMessageResultOk | SendMessageResultError>;
+export type TSendMessageResult = Array<ISendMessageResultOk | ISendMessageResultError>;
 
-export interface SendMessageParams {
+export interface ISendMessageParams {
   userIds: Array<string | number>;
   message: string;
   fragment?: string;

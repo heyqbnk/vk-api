@@ -1,7 +1,7 @@
 /**
  * @see https://vk.com/dev/objects/post_source
  */
-export type PostSource = {
+export type TPostSource = {
   platform: 'android' | 'iphone' | 'wphone';
   url: string;
 } & ({

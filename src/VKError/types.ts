@@ -1,8 +1,10 @@
 /**
- * List of errors
+ * List of known errors.
  * @see https://vk.com/dev/errors
  */
-export enum ErrorsEnum {
+import {IRequestConfig} from '../types';
+
+export enum EErrors {
   Unknown = 1,
   ApplicationDisabled = 2,
   UnknownMethod = 3,
@@ -70,8 +72,22 @@ export enum ErrorsEnum {
   TokenExtensionRequired = 3609,
 }
 
-export interface ErrorInfo {
-  errorCode: ErrorsEnum | number;
+/**
+ * Error returned from VKontakte.
+ */
+export interface IErrorInfo {
+  errorCode: EErrors | number;
   errorMsg: string;
   requestParams: Array<{ key: string; value: string }>;
+}
+
+export interface IVKErrorConstructorProps {
+  /**
+   * Error returned from VKontakte.
+   */
+  errorInfo: IErrorInfo;
+  /**
+   * Config with which request was performed.
+   */
+  config: IRequestConfig;
 }

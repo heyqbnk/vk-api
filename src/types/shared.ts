@@ -1,7 +1,21 @@
+import {
+  DatabaseRepository,
+  StorageRepository,
+  SpecialsRepository,
+  MessagesRepository,
+  NotificationsRepository,
+  StatEventsRepository,
+  StatsRepository,
+  StreamingRepository,
+  UsersRepository,
+  UtilsRepository,
+  WidgetsRepository,
+} from '../repositories';
+
 /**
- * Enum of available languages
+ * Enum of available languages.
  */
-export enum LangEnum {
+export enum ELang {
   RU = 0,
   UK = 1,
   BE = 2,
@@ -13,10 +27,10 @@ export enum LangEnum {
 }
 
 /**
- * Type which describes available languages
+ * Type which describes available languages.
  * @see https://vk.com/dev/api_requests?f=2.%20Общие%20параметры
  */
-export type LangType =
+export type TLang =
   | 'ru'
   | 'uk'
   | 'be'
@@ -25,29 +39,28 @@ export type LangType =
   | 'fi'
   | 'de'
   | 'it'
-  | LangEnum;
+  | ELang;
 
 /**
- * Pseudo boolean type. Means boolean converted to number
+ * Pseudo boolean type. Means boolean converted to number.
  */
-export type PseudoBooleanType = 0 | 1;
+export type TPseudoBoolean = 0 | 1;
 
 /**
- * All boolean types which could be accepted by lib
+ * All boolean types which could be accepted by lib.
  */
-export type BooleanType = boolean | PseudoBooleanType;
+export type TBoolean = boolean | TPseudoBoolean;
 
 /**
- * Object with fields id and title
+ * Object with fields id and title.
  */
-export interface IdTitlePair {
+export interface IIdTitlePair {
   /**
-   * Unique identifier
+   * Unique identifier.
    */
   id: number;
-
   /**
-   * Short name
+   * Short name.
    */
   title: string;
 }
@@ -55,7 +68,7 @@ export interface IdTitlePair {
 /**
  * Structure representing some pager
  */
-export interface Pager<Item> {
+export interface IPager<Item> {
   /**
    * Records count
    */
@@ -70,50 +83,64 @@ export interface Pager<Item> {
 /**
  * Shared optional request parameters.
  */
-export interface RequestOptionalParams {
+export interface IRequestOptionalParams {
   /**
-   * Access token
+   * Access token.
    */
   accessToken?: string;
-
   /**
-   * Language
+   * Language.
    * @default "ru"
    */
-  lang?: LangType;
-
+  lang?: TLang;
   /**
-   * API version
+   * API version.
    * @default "5.110"
    */
   v?: string;
 }
 
 /**
- * Config to execute request
+ * Config to execute request.
  */
-export interface RequestConfig<P extends {} = any> {
+export interface IRequestConfig<P extends {} = any> {
   /**
-   * API method name
+   * API method name.
    */
   method: string;
-
   /**
-   * List of params for passed method
+   * List of params for passed method.
    */
-  params: P & RequestOptionalParams;
+  params: P & IRequestOptionalParams;
 }
 
 /**
- * Function that sends request
+ * Function that sends request.
  */
-export type SendRequest = <P extends {} = any, R = any>(
-  config: RequestConfig<P>,
+export type TSendRequest = <P extends {} = any, R = any>(
+  config: IRequestConfig<P>,
 ) => Promise<R>;
 
 /**
- * Describes repository method
+ * Describes repository method.
  */
-export type RepositoryMethod<P extends {} = any, R = any> = (
-  params: P & RequestOptionalParams,
+export type TRepositoryMethod<P extends {} = any, R = any> = (
+  params: P & IRequestOptionalParams,
 ) => Promise<R>;
+
+/**
+ * List of all known repositories.
+ */
+export interface IRepositories {
+  database: DatabaseRepository;
+  messages: MessagesRepository;
+  notifications: NotificationsRepository;
+  specials: SpecialsRepository;
+  statEvents: StatEventsRepository;
+  stats: StatsRepository;
+  storage: StorageRepository;
+  streaming: StreamingRepository;
+  users: UsersRepository;
+  utils: UtilsRepository;
+  widgets: WidgetsRepository;
+}

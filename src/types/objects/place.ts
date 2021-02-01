@@ -1,7 +1,7 @@
 /**
  * @see https://vk.com/dev/objects/place
  */
-export interface Place {
+export interface IPlace {
   id: number;
   title: string;
   latitude: number;

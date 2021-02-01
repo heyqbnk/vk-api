@@ -1,12 +1,12 @@
-import {ObjectSharedProps} from './shared';
-import {Photo} from './photo';
-import {PseudoBooleanType} from '../shared';
+import {IObjectSharedProps} from './shared';
+import {IPhoto} from './photo';
+import {TPseudoBoolean} from '../shared';
 
 /**
  * List of market availability statuses
  * @see https://vk.com/dev/objects/market_item
  */
-export enum MarketItemAvailabilityEnum {
+export enum EMarketItemAvailability {
   Available,
   Deleted,
   Unavailable,
@@ -15,7 +15,7 @@ export enum MarketItemAvailabilityEnum {
 /**
  * @see https://vk.com/dev/objects/market_item
  */
-export interface MarketItem extends ObjectSharedProps {
+export interface IMarketItem extends IObjectSharedProps {
   title: string;
   description: string;
   price: {
@@ -37,19 +37,19 @@ export interface MarketItem extends ObjectSharedProps {
   };
   thumbPhoto: string;
   date: number;
-  availability: MarketItemAvailabilityEnum;
+  availability: EMarketItemAvailability;
   isFavorite: boolean;
 }
 
 /**
  * @see https://vk.com/dev/objects/market_item
  */
-export interface MarketItemExtended extends MarketItem {
-  photos: Photo[];
-  canComment: PseudoBooleanType;
-  canRepost: PseudoBooleanType;
+export interface IMarketItemExtended extends IMarketItem {
+  photos: IPhoto[];
+  canComment: TPseudoBoolean;
+  canRepost: TPseudoBoolean;
   likes: {
-    userLikes: PseudoBooleanType;
+    userLikes: TPseudoBoolean;
     count: number;
   };
   url: string;

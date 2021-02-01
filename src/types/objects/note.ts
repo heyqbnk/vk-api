@@ -1,9 +1,9 @@
-import {ObjectSharedProps} from './shared';
+import {IObjectSharedProps} from './shared';
 
 /**
  * @see https://vk.com/dev/objects/note
  */
-export interface Note extends ObjectSharedProps {
+export interface INote extends IObjectSharedProps {
   title: string;
   text: string;
   date: number;

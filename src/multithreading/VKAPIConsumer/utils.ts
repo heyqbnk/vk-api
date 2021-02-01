@@ -1,16 +1,15 @@
-import {VKAPIRequestProcessedMessage} from '../types';
-import {extendsVKAPIMessage} from '../utils';
+import {IVKAPIRequestPerformAllowedMessage} from '../types';
+import {isVKAPIMessage} from '../utils';
+import {REQUEST_PERFORM_ALLOWED_EVENT} from '../constants';
 
 /**
- * States if message is VKAPIRequestProcessedMessage
+ * States if message is IVKAPIRequestPerformAllowedMessage.
  * @param message
- * @returns {message is VKAPIRequestProcessedMessage}
+ * @returns {message is IVKAPIRequestPerformAllowedMessage}
  */
-export function isVKAPIRequestProcessedMessage(
+export function isVKAPIRequestPerformAllowedMessage(
   message: any,
-): message is VKAPIRequestProcessedMessage {
-  return extendsVKAPIMessage(message) &&
-    message.type === 'request-processed' &&
-    (typeof message.error !== 'undefined' || message.error === null) &&
-    ('data' in message);
+): message is IVKAPIRequestPerformAllowedMessage {
+  return isVKAPIMessage(message) &&
+    message.type === REQUEST_PERFORM_ALLOWED_EVENT;
 }

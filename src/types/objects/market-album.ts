@@ -1,12 +1,12 @@
-import {ObjectSharedProps} from './shared';
-import {Photo} from './photo';
+import {IObjectSharedProps} from './shared';
+import {IPhoto} from './photo';
 
 /**
  * @see https://vk.com/dev/objects/market_album
  */
-export interface MarketAlbum extends ObjectSharedProps {
+export interface IMarketAlbum extends IObjectSharedProps {
   title: string;
-  photo: Photo;
+  photo: IPhoto;
   count: number;
   updatedTime: number;
 }

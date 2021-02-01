@@ -1,43 +1,52 @@
-import {VKAPIInterface} from '../../VKAPI';
-import {VKAPIProcessRequestMessage} from '../types';
-import {isVKAPIRequestProcessedMessage} from './utils';
-import {SendRequest} from '../../types';
-import {VKAPISlaveConstructorProps} from './types';
-import {VKAPICore} from '../../VKAPICore';
+import {IVKAPI} from '../../VKAPI';
+import {isVKAPIRequestPerformAllowedMessage} from './utils';
+import {TSendRequest} from '../../types';
+import {IVKAPIConsumerConstructorProps} from './types';
+import {Core} from '../../Core';
+import {IVKAPIPerformRequestMessage} from '../types';
+import {PERFORM_REQUEST_EVENT} from '../constants';
 
 /**
  * Stub class which wants to get data from API VKontakte and has to
- * communicate with master
+ * communicate with master.
  */
-export class VKAPIConsumer extends VKAPICore implements VKAPIInterface {
+export class VKAPIConsumer extends Core implements IVKAPI {
   /**
-   * Tunnel name
+   * Tunnel name.
    */
   private readonly tunnelName: string;
-
   /**
-   * Internal request counter. Required to send and get answers from master
+   * Internal request counter. Required to send and get answers from master.
    * @type {string}
    */
   private requestId = '0';
+  /**
+   * Instance of VKAPI which performs requests.
+   * @type {IVKAPI}
+   * @private
+   */
+  private readonly instance: IVKAPI;
 
-  constructor(props: VKAPISlaveConstructorProps = {}) {
+  constructor(props: IVKAPIConsumerConstructorProps) {
     super();
     if (!process.send) {
       throw new Error(
         'Unable to create VKAPIConsumer due to there is no "process.send" ' +
         'method available. It looks like it was created in main thread, ' +
-        'but not in fork',
+        'but not in fork.',
       );
     }
-    const {tunnelName = ''} = props;
+    const {tunnelName = '', instance} = props;
     this.tunnelName = tunnelName;
+    this.instance = instance;
 
-    // Initialize repositories with specified addRequestToQueue method
+    // Initialize repositories with specified addRequestToQueue method.
     this.init(this.addRequestToQueue);
   }
 
-  addRequestToQueue: SendRequest = config => {
+  sendRequest: TSendRequest = config => this.instance.sendRequest(config);
+
+  addRequestToQueue: TSendRequest = config => {
     if (!process.send) {
       throw new Error(
         'Unable to process VKAPI request from slave due to there is no ' +
@@ -45,52 +54,43 @@ export class VKAPIConsumer extends VKAPICore implements VKAPIInterface {
         'main thread, but not in fork',
       );
     }
-
     const requestId = (parseInt(this.requestId) + 1).toString(16);
-    const processId = process.pid;
-    const message: VKAPIProcessRequestMessage = {
+    const message: IVKAPIPerformRequestMessage = {
       tunnelName: this.tunnelName,
-      processId,
       requestId,
       isVKAPIMessage: true,
-      type: 'process-request',
-      config,
+      type: PERFORM_REQUEST_EVENT,
     };
 
-    // Send order message
-    process.send(message);
-
-    // Reassign request id
+    // Reassign request id.
     this.requestId = requestId;
 
     // Return promise
-    return new Promise((res, rej) => {
-      // Create listener to wait for answer
-      const listener = (message: any) => {
+    const promise = new Promise<any>((res, rej) => {
+      // Create listener and wait for provider permission.
+      const listener = async (message: any) => {
         if (
-          isVKAPIRequestProcessedMessage(message) &&
+          isVKAPIRequestPerformAllowedMessage(message) &&
           message.tunnelName === this.tunnelName &&
-          message.requestId === requestId &&
-          message.processId === processId
+          message.requestId === requestId
         ) {
-          // Unbind listener
+          // Remove event listener.
           process.off('message', listener);
 
-          if (message.error) {
-            return rej(message.error);
+          try {
+            res(this.instance.sendRequest(config));
+          } catch (e) {
+            rej(e);
           }
-          res(message.data);
         }
       };
-
-      // Add event listener
+      // Add event listener.
       process.on('message', listener);
     });
+
+    // Send request message.
+    process.send(message);
+
+    return promise;
   };
 }
-
-/**
- * TODO: Remove in 2.0.0
- * @deprecated
- */
-export {VKAPIConsumer as VKAPISlave};

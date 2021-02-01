@@ -1,23 +1,23 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {
-  GetCommentsParams,
-  GetCommentsResult,
-  GetPagesParams,
-  GetPagesResult,
+  IGetCommentsParams,
+  IGetCommentsResult,
+  IGetPagesParams,
+  IGetPagesResult,
 } from './types';
 import {formatOptionalArray} from '../../utils';
 
 export class WidgetsRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('widget', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/widgets.getComments
-   * @type {RepositoryMethod<GetCommentsParams, GetCommentsResult>}
+   * @type {TRepositoryMethod<IGetCommentsParams, IGetCommentsResult>}
    */
-  getComments = this.r<GetCommentsParams, GetCommentsResult>(
+  getComments = this.r<IGetCommentsParams, IGetCommentsResult>(
     'getComments',
     ({fields, ...rest}) => ({
       ...rest,
@@ -27,7 +27,7 @@ export class WidgetsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/widgets.getPages
-   * @type {RepositoryMethod<GetPagesParams, GetPagesResult>}
+   * @type {TRepositoryMethod<IGetPagesParams, IGetPagesResult>}
    */
-  getPages = this.r<GetPagesParams, GetPagesResult>('getPages');
+  getPages = this.r<IGetPagesParams, IGetPagesResult>('getPages');
 }

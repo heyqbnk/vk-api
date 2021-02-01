@@ -1,53 +1,53 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {
-  GetServerUrlParams,
-  GetServerUrlResult,
-  GetSettingsParams,
-  GetSettingsResult,
-  GetStatsParams,
-  GetStatsResult,
-  GetStemParams, GetStemResult, SetSettingsParams, SetSettingsResult,
+  IGetServerUrlParams,
+  IGetServerUrlResult,
+  IGetSettingsParams,
+  IGetSettingsResult,
+  IGetStatsParams,
+  IGetStatsResult,
+  IGetStemParams, IGetStemResult, ISetSettingsParams, TSetSettingsResult,
 } from './types';
 
 export class StreamingRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('streaming', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/streaming.getServerUrl
-   * @type {RepositoryMethod<GetServerUrlParams, GetServerUrlResult>}
+   * @type {TRepositoryMethod<IGetServerUrlParams, IGetServerUrlResult>}
    */
-  getServerUrl = this.r<GetServerUrlParams, GetServerUrlResult>(
+  getServerUrl = this.r<IGetServerUrlParams, IGetServerUrlResult>(
     'getServerUrl',
   );
 
   /**
    * @see https://vk.com/dev/streaming.getSettings
-   * @type {RepositoryMethod<GetSettingsParams, GetSettingsResult>}
+   * @type {TRepositoryMethod<IGetSettingsParams, IGetSettingsResult>}
    */
-  getSettings = this.r<GetSettingsParams, GetSettingsResult>(
+  getSettings = this.r<IGetSettingsParams, IGetSettingsResult>(
     'getSettings',
   );
 
   /**
    * @see https://vk.com/dev/streaming.getStats
-   * @type {RepositoryMethod<GetStatsParams, GetStatsResult>}
+   * @type {TRepositoryMethod<IGetStatsParams, IGetStatsResult>}
    */
-  getStats = this.r<GetStatsParams, GetStatsResult>('getStats');
+  getStats = this.r<IGetStatsParams, IGetStatsResult>('getStats');
 
   /**
    * @see https://vk.com/dev/streaming.getStem
-   * @type {RepositoryMethod<GetStemParams, GetStemResult>}
+   * @type {TRepositoryMethod<IGetStemParams, IGetStemResult>}
    */
-  getStem = this.r<GetStemParams, GetStemResult>('getStem');
+  getStem = this.r<IGetStemParams, IGetStemResult>('getStem');
 
   /**
    * @see https://vk.com/dev/streaming.setSettings
-   * @type {RepositoryMethod<SetSettingsParams, SetSettingsResult>}
+   * @type {TRepositoryMethod<ISetSettingsParams, TSetSettingsResult>}
    */
-  setSettings = this.r<SetSettingsParams, SetSettingsResult>(
+  setSettings = this.r<ISetSettingsParams, TSetSettingsResult>(
     'setSettings',
   );
 }

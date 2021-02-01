@@ -1,30 +1,30 @@
 import {
-  MarkAsViewedResult,
-  SendMessageResult,
-  SendMessageParams, MarkAsViewedParams,
+  TMarkAsViewedResult,
+  TSendMessageResult,
+  ISendMessageParams, IMarkAsViewedParams,
 } from './types';
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {formatOptionalArray} from '../../utils';
 
 export class NotificationsRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('notifications', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/notifications.markAsViewed
-   * @type {RepositoryMethod<MarkAsViewedParams, MarkAsViewedResult>}
+   * @type {TRepositoryMethod<IMarkAsViewedParams, TMarkAsViewedResult>}
    */
-  markAsViewed = this.r<MarkAsViewedParams, MarkAsViewedResult>(
+  markAsViewed = this.r<IMarkAsViewedParams, TMarkAsViewedResult>(
     'markAsViewed',
   );
 
   /**
    * @see https://vk.com/dev/notifications.sendMessage
-   * @type {RepositoryMethod<SendMessageParams, SendMessageResult>}
+   * @type {TRepositoryMethod<ISendMessageParams, TSendMessageResult>}
    */
-  sendMessage = this.r<SendMessageParams, SendMessageResult>(
+  sendMessage = this.r<ISendMessageParams, TSendMessageResult>(
     'sendMessage',
     ({userIds, ...rest}) => ({
       ...rest,

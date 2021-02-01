@@ -1,7 +1,7 @@
 /**
  * @see https://vk.com/dev/statEvents.addMiniAppsCustom
  */
-export type AddMiniAppsCustomParams = {
+export type TAddMiniAppsCustomParams = {
   events: Array<{
     event: string;
     userId: number;
@@ -18,12 +18,12 @@ export type AddMiniAppsCustomParams = {
     )>;
 }
 
-export type AddMiniAppsCustomResult = 1;
+export type TAddMiniAppsCustomResult = 1;
 
 /**
  * @see https://vk.com/dev/statEvents.addMiniApps
  */
-export interface AddMiniAppsParams extends AddMiniAppsCustomParams {
+export interface IAddMiniAppsParams extends TAddMiniAppsCustomParams {
 }
 
-export type AddMiniAppsResult = AddMiniAppsCustomResult;
+export type TAddMiniAppsResult = TAddMiniAppsCustomResult;

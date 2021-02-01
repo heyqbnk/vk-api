@@ -1,10 +1,10 @@
-import {ObjectSharedProps} from './shared';
+import {IObjectSharedProps} from './shared';
 
 /**
- * List of audio genres
+ * List of audio genres.
  * @see https://vk.com/dev/objects/audio_genres
  */
-export enum AudioGenreEnum {
+export enum EAudioGenre {
   Rock = 1,
   Pop,
   RapAndHipHop,
@@ -31,14 +31,14 @@ export enum AudioGenreEnum {
 /**
  * @see https://vk.com/dev/objects/audio
  */
-export interface Audio extends ObjectSharedProps {
+export interface IAudio extends IObjectSharedProps {
   artist: string;
   title: string;
   duration: number;
   url: string;
   lyricsId?: number;
   albumId?: number;
-  genreId: AudioGenreEnum;
+  genreId: EAudioGenre;
   date: number;
   noSearch?: 1;
   isHq?: 1;

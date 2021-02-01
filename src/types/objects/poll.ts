@@ -1,10 +1,10 @@
-import {ObjectSharedProps, PhotoSize} from './shared';
-import {Photo} from './photo';
+import {IObjectSharedProps, IPhotoSize} from './shared';
+import {IPhoto} from './photo';
 
 /**
  * @see https://vk.com/dev/objects/poll
  */
-export interface Poll extends ObjectSharedProps {
+export interface IPoll extends IObjectSharedProps {
   created: number;
   question: string;
   votes: number;
@@ -25,7 +25,7 @@ export interface Poll extends ObjectSharedProps {
   canReport: boolean;
   canShare: boolean;
   authorId: number;
-  photo: Photo;
+  photo: IPhoto;
   background: {
     id: number;
     color: string;
@@ -40,7 +40,7 @@ export interface Poll extends ObjectSharedProps {
     type: 'tile';
     width: number;
     height: number;
-    images: PhotoSize[];
+    images: IPhotoSize[];
   });
   friends: number[];
 }

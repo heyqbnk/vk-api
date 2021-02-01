@@ -1,5 +1,6 @@
-import {VKAPIProcessRequestMessage} from '../types';
-import {extendsVKAPIMessage, isNonNullObject} from '../utils';
+import {IVKAPIMessage, IVKAPIPerformRequestMessage} from '../types';
+import {isVKAPIMessage} from '../utils';
+import {PERFORM_REQUEST_EVENT} from '../constants';
 
 /**
  * States if message is VKAPIProcessRequestMessage
@@ -7,11 +8,7 @@ import {extendsVKAPIMessage, isNonNullObject} from '../utils';
  * @returns {message is VKAPIProcessRequestMessage}
  */
 export function isVKAPIProcessRequestMessage(
-  message: any,
-): message is VKAPIProcessRequestMessage {
-  return extendsVKAPIMessage(message) &&
-    message.type === 'process-request' &&
-    isNonNullObject(message.config) &&
-    typeof message.config.method === 'string' &&
-    isNonNullObject(message.config.params);
+  message: IVKAPIMessage,
+): message is IVKAPIPerformRequestMessage {
+  return isVKAPIMessage(message) && message.type === PERFORM_REQUEST_EVENT;
 }

@@ -1,25 +1,24 @@
-import {RequestConfig} from '../types';
+import {
+  PERFORM_REQUEST_EVENT,
+  REQUEST_PERFORM_ALLOWED_EVENT,
+} from './constants';
 
-export interface VKAPIMessage {
+export interface IVKAPIMessage {
   tunnelName: string;
-  processId: number;
   requestId: string;
   isVKAPIMessage: true;
 }
 
 /**
- * Message which sent, when slave wants to process request
+ * Message which sent, when consumer wants to perform request.
  */
-export interface VKAPIProcessRequestMessage extends VKAPIMessage {
-  type: 'process-request';
-  config: RequestConfig;
+export interface IVKAPIPerformRequestMessage extends IVKAPIMessage {
+  type: typeof PERFORM_REQUEST_EVENT;
 }
 
 /**
- * Message which is sent, when request is processed
+ * Message which sent, when worker is allowed to perform request.
  */
-export interface VKAPIRequestProcessedMessage extends VKAPIMessage {
-  type: 'request-processed';
-  error: Error | null;
-  data: any;
+export interface IVKAPIRequestPerformAllowedMessage extends IVKAPIMessage {
+  type: typeof REQUEST_PERFORM_ALLOWED_EVENT;
 }

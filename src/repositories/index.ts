@@ -4,6 +4,7 @@ export * from './NotificationsRepository';
 export * from './SpecialsRepository';
 export * from './StatEventsRepository';
 export * from './StatsRepository';
+export * from './StorageRepository';
 export * from './StreamingRepository';
 export * from './UsersRepository';
 export * from './UtilsRepository';

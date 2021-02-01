@@ -1,25 +1,16 @@
-import {VKAPIMessage} from './types';
+import {IVKAPIMessage} from './types';
+import {isNonNullObject} from '../utils';
 
 /**
- * States if value is non-null object
+ * States is value extends VKAPIMessage.
  * @param value
- * @returns {value is object}
+ * @returns {value is VKAPIMessage & Record<string, unknown>}
  */
-export function isNonNullObject(value: any): value is Record<any, any> {
-  return typeof value === 'object' && value !== null;
-}
-
-/**
- * States is value extends VKAPIMessage
- * @param value
- * @returns {value is VKAPIMessage & Record<any, any>}
- */
-export function extendsVKAPIMessage(
+export function isVKAPIMessage(
   value: any,
-): value is VKAPIMessage & Record<any, any> {
+): value is IVKAPIMessage & Record<string, unknown> {
   return isNonNullObject(value) &&
     typeof value.tunnelName === 'string' &&
-    typeof value.processId === 'number' &&
     typeof value.requestId === 'string' &&
     value.isVKAPIMessage === true;
 }

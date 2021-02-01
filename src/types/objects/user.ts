@@ -1,20 +1,15 @@
-import {PseudoBooleanType} from '../shared';
-import {Photo} from './photo';
-import {Audio} from './audio';
+import {IIdTitlePair, TPseudoBoolean} from '../shared';
+import {IPhoto} from './photo';
+import {IAudio} from './audio';
 
-interface IdTitlePair {
-  id: number;
-  title: string;
-}
-
-export enum FriendStatusEnum {
+export enum EFriendStatus {
   NotFriend = 0,
   RequestSent = 1,
   IsSubscribed = 2,
   IsFriend = 3,
 }
 
-export enum PlatformEnum {
+export enum EPlatform {
   Mobile = 1,
   IPhone = 2,
   IPad = 3,
@@ -24,7 +19,7 @@ export enum PlatformEnum {
   Desktop = 7,
 }
 
-export enum PoliticalEnum {
+export enum EPolitical {
   Communist = 1,
   Socialist = 2,
   Moderate = 3,
@@ -36,7 +31,7 @@ export enum PoliticalEnum {
   Libertarian = 9
 }
 
-export enum PeopleMainEnum {
+export enum EPeopleMain {
   SmartAndCreative = 1,
   KindnessAndHonesty = 2,
   BeautyAndHealth = 3,
@@ -45,7 +40,7 @@ export enum PeopleMainEnum {
   HumorAndLoveForLife = 6
 }
 
-export enum LifeMainEnum {
+export enum ELifeMain {
   FamilyAndChildren = 1,
   CareerAndMoney = 2,
   EntertainmentAndRecreation = 3,
@@ -56,7 +51,7 @@ export enum LifeMainEnum {
   FameAndInfluence = 8,
 }
 
-export enum SmokingEnum {
+export enum ESmoking {
   SharplyNegative = 1,
   Negative = 2,
   Compromise = 3,
@@ -64,7 +59,7 @@ export enum SmokingEnum {
   Positive = 5,
 }
 
-export enum AlcoholEnum {
+export enum EAlcohol {
   SharplyNegative = 1,
   Negative = 2,
   Compromise = 3,
@@ -72,7 +67,7 @@ export enum AlcoholEnum {
   Positive = 5,
 }
 
-export enum RelationsStatusEnum {
+export enum ERelationsStatus {
   Unknown = 0,
   NotMarried = 1,
   HasFriend = 2,
@@ -84,7 +79,7 @@ export enum RelationsStatusEnum {
   CivilMarried = 8,
 }
 
-export enum SchoolTypeEnum {
+export enum ESchoolType {
   School = 0,
   Gymnasium = 1,
   Lyceum = 2,
@@ -101,13 +96,13 @@ export enum SchoolTypeEnum {
   ArtisticSchool = 12
 }
 
-export enum SexEnum {
+export enum ESex {
   Unknown = 0,
   Female = 1,
   Male = 2,
 }
 
-export type Career = ({ groupId: number } | { company: string })
+export type TCareer = ({ groupId: number } | { company: string })
   & {
   countryId: number;
   from: number;
@@ -115,18 +110,18 @@ export type Career = ({ groupId: number } | { company: string })
   position: string;
 } & ({ cityId: number } | { cityName: string })
 
-interface Crop {
+interface ICrop {
   x: number;
   y: number;
   x2: number;
   y2: number;
 }
 
-type Online =
-  { online: PseudoBooleanType }
+type TOnline =
+  { online: TPseudoBoolean }
   & ({} | { onlineMobile: 1; onlineApp: number })
 
-type SocialType =
+type TSocial =
   | 'skype'
   | 'facebook'
   | 'twitter'
@@ -136,7 +131,7 @@ type SocialType =
 /**
  * @see https://vk.com/dev/objects/user
  */
-export type User = {
+export type TUser = {
   id: number;
   firstName: string;
   lastName: string;
@@ -146,19 +141,19 @@ export type User = {
   about?: string;
   activities?: string;
   bdate?: string;
-  blacklisted?: PseudoBooleanType;
-  blacklistedByMe?: PseudoBooleanType;
+  blacklisted?: TPseudoBoolean;
+  blacklistedByMe?: TPseudoBoolean;
   books?: string;
-  canPost?: PseudoBooleanType;
-  canSeeAllPosts?: PseudoBooleanType;
-  canSeeAudio?: PseudoBooleanType;
-  canSendFriendRequest?: PseudoBooleanType;
-  canWritePrivateMessage?: PseudoBooleanType;
-  career?: Career;
-  city?: IdTitlePair;
+  canPost?: TPseudoBoolean;
+  canSeeAllPosts?: TPseudoBoolean;
+  canSeeAudio?: TPseudoBoolean;
+  canSendFriendRequest?: TPseudoBoolean;
+  canWritePrivateMessage?: TPseudoBoolean;
+  career?: TCareer;
+  city?: IIdTitlePair;
   commonCount?: number;
   connections?: {
-    [key in SocialType]?: string;
+    [key in TSocial]?: string;
   };
   contacts?: {
     mobilePhone?: string;
@@ -178,11 +173,11 @@ export type User = {
     followers: number;
     pages: number;
   };
-  country?: IdTitlePair;
+  country?: IIdTitlePair;
   cropPhoto?: {
-    photo: Photo;
-    crop: Crop;
-    rect: Crop;
+    photo: IPhoto;
+    crop: ICrop;
+    rect: ICrop;
   };
   domain?: string;
   education?: {
@@ -199,15 +194,15 @@ export type User = {
   firstNameIns?: string;
   firstNameAbl?: string;
   followersCount?: number;
-  friendStatus?: FriendStatusEnum;
+  friendStatus?: EFriendStatus;
   games?: string;
-  hasMobile?: PseudoBooleanType;
-  hasPhoto?: PseudoBooleanType;
+  hasMobile?: TPseudoBoolean;
+  hasPhoto?: TPseudoBoolean;
   homeTown?: string;
   interests?: string;
-  isFavorite?: PseudoBooleanType;
-  isFriend?: PseudoBooleanType;
-  isHiddenFromFeed?: PseudoBooleanType;
+  isFavorite?: TPseudoBoolean;
+  isFriend?: TPseudoBoolean;
+  isHiddenFromFeed?: TPseudoBoolean;
   lastNameNom?: string;
   lastNameGen?: string;
   lastNameDat?: string;
@@ -216,7 +211,7 @@ export type User = {
   lastNameAbl?: string;
   lastSeen?: {
     time: number;
-    platform: PlatformEnum;
+    platform: EPlatform;
   };
   lists?: string;
   maidenName?: string;
@@ -235,17 +230,17 @@ export type User = {
     id: number;
     name: string;
   };
-} & Online & {
+} & TOnline & {
   personal?: {
-    political?: PoliticalEnum;
+    political?: EPolitical;
     // TODO: API doc is piece of shit
     langs?: (string | number)[];
     religion?: string;
     inspiredBy?: string;
-    peopleMain?: PeopleMainEnum;
-    lifeMain?: LifeMainEnum;
-    smoking?: SmokingEnum;
-    alcohol?: AlcoholEnum;
+    peopleMain?: EPeopleMain;
+    lifeMain?: ELifeMain;
+    smoking?: ESmoking;
+    alcohol?: EAlcohol;
   };
   photo50?: string;
   photo100?: string;
@@ -266,7 +261,7 @@ export type User = {
       | 'grandparent'
       | 'grandchild';
   }>;
-  relation?: RelationsStatusEnum;
+  relation?: ERelationsStatus;
   relationPartner?: {
     id?: number;
     name?: string;
@@ -281,16 +276,16 @@ export type User = {
     yearGraduated: number;
     class: string;
     speciality: string;
-    type: SchoolTypeEnum;
+    type: ESchoolType;
     typeStr: string;
   }>;
   screenName?: string;
-  sex?: SexEnum;
+  sex?: ESex;
   site?: string;
   status?: number;
-  statusAudio?: Audio;
+  statusAudio?: IAudio;
   timezone?: number;
-  trending?: PseudoBooleanType;
+  trending?: TPseudoBoolean;
   tv?: string;
   universities?: Array<{
     id: number;
@@ -305,6 +300,6 @@ export type User = {
     educationForm: string;
     educationStatus: string;
   }>;
-  verified?: PseudoBooleanType;
+  verified?: TPseudoBoolean;
   wallDefault?: 'owner' | 'all';
 });

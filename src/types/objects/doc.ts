@@ -1,10 +1,10 @@
-import {ObjectSharedProps, PhotoSize} from './shared';
+import {IObjectSharedProps, IPhotoSize} from './shared';
 
 /**
- * List of doc types
+ * List of doc types.
  * @see https://vk.com/dev/objects/doc
  */
-export enum DocTypeEnum {
+export enum EDocType {
   Text = 1,
   Archive,
   Gif,
@@ -18,16 +18,16 @@ export enum DocTypeEnum {
 /**
  * @see https://vk.com/dev/objects/doc
  */
-export interface Doc extends ObjectSharedProps {
+export interface IDoc extends IObjectSharedProps {
   title: string;
   size: number;
   ext: string;
   url: string;
   date: number;
-  type: DocTypeEnum;
+  type: EDocType;
   preview: {
     photo?: {
-      sizes: PhotoSize[];
+      sizes: IPhotoSize[];
     };
     graffiti?: {
       src: string;

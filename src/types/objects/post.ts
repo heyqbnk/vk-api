@@ -1,13 +1,13 @@
-import {PseudoBooleanType} from '../shared';
-import {ObjectSharedProps} from './shared';
-import {AttachmentType} from '../attachments';
-import {Place} from './place';
-import {PostSource} from './post-source';
+import {TPseudoBoolean} from '../shared';
+import {IObjectSharedProps} from './shared';
+import {TAttachment} from '../attachments';
+import {IPlace} from './place';
+import {TPostSource} from './post-source';
 
 /**
  * @see https://vk.com/dev/objects/post
  */
-export interface Post extends ObjectSharedProps {
+export interface IPost extends IObjectSharedProps {
   fromId: number;
   createdBy?: number;
   date: number;
@@ -17,40 +17,40 @@ export interface Post extends ObjectSharedProps {
   friendsOnly?: 1;
   comments: {
     count: number;
-    canPost?: PseudoBooleanType;
-    groupsCanPost: PseudoBooleanType;
+    canPost?: TPseudoBoolean;
+    groupsCanPost: TPseudoBoolean;
     canClose: boolean;
     canOpen: boolean;
   };
   copyright: string;
   likes: {
     count: number;
-    userLikes?: PseudoBooleanType;
-    canLike?: PseudoBooleanType;
-    canPublish?: PseudoBooleanType;
+    userLikes?: TPseudoBoolean;
+    canLike?: TPseudoBoolean;
+    canPublish?: TPseudoBoolean;
   };
   reposts: {
     count: number;
-    userReposted?: PseudoBooleanType;
+    userReposted?: TPseudoBoolean;
   };
   views: {
     count: number;
   };
   postType: 'post' | 'copy' | 'reply' | 'postpone' | 'suggest';
-  postSource?: PostSource;
-  attachments: AttachmentType[];
+  postSource?: TPostSource;
+  attachments: TAttachment[];
   geo: {
     type: string;
     coordinates: string;
-    place?: Place;
+    place?: IPlace;
   };
   signerId: number;
   // TODO: API doc is piece of shit
   copyHistory?: any;
-  canPin: PseudoBooleanType;
-  canEdit: PseudoBooleanType;
-  isPinned: PseudoBooleanType;
-  markedAsAds: PseudoBooleanType;
+  canPin: TPseudoBoolean;
+  canEdit: TPseudoBoolean;
+  isPinned: TPseudoBoolean;
+  markedAsAds: TPseudoBoolean;
   isFavorite: boolean;
   postponedId?: number;
 }

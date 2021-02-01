@@ -1,17 +1,17 @@
-import {Button} from '../../types/objects';
+import {IButton} from '../../types/objects';
 
 /**
  * @see https://vk.com/dev/messages.send
  */
 // TODO: Refactor depending on params
-export type SendResult = number | Array<{
+export type TSendResult = number | Array<{
   peerId: number;
   messageId: number;
   error?: string;
 }>
 
 // TODO: Refactor. Not sure we can pass both userIds and userId at the same time
-export type SendParams = {
+export type TSendParams = {
     randomId?: number;
     peerId?: number;
     domain?: string;
@@ -22,7 +22,7 @@ export type SendParams = {
     forwardMessages?: number[];
     stickerId?: number;
     groupId?: number;
-    keyboard?: { buttons: Button[][] }
+    keyboard?: { buttons: IButton[][] }
       & ({ inline: true } | { inline: false; oneTime: boolean });
     payload?: any;
     dontParseLinks?: boolean;

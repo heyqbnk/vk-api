@@ -1,16 +1,16 @@
-import {BooleanType, PseudoBooleanType} from './types';
+import {TBoolean, TPseudoBoolean} from './types';
 
 /**
- * Function that formats string to some format
+ * Function that formats string to some format.
  */
-type TextFormatter = (text: string) => string;
+type TTextFormatter = (text: string) => string;
 
 /**
- * Returns function which formats any value with passed text formatter
- * @param {TextFormatter} formatKey
+ * Returns function which formats any value with passed text formatter.
+ * @param {TTextFormatter} formatKey
  * @returns {(value: any) => any}
  */
-function createRecursiveKeysFormatter(formatKey: TextFormatter) {
+function createRecursiveKeysFormatter(formatKey: TTextFormatter) {
   const formatter = (value: any): any => {
     if (value === null) {
       return null;
@@ -31,7 +31,7 @@ function createRecursiveKeysFormatter(formatKey: TextFormatter) {
 }
 
 /**
- * Converts text to snake case
+ * Converts text to snake case.
  * @param {string} text
  * @returns {string}
  */
@@ -42,7 +42,7 @@ export function toSnakeCase(text: string): string {
 export const recursiveToSnakeCase = createRecursiveKeysFormatter(toSnakeCase);
 
 /**
- * Converts text to camel case
+ * Converts text to camel case.
  * @param {string} text
  * @returns {string}
  */
@@ -53,22 +53,22 @@ export function toCamelCase(text: string): string {
 export const recursiveToCamelCase = createRecursiveKeysFormatter(toCamelCase);
 
 /**
- * Converts boolean to pseudo boolean type
+ * Converts boolean to pseudo boolean type.
  * @param {boolean} value
- * @returns {PseudoBooleanType}
+ * @returns {TPseudoBoolean}
  */
-export function toPseudoBoolean(value: boolean): PseudoBooleanType {
+export function toPseudoBoolean(value: boolean): TPseudoBoolean {
   return value ? 1 : 0;
 }
 
 /**
- * Converts optional boolean type to PseudoBooleanType or undefined
+ * Converts optional boolean type to TPseudoBoolean or undefined.
  * @param {boolean | undefined} value
- * @returns {PseudoBooleanType | undefined}
+ * @returns {TPseudoBoolean | undefined}
  */
 export function formatOptionalBoolean(
-  value: BooleanType | undefined,
-): PseudoBooleanType | undefined {
+  value: TBoolean | undefined,
+): TPseudoBoolean | undefined {
   return typeof value === 'undefined'
     ? undefined
     : (typeof value === 'boolean' ? toPseudoBoolean(value) : value);
@@ -83,4 +83,13 @@ export function formatOptionalArray(
   arr: Array<string | number> | undefined,
 ): string | undefined {
   return typeof arr === 'undefined' ? arr : arr.join(',');
+}
+
+/**
+ * States if value is non-null object.
+ * @param value
+ * @returns {value is Record<string, unknown>}
+ */
+export function isNonNullObject(value: any): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
 }

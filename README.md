@@ -19,11 +19,11 @@ npm i vkontakte-api
 
 `vkontakte-api` follows repositories based concept where each repository is a 
 class and represents some namespace in API. The main purpose of repository
-is to format request config for VKAPI instance, so he could perform request
+is to format request config for VKAPI instance, so it could perform request
 and return data.
 
-Each request is added to queue and executed only after timeout, calculated
-according to `rps` property, is elapsed. So, there is no case when you were 
+Each request is added to queue and executed only after timeout calculated
+according to `rps` property. So, there is no case when you were 
 banned due to sending too many requests per second.
 
 There is a multi-thread (multi-workers) support for those projects which are
@@ -32,21 +32,22 @@ launched in this mode.
 ## Usage
 
 ### Creating instance
-First, it is required to create `VKAPI` instance:
+
+Firstly, it is required to create `VKAPI` instance:
 ```typescript
 import {VKAPI} from 'vkontakte-api';
 
-const api = new VKAPI();
+const api = new VKAPI;
 ``` 
 
-It is allowed to pass `rps` property which means `requests per second`. VK
-API has its restriction, so make sure you have passed correct value. 
+It is allowed to pass `rps` (which is `3` by default) property which means 
+`requests per second`. VK API has its restriction, so make sure you have 
+passed correct value. 
 
 Additionally, you can pass properties `accessToken` and `lang` which will be 
 used as default parameters for each request. So, you have no need to pass them
-each time until overriding is needed. 
+each time until overriding is needed:
 
-Here is how it looks like:
 ```typescript
 const api = new VKAPI({
   rps: 20,
@@ -60,7 +61,7 @@ const api = new VKAPI({
 If you are using `VKAPI` on browser side, you could use property `isBrowser`
 which is `false` by default. In case, this value is `true`, api instance
 performs requests in JSONP callback mode. It does not make any influence on
-outer code flow. If this value is not passed, requests will be executed
+external code flow. If this value is not passed, requests will be executed
 in usual mode and on the browser side they will fail due to VK's CORS.
 
 ```typescript
@@ -138,36 +139,29 @@ api.addRequestToQueue<Params, Response>({
 ### Errors
 
 Sometimes, API throws errors. To detect if error was thrown by VK, you could
-use function `isVKError` which detects if error is `VKError`. It contains
-property `data` which contains all error data (it is typed, by the way).
+use function `isVKError`. It contains such properties as `errorInfo` which 
+contains all error data from VK and `config` which was used to perform request.
 
-Moreover, lib contains enum `ErrorsEnum` which is a set of all known errors.
+Moreover, lib contains enum `EErrors` which is a set of all known errors.
 
 ### Multi-threading support
 
 In case your project is ran in multi cluster mode, you could use `VKAPIProvider`
 and `VKAPIConsumer`.
 
-`VKAPIProvider` should be used in a main thread. To create its instance, it is 
-required to pass `VKAPI` instance which will perform all the requests and
-list of workers, containing `VKAPIConsumer` which should communicate with 
-`VKAPIProvider`.
-
-With this scheme we are getting single `VKAPI` instance for project and
-not overflowing API restriction connected with requests per second. 
-
-You can find more complex example [here](https://github.com/wolframdeus/backend-template/blob/master/src/index.ts).
+`VKAPIProvider` should be used in a main thread and `VKAPIConsumer`s in slave
+threads. 
 
 Here is simple example:
 ```typescript
 import {fork, isMaster, Worker} from 'cluster';
 import os from 'os';
-import {VKAPI, VKAPIProvider, VKAPIConsumer, VKAPIInterface} from 'vkontakte-api';
+import {VKAPI, VKAPIProvider, VKAPIConsumer, IVKAPI} from 'vkontakte-api';
 
 // Runs http server. Accepts an object which looks like VKAPI instance. So,
 // he does not know what api exactly is. It could be real VKAPI instance or
-// VKAPIConsumer
-function http(api: VKAPIInterface) {
+// VKAPIConsumer.
+function http(api: IVKAPI) {
   // Here we can use all of the VKAPI methods
   api.users.get({userIds: ['vladkibenko']}).then(console.log);
 }
@@ -176,7 +170,7 @@ function http(api: VKAPIInterface) {
 const isDev = process.env.NODE_ENV === 'development';
 
 // In development mode, let us run single thread. So, no VKAPIProvider and
-// VKAPIConsumer are needed
+// VKAPIConsumer are needed.
 if (isDev) {
   const api = new VKAPI();
   
@@ -184,7 +178,7 @@ if (isDev) {
   return http(api);
 }
 
-// In production mode, we do create as many forks as processor support
+// In production mode, we do create as many forks as processor support.
 if (isMaster) {
   const cpuCount = os.cpus().length;
   const workers: Worker[] = [];
@@ -193,21 +187,24 @@ if (isMaster) {
     workers.push(fork());
   }
 
-  // In master we do create VKAPI instance, because consumers should
-  // communicate with single its instance, which is in VKAPIProvider
-  const provider = new VKAPIProvider({workers, instance: new VKAPI()});
+  // In master we create VKAPIProvider with specified rps property 
+  // (VKAPIConsumer api instance rps will be ignored). If not passed, rps will 
+  // be 3, so make sure you have passed that property.
+  const provider = new VKAPIProvider({workers});
   provider.init();
 } 
-// In consumer workers, we just create http server with VKAPIConsumer
+// In slaves, we just create http server with VKAPIConsumer.
 else {
-  // Create VKAPI instance consumer instance
-  http(new VKAPIConsumer());
+  // Create VKAPI instance consumer instance.
+  http(new VKAPIConsumer({
+    instance: new VKAPI({accessToken: '...', v: '5.103'}),
+  }));
 }
 ```
 
 #### Defining connection between the provider and consumer
 
-There is a rare case, when your project contains 2 providers with 
+There is a rare case, when your project contains 2 providers with for 
 different `VKAPI` instances. For example, you could create separate api 
 instances for group and application which use different access tokens.
 
@@ -219,8 +216,6 @@ import {isMaster} from 'cluster';
 import {VKAPI, VKAPIProvider, VKAPIConsumer} from 'vkontakte-api';
 
 if (isMaster) {
-  const groupApi = new VKAPI({accessToken: 'group access token'});
-  const appApi = new VKAPI({accessToken: 'application access token'});
   const cpuCount = os.cpus().length;
   const workers: Worker[] = [];
 
@@ -229,23 +224,21 @@ if (isMaster) {
   }
 
   // API provider for group API instance
-  const groupApiProvider = new VKAPIProvider({
-    tunnelName: 'group', 
-    instance: groupApi,
-    workers,
-  });
+  const groupApiProvider = new VKAPIProvider({tunnelName: 'group', workers});
   groupApiProvider.init();
 
   // API provider for VK Mini Apps application API instance
-  const appApiProvider = new VKAPIProvider({
-    tunnelName: 'app', 
-    instance: appApi,
-    workers,
-  });
+  const appApiProvider = new VKAPIProvider({tunnelName: 'app', workers});
   appApiProvider.init(); 
 } else {
   // Create API instance consumers
-  const groupApi = new VKAPIConsumer({tunnelName: 'group'});
-  const appApi = new VKAPIConsumer({tunnelName: 'app'});
+  const groupApi = new VKAPIConsumer({
+    tunnelName: 'group',
+    instance: new VKAPI({accessToken: 'group access token'}),
+  });
+  const appApi = new VKAPIConsumer({
+    tunnelName: 'app',
+    instance: new VKAPI({accessToken: 'application access token'})
+  });
 }
 ``` 

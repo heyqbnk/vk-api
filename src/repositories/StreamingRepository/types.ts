@@ -1,4 +1,4 @@
-export type MonthlyTierType =
+export type TMonthlyTier =
   | 'unlimited'
   | 'tier_1'
   | 'tier_2'
@@ -10,10 +10,10 @@ export type MonthlyTierType =
 /**
  * @see https://vk.com/dev/streaming.getServerUrl
  */
-export interface GetServerUrlParams {
+export interface IGetServerUrlParams {
 }
 
-export interface GetServerUrlResult {
+export interface IGetServerUrlResult {
   endpoint: string;
   key: string;
 }
@@ -21,25 +21,24 @@ export interface GetServerUrlResult {
 /**
  * @see https://vk.com/dev/streaming.getSettings
  */
-export interface GetSettingsParams {
-
+export interface IGetSettingsParams {
 }
 
-export interface GetSettingsResult {
-  monthlyLimit: MonthlyTierType;
+export interface IGetSettingsResult {
+  monthlyLimit: TMonthlyTier;
 }
 
 /**
  * @see https://vk.com/dev/streaming.getStats
  */
-export interface GetStatsParams {
+export interface IGetStatsParams {
   type: 'received' | 'prepared';
   interval?: '5m' | '1h' | '24h';
   startTime?: number;
   endTime?: number;
 }
 
-export interface GetStatsResult {
+export interface IGetStatsResult {
   eventType: 'post' | 'comment' | 'share';
   stats: Array<{ timestamp: number; value: number }>;
 }
@@ -47,19 +46,19 @@ export interface GetStatsResult {
 /**
  * @see https://vk.com/dev/streaming.getStem
  */
-export interface GetStemParams {
+export interface IGetStemParams {
   word: string;
 }
 
-export interface GetStemResult {
+export interface IGetStemResult {
   stem: string;
 }
 
 /**
  * @see https://vk.com/dev/streaming.setSettings
  */
-export interface SetSettingsParams {
-  monthlyTier: MonthlyTierType;
+export interface ISetSettingsParams {
+  monthlyTier: TMonthlyTier;
 }
 
-export type SetSettingsResult = 1;
+export type TSetSettingsResult = 1;

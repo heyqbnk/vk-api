@@ -1,4 +1,4 @@
-import {RepositoryMethod, SendRequest} from '../types';
+import {TRepositoryMethod, TSendRequest} from '../types';
 
 /**
  * Base class to create repositories
@@ -7,9 +7,9 @@ export abstract class Repository {
   /**
    * Function which sends request
    */
-  protected readonly sendRequest: SendRequest;
+  protected readonly sendRequest: TSendRequest;
 
-  protected constructor(repoName: string, sendRequest: SendRequest) {
+  protected constructor(repoName: string, sendRequest: TSendRequest) {
     this.sendRequest = ({method, params}) => sendRequest({
       method: repoName + '.' + method,
       params,
@@ -17,15 +17,15 @@ export abstract class Repository {
   }
 
   /**
-   * Creates method
+   * Creates method which sends request.
    * @param {string} method
    * @param prepare
-   * @returns {RepositoryMethod<P, R>}
+   * @returns {TRepositoryMethod<P, R>}
    */
   protected r<P, R>(
     method: string,
     prepare?: (params: P) => any,
-  ): RepositoryMethod<P, R> {
+  ): TRepositoryMethod<P, R> {
     return params => this.sendRequest({
       method,
       params: prepare ? prepare(params) : params,

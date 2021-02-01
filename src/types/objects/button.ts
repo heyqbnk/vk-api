@@ -1,28 +1,28 @@
-interface TextButtonAction {
+interface ITextButtonAction {
   type: 'text';
   label: string;
   payload: string;
 }
 
-interface OpenLinkButtonAction {
+interface IOpenLinkButtonAction {
   type: 'open_link';
   link: string;
   label: string;
   payload: string;
 }
 
-interface LocationButtonAction {
+interface ILocationButtonAction {
   type: 'location';
   payload: string;
 }
 
-interface VKPayButtonAction {
+interface IVKPayButtonAction {
   type: 'vkpay';
   payload: string;
   hash: string;
 }
 
-interface VKAppsButtonAction {
+interface IVKAppsButtonAction {
   type: 'open_app';
   appId: number;
   ownerId?: number;
@@ -34,12 +34,12 @@ interface VKAppsButtonAction {
 /**
  * @see https://vk.com/dev/bots_docs_3
  */
-export interface Button {
+export interface IButton {
   color?: string;
   action:
-    | TextButtonAction
-    | OpenLinkButtonAction
-    | LocationButtonAction
-    | VKPayButtonAction
-    | VKAppsButtonAction;
+    | ITextButtonAction
+    | IOpenLinkButtonAction
+    | ILocationButtonAction
+    | IVKPayButtonAction
+    | IVKAppsButtonAction;
 }

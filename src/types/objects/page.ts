@@ -1,10 +1,10 @@
-import {PseudoBooleanType} from '../shared';
+import {TPseudoBoolean} from '../shared';
 
 /**
- * List of access connected with page
+ * List of access connected with page.
  * @see https://vk.com/dev/objects/page
  */
-export enum PageAccessEnum {
+export enum EPageAccess {
   Admins,
   Participants,
   Everybody,
@@ -13,15 +13,15 @@ export enum PageAccessEnum {
 /**
  * @see https://vk.com/dev/objects/page
  */
-export interface Page {
+export interface IPage {
   id: number;
   groupId: number;
   creatorId: number;
   title: string;
-  currentUserCanEdit: PseudoBooleanType;
-  currentUserCanEditAccess: PseudoBooleanType;
-  whoCanView: PageAccessEnum;
-  whoCanEdit: PageAccessEnum;
+  currentUserCanEdit: TPseudoBoolean;
+  currentUserCanEditAccess: TPseudoBoolean;
+  whoCanView: EPageAccess;
+  whoCanEdit: EPageAccess;
   edited: number;
   created: number;
   editorId: number;

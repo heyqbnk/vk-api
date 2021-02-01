@@ -1,13 +1,13 @@
 import {
-  BooleanType,
-  Pager,
-  RelationsStatusEnum,
-  SexEnum,
-  User,
+  TBoolean,
+  IPager,
+  ERelationsStatus,
+  ESex,
+  TUser,
 } from '../../types';
 
-export type NameCaseType = 'nom' | 'gen' | 'dat' | 'acc' | 'ins' | 'abl';
-export type UserFieldType =
+export type TNameCase = 'nom' | 'gen' | 'dat' | 'acc' | 'ins' | 'abl';
+export type TUserField =
   | 'about'
   | 'activities'
   | 'bdate'
@@ -86,61 +86,61 @@ export type UserFieldType =
 /**
  * @see https://vk.com/dev/users.get
  */
-export interface GetParams {
+export interface TGetParams {
   userIds: Array<string | number>;
-  fields?: UserFieldType[];
-  nameCase?: NameCaseType;
+  fields?: TUserField[];
+  nameCase?: TNameCase;
 }
 
-export type GetResult = User[];
+export type TGetResult = TUser[];
 
 /**
  * @see https://vk.com/dev/users.getFollowers
  */
-export interface GetFollowersParams {
+export interface IGetFollowersParams {
   userId?: number;
   offset?: number;
   count?: number;
-  fields?: UserFieldType[];
-  nameCase?: NameCaseType;
+  fields?: TUserField[];
+  nameCase?: TNameCase;
 }
 
-export type GetFollowersResult = Pager<User>;
+export type TGetFollowersResult = IPager<TUser>;
 
 /**
  * @see https://vk.com/dev/users.getSubscriptions
  */
-export interface GetSubscriptionsParams {
+export interface IGetSubscriptionsParams {
   userId?: number;
-  extended?: BooleanType;
+  extended?: TBoolean;
   offset?: number;
   count?: number;
-  fields?: UserFieldType[];
+  fields?: TUserField[];
 }
 
-export type GetSubscriptionsResult = Pager<User>;
+export type TGetSubscriptionsResult = IPager<TUser>;
 
 /**
  * @see https://vk.com/dev/users.report
  */
-export interface ReportParams {
+export interface IReportParams {
   userId: number;
   type: 'porn' | 'spam' | 'insult' | 'advertisеment';
   comment: string;
 }
 
-export type ReportResult = 1;
+export type TReportResult = 1;
 
 /**
  * @see https://vk.com/dev/users.search
  * // TODO: Adapt for easier usage
  */
-export interface SearchParams {
+export interface ISearchParams {
   q?: string;
   sort?: 0 | 1 | 'popularity' | 'registration-date';
   offset?: number;
   count?: number;
-  fields?: UserFieldType[];
+  fields?: TUserField[];
   city?: number;
   country?: number;
   hometown?: string;
@@ -148,15 +148,15 @@ export interface SearchParams {
   university?: number;
   universityFaculty?: number;
   universityChair?: number;
-  sex?: SexEnum;
-  status?: RelationsStatusEnum;
+  sex?: ESex;
+  status?: ERelationsStatus;
   ageFrom?: number;
   ageTo?: number;
   birthDay?: number;
   birthMonth?: number;
   birthYear?: number;
-  online?: BooleanType;
-  hasPhoto?: BooleanType;
+  online?: TBoolean;
+  hasPhoto?: TBoolean;
   schoolCountry?: number;
   schoolCity?: number;
   schoolClass?: number;
@@ -169,4 +169,4 @@ export interface SearchParams {
   fromList?: Array<'friends' | 'subscriptions'>;
 }
 
-export type SearchResult = Pager<User & { trackCode?: string }>;
+export type TSearchResult = IPager<TUser & { trackCode?: string }>;

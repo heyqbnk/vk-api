@@ -1,14 +1,14 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {
-  GetFollowersParams,
-  GetFollowersResult,
-  GetParams,
-  GetResult,
-  GetSubscriptionsParams,
-  GetSubscriptionsResult,
-  ReportParams,
-  ReportResult, SearchParams, SearchResult,
+  IGetFollowersParams,
+  TGetFollowersResult,
+  TGetParams,
+  TGetResult,
+  IGetSubscriptionsParams,
+  TGetSubscriptionsResult,
+  IReportParams,
+  TReportResult, ISearchParams, TSearchResult,
 } from './types';
 import {
   formatOptionalArray,
@@ -17,14 +17,14 @@ import {
 } from '../../utils';
 
 export class UsersRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('users', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/users.get
    */
-  get = this.r<GetParams, GetResult>(
+  get = this.r<TGetParams, TGetResult>(
     'get',
     ({userIds, fields, ...rest}) => ({
       ...rest,
@@ -36,7 +36,7 @@ export class UsersRepository extends Repository {
   /**
    * @see https://vk.com/dev/users.getFollowers
    */
-  getFollowers = this.r<GetFollowersParams, GetFollowersResult>(
+  getFollowers = this.r<IGetFollowersParams, TGetFollowersResult>(
     'getFollowers',
     ({fields, ...rest}) => ({
       ...rest,
@@ -47,7 +47,7 @@ export class UsersRepository extends Repository {
   /**
    * @see https://vk.com/dev/users.getSubscriptions
    */
-  getSubscriptions = this.r<GetSubscriptionsParams, GetSubscriptionsResult>(
+  getSubscriptions = this.r<IGetSubscriptionsParams, TGetSubscriptionsResult>(
     'getSubscriptions',
     ({fields, extended, ...rest}) => ({
       ...rest,
@@ -59,9 +59,9 @@ export class UsersRepository extends Repository {
   /**
    * @see https://vk.com/dev/users.report
    */
-  report = this.r<ReportParams, ReportResult>('getSubscriptions');
+  report = this.r<IReportParams, TReportResult>('getSubscriptions');
 
-  search = this.r<SearchParams, SearchResult>(
+  search = this.r<ISearchParams, TSearchResult>(
     'search',
     ({sort, online, hasPhoto, ...rest}) => ({
       sort: typeof sort === 'undefined'

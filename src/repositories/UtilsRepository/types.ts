@@ -1,13 +1,13 @@
-import {Pager, PseudoBooleanType} from '../../types';
+import {IPager, TPseudoBoolean} from '../../types';
 
 /**
  * @see https://vk.com/dev/utils.checkLink
  */
-export interface CheckLinkParams {
+export interface ICheckLinkParams {
   url: string;
 }
 
-export interface CheckLinkResult {
+export interface ICheckLinkResult {
   status: 'not_banned' | 'banned' | 'processing';
   link: string;
 }
@@ -15,21 +15,21 @@ export interface CheckLinkResult {
 /**
  * @see https://vk.com/dev/utils.deleteFromLastShortened
  */
-export interface DeleteFromLastShortenedParams {
+export interface IDeleteFromLastShortenedParams {
   key: string;
 }
 
-export type DeleteFromLastShortenedResult = 1;
+export type TDeleteFromLastShortenedResult = 1;
 
 /**
  * @see https://vk.com/dev/utils.getLastShortenedLinks
  */
-export interface GetLastShortenedLinksParams {
+export interface IGetLastShortenedLinksParams {
   count?: number;
   offset?: number;
 }
 
-export type GetLastShortenedLinksResult = Pager<{
+export type TGetLastShortenedLinksResult = IPager<{
   timestamp: number;
   url: string;
   shortUrl: string;
@@ -41,7 +41,7 @@ export type GetLastShortenedLinksResult = Pager<{
 /**
  * @see https://vk.com/dev/utils.getLinkStats
  */
-export interface GetLinkStatsParams {
+export interface IGetLinkStatsParams {
   key: string;
   source?: string;
   accessKey?: string;
@@ -50,15 +50,15 @@ export interface GetLinkStatsParams {
   extended?: boolean;
 }
 
-export interface GetLinkStatsResult {
+export interface IGetLinkStatsResult {
   key: string;
   stats: Array<{
     timestamp: number;
     views: number;
     sexAge: Array<{
       ageRange: string;
-      female: PseudoBooleanType;
-      male: PseudoBooleanType;
+      female: TPseudoBoolean;
+      male: TPseudoBoolean;
     }>;
     countries: Array<{
       countryId: number;
@@ -74,20 +74,20 @@ export interface GetLinkStatsResult {
 /**
  * @see https://vk.com/dev/utils.getServerTime
  */
-export interface GetServerTimeParams {
+export interface IGetServerTimeParams {
 }
 
-export type GetServerTimeResult = number;
+export type TGetServerTimeResult = number;
 
 /**
  * @see https://vk.com/dev/utils.getShortLink
  */
-export interface GetShortLinkParams {
+export interface IGetShortLinkParams {
   url: string;
   private?: boolean;
 }
 
-export interface GetShortLinkResult {
+export interface IGetShortLinkResult {
   shortUrl: string;
   url: string;
   key: string;
@@ -97,11 +97,11 @@ export interface GetShortLinkResult {
 /**
  * @see https://vk.com/dev/utils.resolveScreenName
  */
-export interface ResolveScreenNameParams {
+export interface IResolveScreenNameParams {
   screenName: string;
 }
 
-export type ResolveScreenNameResult = {
+export type TResolveScreenNameResult = {
   type: 'user' | 'group' | 'application';
   objectId: number;
 } | {};

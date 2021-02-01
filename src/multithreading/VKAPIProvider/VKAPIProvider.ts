@@ -1,36 +1,38 @@
-import {VKAPIMasterConstructorProps} from './types';
+import {IVKAPIProviderConstructorProps} from './types';
 import {Worker} from 'cluster';
-import {VKAPIInterface} from '../../VKAPI';
 import {isVKAPIProcessRequestMessage} from './utils';
-import {VKAPIRequestProcessedMessage} from '../types';
+import {IVKAPIRequestPerformAllowedMessage} from '../types';
+import {Queue} from '../../Queue';
+import {REQUEST_PERFORM_ALLOWED_EVENT} from '../constants';
 
 /**
- * Master class which receives orders to perform requests to VKAPI
+ * Master class which receives orders to perform requests to VKAPI.
  */
 export class VKAPIProvider {
   /**
-   * Slave threads
+   * Slave threads.
    */
   private readonly workers: Worker[];
-
   /**
-   * API client which executes requests
-   */
-  private readonly instance: VKAPIInterface;
-
-  /**
-   * Tunnel name
+   * Tunnel name.
    */
   private readonly tunnelName: string;
+  /**
+   * Queue of requests.
+   * @type {Queue}
+   * @private
+   */
+  private readonly queue: Queue;
 
-  constructor(props: VKAPIMasterConstructorProps) {
+  constructor(props: IVKAPIProviderConstructorProps) {
     const {
-      instance, workers, tunnelName = '',
+      workers, tunnelName = '',
       maxProcessEventListenersCount,
+      rps = 3,
     } = props;
-    this.instance = instance;
     this.workers = workers;
     this.tunnelName = tunnelName;
+    this.queue = new Queue({timeout: Math.ceil(1000 / rps)});
 
     if (typeof maxProcessEventListenersCount === 'number') {
       process.setMaxListeners(maxProcessEventListenersCount);
@@ -38,46 +40,31 @@ export class VKAPIProvider {
   }
 
   /**
-   * Initializes threads listening
+   * Initializes threads listening.
    */
   init() {
-    this.workers.forEach(w => {
-      // Listen to incoming messages from threads
-      w.on('message', async message => {
-        // Work only with process-request messages and which are forwarded
-        // to current master
+    // Listen to incoming messages from threads.
+    for (const worker of this.workers) {
+      worker.on('message', async message => {
+        // When message is captured, check if it is a message from consumer
+        // and its tunnel is equal to current provider tunnel.
         if (
           isVKAPIProcessRequestMessage(message) &&
           this.tunnelName === message.tunnelName
         ) {
-          const {requestId, processId, config} = message;
-          let error: Error | null = null;
-          let data: any = null;
+          // Await until call can be performed.
+          await this.queue.await();
 
-          // Trying to execute request
-          try {
-            data = await this.instance.addRequestToQueue(config);
-          } catch (e) {
-            error = e;
-          }
-          const answerMessage: VKAPIRequestProcessedMessage = {
+          // Notify worker, it can call its request.
+          const answerMessage: IVKAPIRequestPerformAllowedMessage = {
             tunnelName: this.tunnelName,
-            processId,
-            requestId,
+            requestId: message.requestId,
             isVKAPIMessage: true,
-            type: 'request-processed',
-            error,
-            data,
+            type: REQUEST_PERFORM_ALLOWED_EVENT,
           };
-          w.send(answerMessage);
+          worker.send(answerMessage);
         }
       });
-    });
+    }
   }
 }
-
-/**
- * TODO: Remove in 2.0.0
- * @deprecated
- */
-export {VKAPIProvider as VKAPIMaster};

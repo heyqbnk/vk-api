@@ -1,14 +1,14 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
-import {SendParams, SendResult} from './types';
+import {TSendRequest} from '../../types';
+import {TSendParams, TSendResult} from './types';
 import {formatOptionalArray} from '../../utils';
 
 export class MessagesRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('messages', sendRequest);
   }
 
-  send = this.r<SendParams, SendResult>(
+  send = this.r<TSendParams, TSendResult>(
     'send',
     ({randomId: _randomId, ...rest}) => {
       const randomId = typeof _randomId === 'undefined'

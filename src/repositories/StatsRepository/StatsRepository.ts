@@ -1,23 +1,23 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {
-  GetParams,
-  GetPostReachParams,
-  GetPostReachResult,
-  GetResult, TrackVisitorParams, TrackVisitorResult,
+  TGetParams,
+  IGetPostReachParams,
+  IGetPostReachResult,
+  TGetResult, ITrackVisitorParams, TTrackVisitorResult,
 } from './types';
 import {formatOptionalArray, formatOptionalBoolean} from '../../utils';
 
 export class StatsRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('stats', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/stats.get
-   * @type {RepositoryMethod<GetParams, GetResult>}
+   * @type {TRepositoryMethod<TGetParams, TGetResult>}
    */
-  get = this.r<GetParams, GetResult>(
+  get = this.r<TGetParams, TGetResult>(
     'get',
     ({extended, filters, ...rest}) => ({
       ...rest,
@@ -28,9 +28,9 @@ export class StatsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/stats.getPostReach
-   * @type {RepositoryMethod<GetPostReachParams, GetPostReachResult>}
+   * @type {TRepositoryMethod<IGetPostReachParams, IGetPostReachResult>}
    */
-  getPostReach = this.r<GetPostReachParams, GetPostReachResult>(
+  getPostReach = this.r<IGetPostReachParams, IGetPostReachResult>(
     'getPostReach',
     ({postIds, ...rest}) => ({
       ...rest,
@@ -40,9 +40,9 @@ export class StatsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/stats.trackVisitor
-   * @type {RepositoryMethod<TrackVisitorParams, TrackVisitorResult>}
+   * @type {TRepositoryMethod<ITrackVisitorParams, TTrackVisitorResult>}
    */
-  trackVisitor = this.r<TrackVisitorParams, TrackVisitorResult>(
+  trackVisitor = this.r<ITrackVisitorParams, TTrackVisitorResult>(
     'trackVisitor',
   );
 }

@@ -1,10 +1,10 @@
-import {ObjectSharedProps} from './shared';
-import {PseudoBooleanType} from '../shared';
+import {IObjectSharedProps} from './shared';
+import {TPseudoBoolean} from '../shared';
 
 /**
  * @see https://vk.com/dev/objects/video
  */
-export interface Video extends ObjectSharedProps {
+export interface IVideo extends IObjectSharedProps {
   title: string;
   description: string;
   duration: number;
@@ -25,7 +25,7 @@ export interface Video extends ObjectSharedProps {
   player: string;
   platform: string;
   canEdit?: 1;
-  canAdd: PseudoBooleanType;
+  canAdd: TPseudoBoolean;
   isPrivate?: 1;
   accessKey: string;
   processing?: 1;

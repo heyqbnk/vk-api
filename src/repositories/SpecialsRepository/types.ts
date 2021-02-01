@@ -1,6 +1,6 @@
-import {Pager} from '../../types';
+import {IPager} from '../../types';
 
-type TStickersPager = Pager<{
+type TStickersPager = IPager<{
   stickerId: number;
   isPurchased: boolean;
 }>

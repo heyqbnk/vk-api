@@ -1,7 +1,7 @@
 /**
  * @see https://vk.com/dev/stats.get
  */
-export type GetParams = {
+export type TGetParams = {
   timestampFrom?: number;
   timestampTo?: number;
   interval?: 'day' | 'week' | 'month' | 'year' | 'all';
@@ -11,7 +11,7 @@ export type GetParams = {
   extended?: boolean;
 } & ({ groupId: number } | { appId: number })
 
-export type GetResult = Array<{
+export type TGetResult = Array<{
   periodFrom: string;
   periodTo: string;
   reach: {
@@ -43,12 +43,12 @@ export type GetResult = Array<{
 /**
  * @see https://vk.com/dev/stats.getPostReach
  */
-export interface GetPostReachParams {
+export interface IGetPostReachParams {
   ownerId: number;
   postIds: number[];
 }
 
-export interface GetPostReachResult {
+export interface IGetPostReachResult {
   reachSubscribers: number;
   reachTotal: number;
   reachAds: number;
@@ -64,7 +64,7 @@ export interface GetPostReachResult {
 /**
  * @see https://vk.com/dev/stats.trackVisitor
  */
-export interface TrackVisitorParams {
+export interface ITrackVisitorParams {
 }
 
-export type TrackVisitorResult = 1;
+export type TTrackVisitorResult = 1;

@@ -1,9 +1,9 @@
-import {Post} from '../../types';
+import {IPost} from '../../types';
 
 /**
  * @see https://vk.com/dev/widgets.getComments
  */
-export interface GetCommentsParams {
+export interface IGetCommentsParams {
   widgetApiId?: number;
   url: string;
   pageId?: string;
@@ -13,15 +13,15 @@ export interface GetCommentsParams {
   count?: number;
 }
 
-export interface GetCommentsResult {
+export interface IGetCommentsResult {
   count: number;
-  posts: Post[];
+  posts: IPost[];
 }
 
 /**
  * @see https://vk.com/dev/widgets.getPages
  */
-export interface GetPagesParams {
+export interface IGetPagesParams {
   widgetApiId?: number;
   order?: 'date' | 'comments' | 'likes' | 'friend_likes';
   period?: 'day' | 'week' | 'month' | 'alltime';
@@ -29,7 +29,7 @@ export interface GetPagesParams {
   count?: number;
 }
 
-export interface GetPagesResult {
+export interface IGetPagesResult {
   count: number;
   pages: Array<{
     id: string;

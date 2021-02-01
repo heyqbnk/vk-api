@@ -1,22 +1,22 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {
-  AddMiniAppsCustomParams,
-  AddMiniAppsCustomResult,
-  AddMiniAppsParams,
+  TAddMiniAppsCustomParams,
+  TAddMiniAppsCustomResult,
+  IAddMiniAppsParams,
 } from './types';
 
 export class StatEventsRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('statEvents', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/statEvents.addMiniAppsCustom
-   * @type {RepositoryMethod<AddMiniAppsCustomParams, AddMiniAppsCustomResult>}
+   * @type {TRepositoryMethod<TAddMiniAppsCustomParams, TAddMiniAppsCustomResult>}
    */
-  addMiniAppsCustom = this.r<AddMiniAppsCustomParams,
-    AddMiniAppsCustomResult>('addMiniAppsCustom', params => {
+  addMiniAppsCustom = this.r<TAddMiniAppsCustomParams,
+    TAddMiniAppsCustomResult>('addMiniAppsCustom', params => {
     const {events, ...rest} = params;
     const formattedEvents = events.map(e => {
       const {json, timestamp, ...rest} = e;
@@ -42,8 +42,8 @@ export class StatEventsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/statEvents.addMiniApps
-   * @type {RepositoryMethod<AddMiniAppsParams, AddMiniAppsCustomResult>}
+   * @type {TRepositoryMethod<IAddMiniAppsParams, TAddMiniAppsCustomResult>}
    */
-  addMiniApps = this.r<AddMiniAppsParams,
-    AddMiniAppsCustomResult>('addMiniApps');
+  addMiniApps = this.r<IAddMiniAppsParams,
+    TAddMiniAppsCustomResult>('addMiniApps');
 }

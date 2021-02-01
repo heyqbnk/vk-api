@@ -1,51 +1,51 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {
-  GetChairsParams,
-  GetChairsResult,
-  GetCitiesByIdParams,
-  GetCitiesByIdResult,
-  GetCitiesParams,
-  GetCitiesResult,
-  GetCountriesByIdParams,
-  GetCountriesByIdResult,
-  GetCountriesParams,
-  GetCountriesResult,
-  GetFacultiesParams,
-  GetFacultiesResult,
-  GetMetroStationsByIdParams,
-  GetMetroStationsByIdResult,
-  GetMetroStationsParams,
-  GetMetroStationsResult,
-  GetRegionsParams,
-  GetRegionsResult,
-  GetSchoolClassesParams,
-  GetSchoolClassesResult,
-  GetSchoolsParams,
-  GetSchoolsResult,
-  GetUniversitiesParams,
-  GetUniversitiesResult,
+  IGetChairsParams,
+  TGetChairsResult,
+  IGetCitiesByIdParams,
+  TGetCitiesByIdResult,
+  IGetCitiesParams,
+  TGetCitiesResult,
+  IGetCountriesByIdParams,
+  TGetCountriesByIdResult,
+  IGetCountriesParams,
+  TGetCountriesResult,
+  IGetFacultiesParams,
+  TGetFacultiesResult,
+  IGetMetroStationsByIdParams,
+  TGetMetroStationsByIdResult,
+  IGetMetroStationsParams,
+  TGetMetroStationsResult,
+  IGetRegionsParams,
+  TGetRegionsResult,
+  IGetSchoolClassesParams,
+  TGetSchoolClassesResult,
+  IGetSchoolsParams,
+  TGetSchoolsResult,
+  IGetUniversitiesParams,
+  TGetUniversitiesResult,
 } from './types';
 import {formatOptionalBoolean, formatOptionalArray} from '../../utils';
 
 export class DatabaseRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('database', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/database.getChairs
-   * @type {RepositoryMethod<GetChairsParams, GetChairsResult>}
+   * @type {TRepositoryMethod<IGetChairsParams, TGetChairsResult>}
    */
-  getChairs = this.r<GetChairsParams, GetChairsResult>(
+  getChairs = this.r<IGetChairsParams, TGetChairsResult>(
     'getChairs',
   );
 
   /**
    * @see https://vk.com/dev/database.getCities
-   * @type {RepositoryMethod<GetCitiesParams, GetCitiesResult>}
+   * @type {TRepositoryMethod<IGetCitiesParams, TGetCitiesResult>}
    */
-  getCities = this.r<GetCitiesParams, GetCitiesResult>(
+  getCities = this.r<IGetCitiesParams, TGetCitiesResult>(
     'getCities',
     ({needAll, ...rest}) => ({
       ...rest,
@@ -55,9 +55,9 @@ export class DatabaseRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/database.getCitiesById
-   * @type {RepositoryMethod<GetCitiesByIdParams, GetCitiesByIdResult>}
+   * @type {TRepositoryMethod<IGetCitiesByIdParams, TGetCitiesByIdResult>}
    */
-  getCitiesById = this.r<GetCitiesByIdParams, GetCitiesByIdResult>(
+  getCitiesById = this.r<IGetCitiesByIdParams, TGetCitiesByIdResult>(
     'getCitiesById',
     ({cityIds, ...rest}) => ({
       ...rest,
@@ -67,9 +67,9 @@ export class DatabaseRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/database.getCountries
-   * @type {RepositoryMethod<GetCountriesParams, GetCountriesResult>}
+   * @type {TRepositoryMethod<IGetCountriesParams, TGetCountriesResult>}
    */
-  getCountries = this.r<GetCountriesParams, GetCountriesResult>(
+  getCountries = this.r<IGetCountriesParams, TGetCountriesResult>(
     'getCountries',
     ({code, needAll, ...rest}) => ({
       ...rest,
@@ -80,10 +80,10 @@ export class DatabaseRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/database.getCountriesById
-   * @type {RepositoryMethod<GetCountriesByIdParams, GetCountriesByIdResult>}
+   * @type {TRepositoryMethod<IGetCountriesByIdParams, TGetCountriesByIdResult>}
    */
-  getCountriesById = this.r<GetCountriesByIdParams,
-    GetCountriesByIdResult>(
+  getCountriesById = this.r<IGetCountriesByIdParams,
+    TGetCountriesByIdResult>(
     'getCountriesById',
     ({countryIds, ...rest}) => ({
       ...rest,
@@ -93,18 +93,18 @@ export class DatabaseRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/database.getFaculties
-   * @type {RepositoryMethod<GetFacultiesParams, GetFacultiesResult>}
+   * @type {TRepositoryMethod<IGetFacultiesParams, TGetFacultiesResult>}
    */
-  getFaculties = this.r<GetFacultiesParams, GetFacultiesResult>(
+  getFaculties = this.r<IGetFacultiesParams, TGetFacultiesResult>(
     'getFaculties',
   );
 
   /**
    * @see https://vk.com/dev/database.getMetroStations
-   * @type {RepositoryMethod<GetCountriesParams, GetCountriesResult>}
+   * @type {TRepositoryMethod<IGetCountriesParams, TGetCountriesResult>}
    */
-  getMetroStations = this.r<GetMetroStationsParams,
-    GetMetroStationsResult>(
+  getMetroStations = this.r<IGetMetroStationsParams,
+    TGetMetroStationsResult>(
     'getMetroStations',
     ({extended, ...rest}) => ({
       ...rest,
@@ -114,10 +114,10 @@ export class DatabaseRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/database.getMetroStationsById
-   * @type {RepositoryMethod<GetMetroStationsByIdParams, GetMetroStationsByIdResult>}
+   * @type {TRepositoryMethod<IGetMetroStationsByIdParams, TGetMetroStationsByIdResult>}
    */
-  getMetroStationsById = this.r<GetMetroStationsByIdParams,
-    GetMetroStationsByIdResult>(
+  getMetroStationsById = this.r<IGetMetroStationsByIdParams,
+    TGetMetroStationsByIdResult>(
     'getMetroStationsById',
     ({stationIds, ...rest}) => ({
       ...rest,
@@ -127,28 +127,28 @@ export class DatabaseRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/database.getRegions
-   * @type {RepositoryMethod<GetRegionsParams, GetRegionsResult>}
+   * @type {TRepositoryMethod<IGetRegionsParams, TGetRegionsResult>}
    */
-  getRegions = this.r<GetRegionsParams, GetRegionsResult>('getRegions');
+  getRegions = this.r<IGetRegionsParams, TGetRegionsResult>('getRegions');
 
   /**
    * @see https://vk.com/dev/database.getSchoolClasses
-   * @type {RepositoryMethod<GetSchoolClassesParams, GetSchoolClassesResult>}
+   * @type {TRepositoryMethod<IGetSchoolClassesParams, TGetSchoolClassesResult>}
    */
-  getSchoolClasses = this.r<GetSchoolClassesParams,
-    GetSchoolClassesResult>('getSchoolClasses');
+  getSchoolClasses = this.r<IGetSchoolClassesParams,
+    TGetSchoolClassesResult>('getSchoolClasses');
 
   /**
    * @see https://vk.com/dev/database.getSchools
-   * @type {RepositoryMethod<GetSchoolsParams, GetSchoolsResult>}
+   * @type {TRepositoryMethod<IGetSchoolsParams, TGetSchoolsResult>}
    */
-  getSchools = this.r<GetSchoolsParams, GetSchoolsResult>('getSchools');
+  getSchools = this.r<IGetSchoolsParams, TGetSchoolsResult>('getSchools');
 
   /**
    * @see https://vk.com/dev/database.getUniversities
-   * @type {RepositoryMethod<GetUniversitiesParams, GetUniversitiesResult>}
+   * @type {TRepositoryMethod<IGetUniversitiesParams, TGetUniversitiesResult>}
    */
-  getUniversities = this.r<GetUniversitiesParams, GetUniversitiesResult>(
+  getUniversities = this.r<IGetUniversitiesParams, TGetUniversitiesResult>(
     'getUniversities',
   );
 }

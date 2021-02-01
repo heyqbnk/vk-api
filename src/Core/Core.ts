@@ -1,24 +1,26 @@
-import {VKAPIRepositories} from '../VKAPI';
-import {MessagesRepository} from '../repositories/MessagesRepository';
-import {NotificationsRepository} from '../repositories/NotificationsRepository';
-import {StatEventsRepository} from '../repositories/StatEventsRepository';
-import {StatsRepository} from '../repositories/StatsRepository';
-import {StreamingRepository} from '../repositories/StreamingRepository';
-import {UsersRepository} from '../repositories/UsersRepository';
-import {UtilsRepository} from '../repositories/UtilsRepository';
-import {WidgetsRepository} from '../repositories/WidgetsRepository';
-import {DatabaseRepository} from '../repositories/DatabaseRepository';
-import {SendRequest} from '../types';
-import {SpecialsRepository} from '../repositories/SpecialsRepository';
-import {StorageRepository} from '../repositories/StorageRepository';
+import {IRepositories} from '../types';
+import {
+  DatabaseRepository,
+  StorageRepository,
+  SpecialsRepository,
+  MessagesRepository,
+  NotificationsRepository,
+  StatEventsRepository,
+  StatsRepository,
+  StreamingRepository,
+  UsersRepository,
+  UtilsRepository,
+  WidgetsRepository,
+} from '../repositories';
+import {TSendRequest} from '../types';
 
-const notImplemented: SendRequest = () => {
+const notImplemented: TSendRequest = () => {
   throw new Error(
-    'Unable to call repository method due to VKAPICore was not initialized',
+    'Unable to call repository method due to Core was not initialized',
   );
 };
 
-export abstract class VKAPICore implements VKAPIRepositories {
+export abstract class Core implements IRepositories {
   database = new DatabaseRepository(notImplemented);
   messages = new MessagesRepository(notImplemented);
   notifications = new NotificationsRepository(notImplemented);
@@ -31,7 +33,7 @@ export abstract class VKAPICore implements VKAPIRepositories {
   utils = new UtilsRepository(notImplemented);
   widgets = new WidgetsRepository(notImplemented);
 
-  protected init(addRequestToQueue: SendRequest) {
+  protected init(addRequestToQueue: TSendRequest) {
     this.database = new DatabaseRepository(addRequestToQueue);
     this.messages = new MessagesRepository(addRequestToQueue);
     this.notifications = new NotificationsRepository(addRequestToQueue);

@@ -1,11 +1,11 @@
-import {Image} from './shared';
+import {IImage} from './shared';
 
 /**
  * @see https://vk.com/dev/objects/sticker
  */
-export interface Sticker {
+export interface ISticker {
   productId: number;
   stickerId: number;
-  images: Image[];
-  imagesWithBackground: Image[];
+  images: IImage[];
+  imagesWithBackground: IImage[];
 }

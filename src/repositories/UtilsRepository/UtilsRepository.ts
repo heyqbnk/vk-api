@@ -1,52 +1,52 @@
 import {Repository} from '../Repository';
-import {SendRequest} from '../../types';
+import {TSendRequest} from '../../types';
 import {
-  CheckLinkParams,
-  CheckLinkResult,
-  DeleteFromLastShortenedParams,
-  DeleteFromLastShortenedResult,
-  GetLastShortenedLinksParams,
-  GetLastShortenedLinksResult,
-  GetLinkStatsParams, GetLinkStatsResult,
-  GetServerTimeParams,
-  GetServerTimeResult,
-  GetShortLinkParams,
-  GetShortLinkResult,
-  ResolveScreenNameParams,
-  ResolveScreenNameResult,
+  ICheckLinkParams,
+  ICheckLinkResult,
+  IDeleteFromLastShortenedParams,
+  TDeleteFromLastShortenedResult,
+  IGetLastShortenedLinksParams,
+  TGetLastShortenedLinksResult,
+  IGetLinkStatsParams, IGetLinkStatsResult,
+  IGetServerTimeParams,
+  TGetServerTimeResult,
+  IGetShortLinkParams,
+  IGetShortLinkResult,
+  IResolveScreenNameParams,
+  TResolveScreenNameResult,
 } from './types';
 import {formatOptionalBoolean} from '../../utils';
 
 export class UtilsRepository extends Repository {
-  constructor(sendRequest: SendRequest) {
+  constructor(sendRequest: TSendRequest) {
     super('utils', sendRequest);
   }
 
   /**
    * @see https://vk.com/dev/utils.checkLink
-   * @type {RepositoryMethod<CheckLinkParams, CheckLinkResult>}
+   * @type {TRepositoryMethod<ICheckLinkParams, ICheckLinkResult>}
    */
-  checkLink = this.r<CheckLinkParams, CheckLinkResult>('checkLink');
+  checkLink = this.r<ICheckLinkParams, ICheckLinkResult>('checkLink');
 
   /**
    * @see https://vk.com/dev/utils.deleteFromLastShortened
-   * @type {RepositoryMethod<DeleteFromLastShortenedParams, DeleteFromLastShortenedResult>}
+   * @type {TRepositoryMethod<IDeleteFromLastShortenedParams, TDeleteFromLastShortenedResult>}
    */
-  deleteFromLastShortened = this.r<DeleteFromLastShortenedParams,
-    DeleteFromLastShortenedResult>('deleteFromLastShortened');
+  deleteFromLastShortened = this.r<IDeleteFromLastShortenedParams,
+    TDeleteFromLastShortenedResult>('deleteFromLastShortened');
 
   /**
    * @see https://vk.com/dev/utils.getLastShortenedLinks
-   * @type {RepositoryMethod<GetLastShortenedLinksParams, GetLastShortenedLinksResult>}
+   * @type {TRepositoryMethod<IGetLastShortenedLinksParams, TGetLastShortenedLinksResult>}
    */
-  getLastShortenedLinks = this.r<GetLastShortenedLinksParams,
-    GetLastShortenedLinksResult>('getLastShortenedLinks');
+  getLastShortenedLinks = this.r<IGetLastShortenedLinksParams,
+    TGetLastShortenedLinksResult>('getLastShortenedLinks');
 
   /**
    * @see https://vk.com/dev/utils.getLinkStats
-   * @type {RepositoryMethod<GetLinkStatsParams, GetLastShortenedLinksResult>}
+   * @type {TRepositoryMethod<IGetLinkStatsParams, TGetLastShortenedLinksResult>}
    */
-  getLinkStats = this.r<GetLinkStatsParams, GetLinkStatsResult>(
+  getLinkStats = this.r<IGetLinkStatsParams, IGetLinkStatsResult>(
     'getLinkStats',
     ({extended, ...rest}) => ({
       ...rest,
@@ -56,17 +56,17 @@ export class UtilsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/utils.getServerTime
-   * @type {RepositoryMethod<GetServerTimeParams, GetServerTimeResult>}
+   * @type {TRepositoryMethod<IGetServerTimeParams, TGetServerTimeResult>}
    */
-  getServerTime = this.r<GetServerTimeParams, GetServerTimeResult>(
+  getServerTime = this.r<IGetServerTimeParams, TGetServerTimeResult>(
     'getServerTime',
   );
 
   /**
    * @see https://vk.com/dev/utils.getShortLink
-   * @type {RepositoryMethod<GetShortLinkParams, GetShortLinkResult>}
+   * @type {TRepositoryMethod<IGetShortLinkParams, IGetShortLinkResult>}
    */
-  getShortLink = this.r<GetShortLinkParams, GetShortLinkResult>(
+  getShortLink = this.r<IGetShortLinkParams, IGetShortLinkResult>(
     'getShortLink',
     ({private: isPrivate, ...rest}) => ({
       ...rest,
@@ -76,10 +76,10 @@ export class UtilsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/utils.resolveScreenName
-   * @type {RepositoryMethod<ResolveScreenNameParams, ResolveScreenNameResult>}
+   * @type {TRepositoryMethod<IResolveScreenNameParams, TResolveScreenNameResult>}
    */
   resolveScreenName =
-    this.r<ResolveScreenNameParams, ResolveScreenNameResult>(
+    this.r<IResolveScreenNameParams, TResolveScreenNameResult>(
       'resolveScreenName',
     );
 }
