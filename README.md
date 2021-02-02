@@ -156,7 +156,8 @@ Here is simple example:
 ```typescript
 import {fork, isMaster, Worker} from 'cluster';
 import os from 'os';
-import {VKAPI, VKAPIProvider, VKAPIConsumer, IVKAPI} from 'vkontakte-api';
+import {VKAPI, IVKAPI} from 'vkontakte-api';
+import {VKAPIProvider, VKAPIConsumer} from 'vkontakte-api/dist/multithreading';
 
 // Runs http server. Accepts an object which looks like VKAPI instance. So,
 // he does not know what api exactly is. It could be real VKAPI instance or
@@ -213,7 +214,8 @@ consumer. Here is how it works:
 
 ```typescript
 import {isMaster} from 'cluster'; 
-import {VKAPI, VKAPIProvider, VKAPIConsumer} from 'vkontakte-api';
+import {VKAPI} from 'vkontakte-api';
+import {VKAPIProvider, VKAPIConsumer} from 'vkontakte-api/dist/multithreading';
 
 if (isMaster) {
   const cpuCount = os.cpus().length;
