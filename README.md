@@ -4,7 +4,9 @@
 [<img src="https://i.imgur.com/uOIQBBR.png">](https://vk.com/dev)
 # vkontakte-api [![NPM][npm-badge]][npm-link]
 
-TypeScript library to make requests performing to VK API simple
+TypeScript library to make requests performing to VK API simple. 
+
+Docs: [EN](https://github.com/wolframdeus/vk-api/blob/master/README.md) / [RU](https://github.com/wolframdeus/vk-api/blob/master/README-RU.md)
 
 ## Installation
 ```bash
@@ -52,7 +54,7 @@ each time until overriding is needed:
 const api = new VKAPI({
   rps: 20,
   accessToken: 'my default token',
-  lang: 'uk',
+  lang: 'en',
 });
 ```
 
@@ -71,14 +73,14 @@ const api = new VKAPI({isBrowser: true});
 ### Performing requests
 
 VKAPI instance contains a list of repositories which generate request parameters
-to send to API. Each repository is named according to its name in 
+to send to API. Each repository has a name according to its name in 
 [API](https://vk.com/dev/methods).
 
 Simple example of sending request and logging data:
 ```typescript
 import {VKAPI} from 'vkontakte-api';
 
-const api = new VKAPI();
+const api = new VKAPI({accessToken: 'my personal token'});
 
 api.users.get({userIds: ['vladkibenko']}).then(console.log);
 ```
@@ -93,35 +95,35 @@ api.notifications.sendMessage({
 
 Overriding default `lang` and `accessToken`:
 ```typescript
-import {LangEnum, VKAPI} from 'vkontakte-api';
+import {ELang, VKAPI} from 'vkontakte-api';
 
-const api = new VKAPI({accessToken: 'my personal user token'});
+const api = new VKAPI({accessToken: 'my personal token'});
 
-// Here we will get english-localized data from some application's face
+// Here we will get english-localized data on behalf of on app.
 api.users.get({
   userIds: ['vladkibenko'],
   accessToken: 'some application token',
-  // Or you could just use 'uk' or 1
-  lang: LangEnum.UK,
+  // Or you could just use 'en' or 3.
+  lang: ELang.EN,
 }).then(console.log);
 ```
 
-Some of methods are not currently typed or realised. So, you are free to perform
-custom requests. **Make sure, all of `Params` and `Response` fields are camel 
-cased, because internally, `vkontakte-api` moves them from snake to camel 
-case for easier usage**:
+Some methods or repositories are still not implemented. Nevertheless, you are 
+free to perform custom requests. **Make sure, all of `Params` and `Response` 
+fields are camel cased, because internally, `vkontakte-api` moves them from 
+snake to camel case for easier usage**:
 
 ```typescript
 import {VKAPI} from 'vkontakte-api';
 
 const api = new VKAPI({accessToken: 'my token'});
 
-// Description of parameters
+// Description of parameters.
 interface Params {
   cityIds: string;
 }
 
-// Description of response
+// Description of response.
 type Response = Array<{
   id: number;
   title: string;
@@ -198,7 +200,7 @@ if (isMaster) {
 else {
   // Create VKAPI instance consumer instance.
   http(new VKAPIConsumer({
-    instance: new VKAPI({accessToken: '...', v: '5.103'}),
+    instance: new VKAPI({accessToken: '...'}),
   }));
 }
 ```
@@ -244,3 +246,60 @@ if (isMaster) {
   });
 }
 ``` 
+
+## Implemented methods
+- [Database](https://vk.com/dev/database)
+    - [getChairs](https://vk.com/dev/database.getChairs)
+    - [getCities](https://vk.com/dev/database.getCities)
+    - [getCitiesById](https://vk.com/dev/database.getCitiesById)
+    - [getCountries](https://vk.com/dev/database.getCountries)
+    - [getCountriesById](https://vk.com/dev/database.getCountriesById)
+    - [getFaculties](https://vk.com/dev/database.getFaculties)
+    - [getMetroStations](https://vk.com/dev/database.getMetroStations)
+    - [getMetroStationsById](https://vk.com/dev/database.getMetroStationsById)
+    - [getRegions](https://vk.com/dev/database.getRegions)
+    - [getSchoolClasses](https://vk.com/dev/database.getSchoolClasses)
+    - [getSchools](https://vk.com/dev/database.getSchools)
+    - [getUniversities](https://vk.com/dev/database.getUniversities)
+- [Messages](https://vk.com/dev/messages)
+    - [send](https://vk.com/dev/messages.send)
+- [Notifications](https://vk.com/dev/notifications)
+    - [markAsViewed](https://vk.com/dev/notifications.markAsViewed)
+    - [sendMessage](https://vk.com/dev/notifications.sendMessage)
+- Specials
+    - addStickers
+    - getStickers
+- StatEvents
+    - addMiniAppsCustom
+    - addMiniApps
+- [Stats](https://vk.com/dev/stats)
+    - [get](https://vk.com/dev/stats.get)
+    - [getPostReach](https://vk.com/dev/stats.getPostReach)
+    - [trackVisitor](https://vk.com/dev/stats.trackVisitor)
+- [Storage](https://vk.com/dev/storage)
+    - [get](https://vk.com/dev/storage.get)
+    - [getKeys](https://vk.com/dev/storage.getKeys)
+    - [set](https://vk.com/dev/storage.set)
+- [Streaming](https://vk.com/dev/streaming)
+    - [getServerUrl](https://vk.com/dev/streaming.getServerUrl)
+    - [getSettings](https://vk.com/dev/streaming.getSettings)
+    - [getStats](https://vk.com/dev/streaming.getStats)
+    - [getStem](https://vk.com/dev/streaming.getStem)
+    - [setSettings](https://vk.com/dev/streaming.setSettings)
+- [Users](https://vk.com/dev/users)
+    - [get](https://vk.com/dev/users.get)
+    - [getFollowers](https://vk.com/dev/users.getFollowers)
+    - [getSubscriptions](https://vk.com/dev/users.getSubscriptions)
+    - [report](https://vk.com/dev/users.report)
+    - [search](https://vk.com/dev/users.search)
+- [Utils](https://vk.com/dev/utils)
+    - [checkLink](https://vk.com/dev/utils.checkLink)
+    - [deleteFromLastShortened](https://vk.com/dev/utils.deleteFromLastShortened)
+    - [getLastShortenedLinks](https://vk.com/dev/utils.getLastShortenedLinks)
+    - [getLinkStats](https://vk.com/dev/utils.getLinkStats)
+    - [getServerTime](https://vk.com/dev/utils.getServerTime)
+    - [getShortLink](https://vk.com/dev/utils.getShortLink)
+    - [resolveScreenName](https://vk.com/dev/utils.resolveScreenName)
+- [Widgets](https://vk.com/dev/widgets)
+    - [getComments](https://vk.com/dev/widgets.getComments)
+    - [getPages](https://vk.com/dev/widgets.getPages)
