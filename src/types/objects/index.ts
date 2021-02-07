@@ -1,5 +1,6 @@
 export * from './audio';
 export * from './button';
+export * from './community';
 export * from './doc';
 export * from './link';
 export * from './market-album';

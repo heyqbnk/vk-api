@@ -1,6 +1,83 @@
 import {IIdTitlePair, TPseudoBoolean} from '../shared';
-import {IPhoto} from './photo';
 import {IAudio} from './audio';
+import {ICropPhoto} from '../misc';
+
+export type TNameCase = 'nom' | 'gen' | 'dat' | 'acc' | 'ins' | 'abl';
+export type TUserField =
+  | 'about'
+  | 'activities'
+  | 'bdate'
+  | 'blacklisted'
+  | 'books'
+  | 'can_post'
+  | 'can_see_all_posts'
+  | 'can_see_audio'
+  | 'can_send_friend_request'
+  | 'can_write_private_message'
+  | 'career'
+  | 'city'
+  | 'common_count'
+  | 'connections'
+  | 'contacts'
+  | 'counters'
+  | 'country'
+  | 'crop_photo'
+  | 'domain'
+  | 'education'
+  | 'first_name_nom'
+  | 'first_name_gen'
+  | 'first_name_dat'
+  | 'first_name_acc'
+  | 'first_name_ins'
+  | 'first_name_abl'
+  | 'followers_count'
+  | 'friend_status'
+  | 'games'
+  | 'has_mobile'
+  | 'has_photo'
+  | 'home_town'
+  | 'interests'
+  | 'is_favorite'
+  | 'is_friend'
+  | 'is_hidden_from_feed'
+  | 'last_name_nom'
+  | 'last_name_gen'
+  | 'last_name_dat'
+  | 'last_name_acc'
+  | 'last_name_ins'
+  | 'last_name_abl'
+  | 'last_seen'
+  | 'lists'
+  | 'maiden_name'
+  | 'military'
+  | 'movies'
+  | 'music'
+  | 'nickname'
+  | 'occupation'
+  | 'online'
+  | 'personal'
+  | 'photo_50'
+  | 'photo_100'
+  | 'photo_200_orig'
+  | 'photo_200'
+  | 'photo_400_orig'
+  | 'photo_id'
+  | 'photo_max'
+  | 'photo_max_orig'
+  | 'quotes'
+  | 'relatives'
+  | 'relation'
+  | 'schools'
+  | 'screen_name'
+  | 'sex'
+  | 'site'
+  | 'status'
+  | 'timezone'
+  | 'trending'
+  | 'tv'
+  | 'universities'
+  | 'verified'
+  | 'wall_default';
 
 export enum EFriendStatus {
   NotFriend = 0,
@@ -110,13 +187,6 @@ export type TCareer = ({ groupId: number } | { company: string })
   position: string;
 } & ({ cityId: number } | { cityName: string })
 
-interface ICrop {
-  x: number;
-  y: number;
-  x2: number;
-  y2: number;
-}
-
 type TOnline =
   { online: TPseudoBoolean }
   & ({} | { onlineMobile: 1; onlineApp: number })
@@ -174,11 +244,7 @@ export type TUser = {
     pages: number;
   };
   country?: IIdTitlePair;
-  cropPhoto?: {
-    photo: IPhoto;
-    crop: ICrop;
-    rect: ICrop;
-  };
+  cropPhoto?: ICropPhoto;
   domain?: string;
   education?: {
     university: number;

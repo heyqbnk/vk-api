@@ -1,5 +1,9 @@
 import {
+  AuthRepository,
   DatabaseRepository,
+  DonutRepository,
+  GiftsRepository,
+  LikesRepository,
   StorageRepository,
   SpecialsRepository,
   MessagesRepository,
@@ -9,7 +13,7 @@ import {
   StreamingRepository,
   UsersRepository,
   UtilsRepository,
-  WidgetsRepository,
+  WidgetsRepository, DownloadedGamesRepository,
 } from '../repositories';
 
 /**
@@ -132,7 +136,12 @@ export type TRepositoryMethod<P extends {} = any, R = any> = (
  * List of all known repositories.
  */
 export interface IRepositories {
+  auth: AuthRepository;
   database: DatabaseRepository;
+  donut: DonutRepository;
+  downloadedGames: DownloadedGamesRepository;
+  gifts: GiftsRepository;
+  likes: LikesRepository;
   messages: MessagesRepository;
   notifications: NotificationsRepository;
   specials: SpecialsRepository;

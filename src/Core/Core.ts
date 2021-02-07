@@ -1,6 +1,9 @@
 import {IRepositories} from '../types';
 import {
+  AuthRepository,
   DatabaseRepository,
+  DonutRepository,
+  LikesRepository,
   StorageRepository,
   SpecialsRepository,
   MessagesRepository,
@@ -10,7 +13,7 @@ import {
   StreamingRepository,
   UsersRepository,
   UtilsRepository,
-  WidgetsRepository,
+  WidgetsRepository, GiftsRepository, DownloadedGamesRepository,
 } from '../repositories';
 import {TSendRequest} from '../types';
 
@@ -21,7 +24,12 @@ const notImplemented: TSendRequest = () => {
 };
 
 export abstract class Core implements IRepositories {
+  auth = new AuthRepository(notImplemented);
   database = new DatabaseRepository(notImplemented);
+  donut = new DonutRepository(notImplemented);
+  downloadedGames = new DownloadedGamesRepository(notImplemented);
+  gifts = new GiftsRepository(notImplemented);
+  likes = new LikesRepository(notImplemented);
   messages = new MessagesRepository(notImplemented);
   notifications = new NotificationsRepository(notImplemented);
   specials = new SpecialsRepository(notImplemented);
@@ -34,7 +42,12 @@ export abstract class Core implements IRepositories {
   widgets = new WidgetsRepository(notImplemented);
 
   protected init(addRequestToQueue: TSendRequest) {
+    this.auth = new AuthRepository(addRequestToQueue);
     this.database = new DatabaseRepository(addRequestToQueue);
+    this.donut = new DonutRepository(addRequestToQueue);
+    this.downloadedGames = new DownloadedGamesRepository(addRequestToQueue);
+    this.gifts = new GiftsRepository(addRequestToQueue);
+    this.likes = new LikesRepository(addRequestToQueue);
     this.messages = new MessagesRepository(addRequestToQueue);
     this.notifications = new NotificationsRepository(addRequestToQueue);
     this.specials = new SpecialsRepository(addRequestToQueue);
