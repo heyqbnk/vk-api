@@ -12,6 +12,7 @@ export * from './place';
 export * from './poll';
 export * from './post';
 export * from './post-source';
+export * from './push-settings';
 export * from './shared';
 export * from './sticker';
 export * from './user';

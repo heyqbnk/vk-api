@@ -13,7 +13,7 @@ import {
   StreamingRepository,
   UsersRepository,
   UtilsRepository,
-  WidgetsRepository, DownloadedGamesRepository,
+  WidgetsRepository, DownloadedGamesRepository, AccountRepository,
 } from '../repositories';
 
 /**
@@ -136,6 +136,7 @@ export type TRepositoryMethod<P extends {} = any, R = any> = (
  * List of all known repositories.
  */
 export interface IRepositories {
+  account: AccountRepository;
   auth: AuthRepository;
   database: DatabaseRepository;
   donut: DonutRepository;

@@ -1,3 +1,4 @@
+export * from './AccountRepository';
 export * from './AuthRepository';
 export * from './DatabaseRepository';
 export * from './DonutRepository';

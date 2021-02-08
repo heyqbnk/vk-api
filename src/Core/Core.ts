@@ -13,7 +13,10 @@ import {
   StreamingRepository,
   UsersRepository,
   UtilsRepository,
-  WidgetsRepository, GiftsRepository, DownloadedGamesRepository,
+  WidgetsRepository,
+  GiftsRepository,
+  DownloadedGamesRepository,
+  AccountRepository,
 } from '../repositories';
 import {TSendRequest} from '../types';
 
@@ -24,6 +27,7 @@ const notImplemented: TSendRequest = () => {
 };
 
 export abstract class Core implements IRepositories {
+  account = new AccountRepository(notImplemented);
   auth = new AuthRepository(notImplemented);
   database = new DatabaseRepository(notImplemented);
   donut = new DonutRepository(notImplemented);
@@ -42,6 +46,7 @@ export abstract class Core implements IRepositories {
   widgets = new WidgetsRepository(notImplemented);
 
   protected init(addRequestToQueue: TSendRequest) {
+    this.account = new AccountRepository(addRequestToQueue);
     this.auth = new AuthRepository(addRequestToQueue);
     this.database = new DatabaseRepository(addRequestToQueue);
     this.donut = new DonutRepository(addRequestToQueue);
