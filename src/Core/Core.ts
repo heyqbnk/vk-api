@@ -16,7 +16,7 @@ import {
   WidgetsRepository,
   GiftsRepository,
   DownloadedGamesRepository,
-  AccountRepository,
+  AccountRepository, StatusRepository,
 } from '../repositories';
 import {TSendRequest} from '../types';
 
@@ -39,6 +39,7 @@ export abstract class Core implements IRepositories {
   specials = new SpecialsRepository(notImplemented);
   statEvents = new StatEventsRepository(notImplemented);
   stats = new StatsRepository(notImplemented);
+  status = new StatusRepository(notImplemented);
   storage = new StorageRepository(notImplemented);
   streaming = new StreamingRepository(notImplemented);
   users = new UsersRepository(notImplemented);
@@ -58,6 +59,7 @@ export abstract class Core implements IRepositories {
     this.specials = new SpecialsRepository(addRequestToQueue);
     this.statEvents = new StatEventsRepository(addRequestToQueue);
     this.stats = new StatsRepository(addRequestToQueue);
+    this.status = new StatusRepository(addRequestToQueue);
     this.storage = new StorageRepository(addRequestToQueue);
     this.streaming = new StreamingRepository(addRequestToQueue);
     this.users = new UsersRepository(addRequestToQueue);

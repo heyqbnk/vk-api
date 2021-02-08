@@ -13,7 +13,10 @@ import {
   StreamingRepository,
   UsersRepository,
   UtilsRepository,
-  WidgetsRepository, DownloadedGamesRepository, AccountRepository,
+  WidgetsRepository,
+  DownloadedGamesRepository,
+  AccountRepository,
+  StatusRepository,
 } from '../repositories';
 
 /**
@@ -148,6 +151,7 @@ export interface IRepositories {
   specials: SpecialsRepository;
   statEvents: StatEventsRepository;
   stats: StatsRepository;
+  status: StatusRepository;
   storage: StorageRepository;
   streaming: StreamingRepository;
   users: UsersRepository;

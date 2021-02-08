@@ -10,6 +10,7 @@ export * from './NotificationsRepository';
 export * from './SpecialsRepository';
 export * from './StatEventsRepository';
 export * from './StatsRepository';
+export * from './StatusRepository';
 export * from './StorageRepository';
 export * from './StreamingRepository';
 export * from './UsersRepository';
