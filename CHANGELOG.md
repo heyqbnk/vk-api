@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/wolframdeus/vk-api/compare/v2.1.0...v2.2.0) (2021-02-08)
+
+
+### Features
+
+* **repositories:** add new repository - Account ([76f08d8](https://github.com/wolframdeus/vk-api/commit/76f08d8d7942c9af829c5ef34b15d9dc95589b19))
+
 ## [2.1.0](https://github.com/wolframdeus/vk-api/compare/v2.0.2...v2.1.0) (2021-02-07)
 
 
