@@ -7,6 +7,7 @@ export * from './GiftsRepository';
 export * from './LikesRepository';
 export * from './MessagesRepository';
 export * from './NotificationsRepository';
+export * from './Repository';
 export * from './SpecialsRepository';
 export * from './StatEventsRepository';
 export * from './StatsRepository';

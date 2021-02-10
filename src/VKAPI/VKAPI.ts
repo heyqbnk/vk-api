@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import {TLang, TSendRequest} from '../types';
+import {TAddRepository, TLang, TSendRequest} from '../types';
 import {IVKAPI, IVKAPIConstructorProps} from './types';
 import {VKError} from '../VKError';
 import {recursiveToCamelCase, recursiveToSnakeCase} from '../utils';
@@ -37,6 +37,7 @@ export class VKAPI extends Core implements IVKAPI {
    * @default 'ru'
    */
   private readonly lang: TLang;
+  readonly baseUrl: string;
 
   constructor(props: IVKAPIConstructorProps = {}) {
     super();
@@ -46,6 +47,7 @@ export class VKAPI extends Core implements IVKAPI {
       v = '5.110',
       lang = 'ru',
       isBrowser = false,
+      baseUrl = 'https://api.vk.com/method',
     } = props;
 
     this.accessToken = accessToken || null;
@@ -53,16 +55,14 @@ export class VKAPI extends Core implements IVKAPI {
     this.lang = lang;
     this.isBrowser = isBrowser;
     this.queue = new Queue({timeout: Math.ceil(1000 / rps)});
+    this.baseUrl = baseUrl.endsWith('/')
+      ? baseUrl.slice(0, baseUrl.length - 1)
+      : baseUrl;
 
     // Initialize repositories with specified addRequestToQueue method.
     this.init(this.addRequestToQueue);
   }
 
-  /**
-   * Sends request via http client.
-   * @param {IRequestConfig<P>} config
-   * @returns {Promise<any>}
-   */
   sendRequest: TSendRequest = async config => {
     const {method, params} = config;
 
@@ -87,7 +87,7 @@ export class VKAPI extends Core implements IVKAPI {
           encodeURIComponent(formattedValue);
       })
       .join('&');
-    const url = `https://api.vk.com/method/${method}`;
+    const url = `${this.baseUrl}/${method}`;
 
     // In case, we are in browser, it is required to use JSONP.
     if (this.isBrowser) {
@@ -146,4 +146,8 @@ export class VKAPI extends Core implements IVKAPI {
     // When awaiting is done, perform a request.
     return this.sendRequest(config);
   };
+
+  addRepository: TAddRepository<this> = (name, Repo) => {
+    return super.addRepository(name, Repo, this.addRequestToQueue);
+  }
 }

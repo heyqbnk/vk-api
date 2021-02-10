@@ -1,4 +1,4 @@
-import {IRepositories} from '../types';
+import {IRepositories, TRepositoryMethod} from '../types';
 import {
   AuthRepository,
   DatabaseRepository,
@@ -16,7 +16,7 @@ import {
   WidgetsRepository,
   GiftsRepository,
   DownloadedGamesRepository,
-  AccountRepository, StatusRepository,
+  AccountRepository, StatusRepository, Repository,
 } from '../repositories';
 import {TSendRequest} from '../types';
 
@@ -65,5 +65,22 @@ export abstract class Core implements IRepositories {
     this.users = new UsersRepository(addRequestToQueue);
     this.utils = new UtilsRepository(addRequestToQueue);
     this.widgets = new WidgetsRepository(addRequestToQueue);
+  }
+
+  /**
+   * Adds new repository if it is not implemented.
+   * @param {N extends keyof this ? never : N} name
+   * @param {{new(sendRequest: TSendRequest): R, prototype: R}} Repo
+   * @param {TSendRequest} addRequestToQueue
+   * @returns {this & Record<N, R>}
+   */
+  addRepository<N extends string, R extends Repository>(
+    name: N extends keyof this ? never : N,
+    Repo: {new(sendRequest: TSendRequest): R, prototype: R},
+    addRequestToQueue: TSendRequest,
+  ): this & Record<N, R> {
+    Object.defineProperty(this, name, {value: new Repo(addRequestToQueue)});
+
+    return this as (this & Record<N, R>);
   }
 }

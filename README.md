@@ -58,6 +58,62 @@ const api = new VKAPI({
 });
 ```
 
+### Creating and using custom repository
+
+In case, you want to create a new repository (for example, if it is not 
+currently implemented) you could use such code:
+
+```typescript
+import {VKAPI, TSendRequest, Repository} from 'vkontakte-api';
+
+// Firstly, describe parameters and result. Dont forget that sent parameters
+// will be snake cased, and result - camel cased.
+/**
+ * @see https://vk.com/dev/auth.restore
+ */
+export interface IRestoreParams {
+  phone: string;
+  lastName: string;
+}
+
+export interface IRestoreResult {
+  success: 1;
+  sid: string;
+}
+
+// Create repository class which should extends abstract Repository.
+export class AuthRepository extends Repository {
+  constructor(sendRequest: TSendRequest) {
+    // Call Repository's constructor and as the first argument, we pass
+    // API namespace name.
+    // @see https://vk.com/dev/auth
+    super('auth', sendRequest);
+  }
+
+  /**
+   * @see https://vk.com/dev/auth.restore
+   * @type {(params: (IRestoreParams & IRequestOptionalParams)) => Promise<IRestoreResult>}
+   */
+  // Describe all repository methods. As the first we should pass method name.
+  // As a second one - function which modifies passed parameters however we
+  // want. You could use such functions as "formatOptionalArray" or
+  // "formatOptionalBoolean" from 'vkontakte-api'. 
+  restore = this.r<IRestoreParams, IRestoreResult>('restore');
+}
+
+// When repository is created, we just add it to VKAPI instance.
+const api = new VKAPI;
+
+api.addRepository('auth', AuthRepository);
+
+// At this moment, TypeScript knows about such repository as 'auth'.
+api.auth.restore({phone: '...', lastName: '...'});
+```
+
+In case, you are trying to add an already existing repository, TypeScript will 
+throw an error saying that repository name passed to `addRepository` has type 
+`never`.
+
 ### Browser mode
 
 If you are using `VKAPI` on browser side, you could use property `isBrowser`

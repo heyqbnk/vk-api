@@ -1,4 +1,9 @@
-import {IRepositories, IRequestOptionalParams, TSendRequest} from '../types';
+import {
+  IRepositories,
+  IRequestOptionalParams,
+  TAddRepository,
+  TSendRequest,
+} from '../types';
 
 export interface IVKAPIConstructorProps extends IRequestOptionalParams {
   /**
@@ -13,6 +18,11 @@ export interface IVKAPIConstructorProps extends IRequestOptionalParams {
    * @default false
    */
   isBrowser?: boolean;
+  /**
+   * API URL.
+   * @default "https://api.vk.com/method"
+   */
+  baseUrl?: string;
 }
 
 export interface IVKAPI extends IRepositories {
@@ -24,4 +34,8 @@ export interface IVKAPI extends IRepositories {
    * Sends request ignoring requests per second property.
    */
   sendRequest: TSendRequest;
+  /**
+   * Adds new repository.
+   */
+  addRepository: TAddRepository<this>;
 }

@@ -16,7 +16,7 @@ import {
   WidgetsRepository,
   DownloadedGamesRepository,
   AccountRepository,
-  StatusRepository,
+  StatusRepository, Repository,
 } from '../repositories';
 
 /**
@@ -127,6 +127,14 @@ export interface IRequestConfig<P extends {} = any> {
 export type TSendRequest = <P extends {} = any, R = any>(
   config: IRequestConfig<P>,
 ) => Promise<R>;
+
+/**
+ * Adds new repository to IVKAPI instance.
+ */
+export type TAddRepository<Instance> = <N extends string, R extends Repository>(
+  name: N extends keyof Instance ? never : N,
+  Repo: {new(sendRequest: TSendRequest): R; prototype: R}
+) => Instance & Record<N, R>;
 
 /**
  * Describes repository method.

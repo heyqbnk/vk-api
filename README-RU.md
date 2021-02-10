@@ -61,6 +61,64 @@ const api = new VKAPI({
 });
 ```
 
+### Создание и использование кастомного репозитория
+
+В случае, когда у вас есть необходимость создать новый репозиторий (например,
+если его реализации нет на данный момент), вы могли бы использовать следующий
+код:
+
+```typescript
+import {VKAPI, TSendRequest, Repository} from 'vkontakte-api';
+
+// Для начала описываем типы параметров и результа. Не забудьте, что
+// отправляемые параметры будут отформатированы в змеиный кейсинг, а ответ
+// будет приведен в верблюжьему кейсингу.
+/**
+ * @see https://vk.com/dev/auth.restore
+ */
+export interface IRestoreParams {
+  phone: string;
+  lastName: string;
+}
+
+export interface IRestoreResult {
+  success: 1;
+  sid: string;
+}
+
+// Создает класс репозитория который должен расширять абстрактный Repository.
+export class AuthRepository extends Repository {
+  constructor(sendRequest: TSendRequest) {
+    // Вызываем конструктор Repository и в качестве первого параметра передаем
+    // название пространства имен в API.
+    // @see https://vk.com/dev/auth
+    super('auth', sendRequest);
+  }
+
+  /**
+   * @see https://vk.com/dev/auth.restore
+   * @type {(params: (IRestoreParams & IRequestOptionalParams)) => Promise<IRestoreResult>}
+   */
+  // Описываем все методы репозитория. В качестве первого параметра передается
+  // название метода. В качестве второго - функция, которая изменяет переданные
+  // параметры как мы захотим. Можно использовать такие функции как 
+  // 'formatOptionalArray' или 'formatOptionalBoolean' из 'vkontakte-api' 
+  restore = this.r<IRestoreParams, IRestoreResult>('restore');
+}
+
+// Когда репозиторий создан, мы добавляем его в инстанс VKAPI.
+const api = new VKAPI;
+
+api.addRepository('auth', AuthRepository);
+
+// С этого момента TypeScript знает о таком репозитории как 'auth'.
+api.auth.restore({phone: '...', lastName: '...'});
+```
+
+В случае, когда вы попытаетесь добавить уже существующий репозиторий,
+TypeScript выбросит ошибку говорящую, что переданное имя репозитория
+в `addRepository` имеет тип `never`.
+
 ### Браузерный режим
 
 Если вы используете `VKAPI` на браузерной стороне, то при создании инстанса 

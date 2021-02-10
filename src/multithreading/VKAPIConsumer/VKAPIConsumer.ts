@@ -5,6 +5,7 @@ import {IVKAPIConsumerConstructorProps} from './types';
 import {Core} from '../../Core';
 import {IVKAPIPerformRequestMessage} from '../types';
 import {PERFORM_REQUEST_EVENT} from '../constants';
+import {Repository} from '../../repositories';
 
 /**
  * Stub class which wants to get data from API VKontakte and has to
@@ -93,4 +94,11 @@ export class VKAPIConsumer extends Core implements IVKAPI {
 
     return promise;
   };
+
+  addRepository<N extends string, R extends Repository>(
+    name: N extends keyof this ? never : N,
+    Repo: {new(sendRequest: TSendRequest): R; prototype: R},
+  ): this & Record<N, R> {
+    return super.addRepository(name, Repo, this.addRequestToQueue);
+  }
 }
