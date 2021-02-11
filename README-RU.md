@@ -107,9 +107,7 @@ export class AuthRepository extends Repository {
 }
 
 // Когда репозиторий создан, мы добавляем его в инстанс VKAPI.
-const api = new VKAPI;
-
-api.addRepository('auth', AuthRepository);
+const api = new VKAPI().addRepository('auth', AuthRepository);
 
 // С этого момента TypeScript знает о таком репозитории как 'auth'.
 api.auth.restore({phone: '...', lastName: '...'});
