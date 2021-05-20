@@ -15,9 +15,10 @@ export abstract class Repository {
   protected readonly sendRequest: TSendRequest;
 
   protected constructor(repoName: string, sendRequest: TSendRequest) {
-    this.sendRequest = ({method, params}) => sendRequest({
+    this.sendRequest = ({method, params, format}) => sendRequest({
       method: repoName + '.' + method,
       params,
+      format,
     });
   }
 
@@ -25,15 +26,18 @@ export abstract class Repository {
    * Creates method which sends request.
    * @param {string} method
    * @param prepare
+   * @param format
    * @returns {TRepositoryMethod<P, R>}
    */
-  protected r<P, R>(
+  protected r<P, R, FR = R>(
     method: string,
     prepare?: (params: P) => any,
+    format?: (response: R, params: P) => FR,
   ): TRepositoryMethod<P, R> {
     return params => this.sendRequest({
       method,
       params: prepare ? prepare(params) : params,
+      format,
     });
   }
 

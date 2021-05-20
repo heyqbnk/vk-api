@@ -64,19 +64,20 @@ export class VKAPI extends Core implements IVKAPI {
   }
 
   sendRequest: TSendRequest = async config => {
-    const {method, params} = config;
+    const {method, params, format = response => response} = config;
 
     // Mix data with defaults. Format body to snake case.
-    const formattedData = recursiveToSnakeCase({
+    const fullParams = {
       v: this.v,
       accessToken: this.accessToken,
       lang: this.lang,
       ...params,
-    });
+    };
+    const formattedParams = recursiveToSnakeCase(fullParams);
 
     // Create urlencoded form.
     const form = Object
-      .entries(formattedData)
+      .entries(formattedParams)
       .filter(([, value]) => value !== undefined)
       .map(([key, value]) => {
         const formattedValue = typeof value === 'object'
@@ -104,7 +105,7 @@ export class VKAPI extends Core implements IVKAPI {
           document.head.removeChild(script);
 
           if (data?.response) {
-            return res(recursiveToCamelCase(data.response));
+            return res(format(recursiveToCamelCase(data.response), fullParams));
           }
 
           rej(new VKError({
@@ -129,7 +130,7 @@ export class VKAPI extends Core implements IVKAPI {
 
     // In case, we received response, convert it to camel case.
     if ('response' in json) {
-      return recursiveToCamelCase(json.response);
+      return format(recursiveToCamelCase(json.response), fullParams);
     }
 
     // Otherwise, throw an error.

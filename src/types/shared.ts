@@ -110,7 +110,7 @@ export interface IRequestOptionalParams {
 /**
  * Config to execute request.
  */
-export interface IRequestConfig<P extends {} = any> {
+export interface IRequestConfig<Params extends {} = any, Response = any, FormattedResponse = Response> {
   /**
    * API method name.
    */
@@ -118,7 +118,16 @@ export interface IRequestConfig<P extends {} = any> {
   /**
    * List of params for passed method.
    */
-  params: P & IRequestOptionalParams;
+  params: Params & IRequestOptionalParams;
+  /**
+   * Formats response from server.
+   * @param response
+   * @param params
+   */
+  format?(
+    response: Response,
+    params: Params & IRequestOptionalParams
+  ): FormattedResponse;
 }
 
 /**
