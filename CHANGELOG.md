@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/wolframdeus/vk-api/compare/v2.4.2...v2.5.0) (2021-05-20)
+
+
+### Features
+
+* **sendrequest:** add an ability to format response ([7751602](https://github.com/wolframdeus/vk-api/commit/77516026f81791c3adb1febe78a48135ed5c7777))
+
 ### [2.4.2](https://github.com/wolframdeus/vk-api/compare/v2.4.1...v2.4.2) (2021-05-20)
 
 
