@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/wolframdeus/vk-api/compare/v2.4.1...v2.4.2) (2021-05-20)
+
+
+### Bug Fixes
+
+* **storage.get:** fix return type of "get single key" ([c7c7ea3](https://github.com/wolframdeus/vk-api/commit/c7c7ea382866a2124855ce009f4694f4239f96f7))
+
 ### [2.4.1](https://github.com/wolframdeus/vk-api/compare/v2.4.0...v2.4.1) (2021-02-11)
 
 ## [2.4.0](https://github.com/wolframdeus/vk-api/compare/v2.3.0...v2.4.0) (2021-02-10)
