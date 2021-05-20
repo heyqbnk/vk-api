@@ -19,7 +19,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "dev:browser": "webpack-dev-server",
+    "dev:browser": "webpack serve",
     "build": "gulp",
     "test": "tsc --noEmit",
     "lint": "eslint src/**",

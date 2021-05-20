@@ -4,10 +4,10 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './test-drive/browser/index.js',
+  entry: './test/browser/index.ts',
   context: __dirname,
   devServer: {
-    contentBase: path.join(__dirname, 'test-drive', 'browser'),
+    contentBase: path.join(__dirname, 'test', 'browser'),
     compress: true,
     watchContentBase: true,
     hot: true,
@@ -62,6 +62,6 @@ module.exports = {
   output: {
     filename: 'index.js',
     pathinfo: false,
-    path: path.resolve(__dirname, 'test-drive', 'browser'),
+    path: path.resolve(__dirname, 'test', 'browser'),
   },
 };

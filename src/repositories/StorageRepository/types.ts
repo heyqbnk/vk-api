@@ -15,9 +15,9 @@ export interface IGetMultipleKeysParams extends IGetSharedParams {
 
 export type TGetParams = IGetSingleKeyParams | IGetMultipleKeysParams;
 
-export type TGetSingleKeyResult = string;
+export type TGetSingleKeyResult = { key: string; value: string };
 
-export type TGetMultipleKeysResult = { key: string; value: string }[];
+export type TGetMultipleKeysResult = TGetSingleKeyResult[];
 
 /**
  * @see https://vk.com/dev/storage.getKeys
