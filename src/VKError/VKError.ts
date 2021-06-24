@@ -20,7 +20,7 @@ export class VKError extends Error {
   config: IRequestConfig;
 
   constructor(props: IVKErrorConstructorProps) {
-    super(JSON.stringify(props.errorInfo));
+    super(props.errorInfo.errorMsg);
     const {errorInfo, config} = props;
     this.errorInfo = errorInfo;
     this.config = config;
@@ -29,14 +29,6 @@ export class VKError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, VKError);
     }
+    Object.setPrototypeOf(this, VKError.prototype);
   }
 }
-
-/**
- * Define instanceof check.
- */
-Object.defineProperty(VKError, Symbol.hasInstance, {
-  value: (obj: any) => isNonNullObject(obj) &&
-    obj.name === ERROR_NAME &&
-    isNonNullObject(obj.data),
-});
