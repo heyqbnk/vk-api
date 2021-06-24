@@ -1,6 +1,6 @@
 {
   "name": "vkontakte-api",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "TypeScript library to make requests performing to VK API simple",
   "homepage": "https://github.com/wolframdeus/vk-api",
   "bugs": "https://github.com/wolframdeus/vk-api/issues",

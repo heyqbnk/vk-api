@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.3](https://github.com/wolframdeus/vk-api/compare/v2.5.2...v2.5.3) (2021-06-24)
+
+
+### Bug Fixes
+
+* **vkapi:** check response.ok in sendRequest ([d291cf2](https://github.com/wolframdeus/vk-api/commit/d291cf212f445b2d28ce6b90b3ffd44f1abbe1fc))
+
 ### [2.5.2](https://github.com/wolframdeus/vk-api/compare/v2.5.1...v2.5.2) (2021-06-24)
 
 ### [2.5.1](https://github.com/wolframdeus/vk-api/compare/v2.5.0...v2.5.1) (2021-06-24)
