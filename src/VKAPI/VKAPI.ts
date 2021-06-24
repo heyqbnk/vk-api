@@ -126,6 +126,11 @@ export class VKAPI extends Core implements IVKAPI {
       },
       body: form,
     });
+    if (!response.ok) {
+      throw new Error(
+        'Unsuccessful response: ' + response.status + '. ' + response.statusText
+      );
+    }
     const json = await response.json();
 
     // In case, we received response, convert it to camel case.
