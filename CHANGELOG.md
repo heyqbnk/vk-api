@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.4](https://github.com/wolframdeus/vk-api/compare/v2.5.3...v2.5.4) (2021-06-25)
+
+
+### Bug Fixes
+
+* **consumer:** fix addRepository typings ([39cd64c](https://github.com/wolframdeus/vk-api/commit/39cd64ce36788f164886eab47c64eaea7575e593))
+
 ### [2.5.3](https://github.com/wolframdeus/vk-api/compare/v2.5.2...v2.5.3) (2021-06-24)
 
 
