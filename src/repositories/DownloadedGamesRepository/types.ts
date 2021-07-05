@@ -2,9 +2,9 @@
  * @see https://vk.com/dev/downloadedGames.getPaidStatus
  */
 export interface IGetPaidStatusParams {
-  userId: number;
+  user_id: number;
 }
 
 export interface IGetPaidStatusResult {
-  isPaid: boolean;
+  is_paid: boolean;
 }

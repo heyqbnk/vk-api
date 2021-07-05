@@ -2,18 +2,18 @@
  * @see https://vk.com/dev/stats.get
  */
 export type TGetParams = {
-  timestampFrom?: number;
-  timestampTo?: number;
+  timestamp_from?: number;
+  timestamp_to?: number;
   interval?: 'day' | 'week' | 'month' | 'year' | 'all';
-  intervalsCount?: number;
+  intervals_count?: number;
   filters?: string[];
-  statsGroups?: 'visitors' | 'reach' | 'activity';
+  stats_groups?: 'visitors' | 'reach' | 'activity';
   extended?: boolean;
-} & ({ groupId: number } | { appId: number })
+} & ({ group_id: number } | { app_id: number })
 
 export type TGetResult = Array<{
-  periodFrom: string;
-  periodTo: string;
+  period_from: string;
+  period_to: string;
   reach: {
     age: Array<{ value: string; count: number }>;
     cities: Array<{ count: number; name: string; value: number }>;
@@ -23,11 +23,11 @@ export type TGetResult = Array<{
       name: string;
       value: number;
     }>;
-    mobileReach: number;
+    mobile_reach: number;
     reach: number;
-    reachSubscribers: number;
+    reach_subscribers: number;
     sex: Array<{ value: 'm' | 'f'; count: number }>;
-    sexAge: Array<{ value: string; count: number }>;
+    sex_age: Array<{ value: string; count: number }>;
   };
   visitors: {
     // TODO: Thanks VK for good docs
@@ -35,7 +35,7 @@ export type TGetResult = Array<{
     // TODO: Thanks VK for good docs
     countries: Array<unknown>;
     views: number;
-    mobileViews: number;
+    mobile_views: number;
     visitors: number;
   };
 }>;
@@ -44,18 +44,18 @@ export type TGetResult = Array<{
  * @see https://vk.com/dev/stats.getPostReach
  */
 export interface IGetPostReachParams {
-  ownerId: number;
-  postIds: number[];
+  owner_id: number;
+  post_ids: number[];
 }
 
 export interface IGetPostReachResult {
-  reachSubscribers: number;
-  reachTotal: number;
-  reachAds: number;
-  reachViral: number;
+  reach_subscribers: number;
+  reach_total: number;
+  reach_ads: number;
+  reach_viral: number;
   links: number;
-  toGroup: number;
-  joinGroup: number;
+  to_group: number;
+  join_group: number;
   report: number;
   hide: number;
   unsubscribe: number;

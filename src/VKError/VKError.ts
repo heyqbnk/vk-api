@@ -1,6 +1,5 @@
 import {IErrorInfo, IVKErrorConstructorProps} from './types';
 import {IRequestConfig} from '../types';
-import {isNonNullObject} from '../utils';
 
 const ERROR_NAME = 'VKError';
 
@@ -20,7 +19,7 @@ export class VKError extends Error {
   config: IRequestConfig;
 
   constructor(props: IVKErrorConstructorProps) {
-    super(props.errorInfo.errorMsg);
+    super(props.errorInfo.error_msg);
     const {errorInfo, config} = props;
     this.errorInfo = errorInfo;
     this.config = config;

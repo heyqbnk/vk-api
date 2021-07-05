@@ -20,6 +20,11 @@ import {
 } from '../repositories';
 
 /**
+ * Any record.
+ */
+export type TAnyRecord = Record<string, unknown>;
+
+/**
  * Enum of available languages.
  */
 export enum ELang {
@@ -94,7 +99,7 @@ export interface IRequestOptionalParams {
   /**
    * Access token.
    */
-  accessToken?: string;
+  access_token?: string;
   /**
    * Language.
    * @default "ru"

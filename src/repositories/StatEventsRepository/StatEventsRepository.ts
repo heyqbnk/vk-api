@@ -13,7 +13,6 @@ export class StatEventsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/statEvents.addMiniAppsCustom
-   * @type {TRepositoryMethod<TAddMiniAppsCustomParams, TAddMiniAppsCustomResult>}
    */
   addMiniAppsCustom = this.r<TAddMiniAppsCustomParams,
     TAddMiniAppsCustomResult>('addMiniAppsCustom', params => {
@@ -34,15 +33,11 @@ export class StatEventsRepository extends Repository {
       };
     });
 
-    return {
-      ...rest,
-      events: formattedEvents,
-    };
+    return {...rest, events: formattedEvents};
   });
 
   /**
    * @see https://vk.com/dev/statEvents.addMiniApps
-   * @type {TRepositoryMethod<IAddMiniAppsParams, TAddMiniAppsCustomResult>}
    */
   addMiniApps = this.r<IAddMiniAppsParams,
     TAddMiniAppsCustomResult>('addMiniApps');

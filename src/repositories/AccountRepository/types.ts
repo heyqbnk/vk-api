@@ -30,7 +30,7 @@ type TGetInfoField =
   | 'intro'
   | 'lang';
 
-type TDeviceIdOrToken = {token: string} | {deviceId: number};
+type TDeviceIdOrToken = {token: string} | {device_id: number};
 
 export enum EAccountBirthDateVisibility {
   NotShown,
@@ -40,8 +40,8 @@ export enum EAccountBirthDateVisibility {
 
 type TNameRequest = {
   id: number;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
 } & ({
   status: 'processing' | 'declined' | 'response';
 } | {
@@ -49,14 +49,14 @@ type TNameRequest = {
   link: string;
 } | {
   status: 'was_accepted' | 'was_declined';
-  repeatDate: string;
+  repeat_date: string;
 })
 
 /**
  * @see https://vk.com/dev/account.ban
  */
 export interface IBanParams {
-  ownerId: number;
+  owner_id: number;
 }
 
 export type TBanResult = 1;
@@ -65,10 +65,10 @@ export type TBanResult = 1;
  * @see https://vk.com/dev/account.changePassword
  */
 export interface IChangePasswordParams {
-  restoreSid?: string;
-  changePasswordHash?: string;
-  oldPassword?: string;
-  newPassword: string;
+  restore_sid?: string;
+  change_password_hash?: string;
+  old_password?: string;
+  new_password: string;
 }
 
 export interface IChangePasswordResult {
@@ -93,7 +93,7 @@ export interface IGetActiveOffersResult
  * @see https://vk.com/dev/account.getAppPermissions
  */
 export interface IGetAppPermissionsParams {
-  userId: number;
+  user_id: number;
 }
 
 export type TGetAppPermissionsResult = number;
@@ -109,8 +109,8 @@ export interface IGetBannedParams {
 export interface IGetBannedResult extends IPager<number> {
   profiles: {
     id: number;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     deactivated: 'banned';
   }[];
 }
@@ -134,20 +134,20 @@ export interface IGetInfoParams {
 export interface IGetInfoResult {
   '2faRequired'?: TPseudoBoolean;
   country?: string;
-  communityComments?: boolean;
-  httpsRequired?: TPseudoBoolean;
+  community_comments?: boolean;
+  https_required?: TPseudoBoolean;
   intro?: TPseudoBoolean;
-  linkRedirects?: Record<string, string>;
+  link_redirects?: Record<string, string>;
   lang?: number;
-  noWallReplies?: TPseudoBoolean;
-  ownPostsDefault?: TPseudoBoolean;
+  no_wall_replies?: TPseudoBoolean;
+  own_posts_default?: TPseudoBoolean;
   settings?: {
     available: boolean;
     forced: boolean;
     name: string;
     value: string;
   }[];
-  subscriptionCountry: string;
+  subscription_country: string;
 }
 
 /**
@@ -157,24 +157,24 @@ export interface IGetProfileInfoParams {
 }
 
 export interface IGetProfileInfoResult {
-  firstName: string;
+  first_name: string;
   id: number;
-  lastName: string;
-  maidenName?: string;
-  nameRequest?: TNameRequest;
-  screenName?: string;
+  last_name: string;
+  maiden_name?: string;
+  name_request?: TNameRequest;
+  screen_name?: string;
   sex: ESex;
-  homeTown: string;
+  home_town: string;
   status: string;
   bdate: string;
-  bdateVisibility: EAccountBirthDateVisibility;
+  bdate_visibility: EAccountBirthDateVisibility;
   city?: IIdTitlePair;
   country?: IIdTitlePair;
   phone: string;
   relation: ERelationsStatus;
-  relationPartner?: TUser;
-  relationPending?: TPseudoBoolean;
-  relationRequests?: TUser[];
+  relation_partner?: TUser;
+  relation_pending?: TPseudoBoolean;
+  relation_requests?: TUser[];
 }
 
 /**
@@ -184,14 +184,14 @@ export type TGetPushSettingsParams = TDeviceIdOrToken;
 
 export interface IGetPushSettingsResult {
   disabled: TPseudoBoolean;
-  disabledUntil?: number;
+  disabled_until?: number;
   settings?: IPushSettings;
   conversations: IPager<{
-    disabledUntil: number;
-    peerId: number;
+    disabled_until: number;
+    peer_id: number;
     sound: TPseudoBoolean;
-    disabledMentions: TPseudoBoolean;
-    disabledMassMentions: TPseudoBoolean;
+    disabled_mentions: TPseudoBoolean;
+    disabled_mass_mentions: TPseudoBoolean;
   }>
 }
 
@@ -200,10 +200,10 @@ export interface IGetPushSettingsResult {
  */
 export interface IRegisterDeviceParams {
   token: string;
-  deviceModel?: string;
-  deviceYear?: number;
-  deviceId: number;
-  systemVersion?: string;
+  device_model?: string;
+  device_year?: number;
+  device_id: number;
+  system_version?: string;
   settings?: IPushSettings;
   sandbox?: boolean;
 }
@@ -214,25 +214,25 @@ export type TRegisterDeviceResult = 1;
  * @see https://vk.com/dev/account.saveProfileInfo
  */
 export interface ISaveProfileInfoParams {
-  firstName?: string;
-  lastName?: string;
-  maidenName?: string;
-  screenName?: string;
-  cancelRequestId?: number;
+  first_name?: string;
+  last_name?: string;
+  maiden_name?: string;
+  screen_name?: string;
+  cancel_request_id?: number;
   sex?: Exclude<ESex, ESex.Unknown>;
   relation?: ERelationsStatus;
-  relationPartnerId?: number;
+  relation_partner_id?: number;
   bdate?: string;
-  bdateVisibility?: EAccountBirthDateVisibility;
-  homeTown?: string;
-  countryId?: number;
-  cityId?: number;
+  bdate_visibility?: EAccountBirthDateVisibility;
+  home_town?: string;
+  country_id?: number;
+  city_id?: number;
   status?: string;
 }
 
 export interface ISaveProfileInfoResult {
   changed: TPseudoBoolean;
-  nameRequest?: TNameRequest;
+  name_request?: TNameRequest;
 }
 
 /**
@@ -251,7 +251,7 @@ export type TSetInfoResult = 1;
  * @see https://vk.com/dev/account.setNameInMenu
  */
 export interface ISetNameInMenuParams {
-  userId: number;
+  user_id: number;
   name: string;
 }
 
@@ -290,9 +290,9 @@ export type TSetPushSettingsResult = 1;
  */
 export type TSetSilenceModeParams = TDeviceIdOrToken & {
   time: number;
-  chatId?: number;
-  userId?: number;
-  peerId?: number;
+  chat_id?: number;
+  user_id?: number;
+  peer_id?: number;
   sound: TPseudoBoolean;
 };
 
@@ -302,7 +302,7 @@ export type TSetSilenceModeResult = 1;
  * @see https://vk.com/dev/account.unban
  */
 export interface IUnbanParams {
-  ownerId: number;
+  owner_id: number;
 }
 
 export type TUnbanResult = 1;

@@ -9,7 +9,7 @@ type TDefaultPager = IPager<IIdTitlePair>;
  * @see https://vk.com/dev/database.getChairs
  */
 export interface IGetChairsParams {
-  facultyId: number;
+  faculty_id: number;
   offset?: number;
   count?: number;
 }
@@ -20,10 +20,10 @@ export type TGetChairsResult = TDefaultPager;
  * @see https://vk.com/dev/database.getCities
  */
 export interface IGetCitiesParams {
-  countryId: number;
-  regionId?: number;
+  country_id: number;
+  region_id?: number;
   q?: string;
-  needAll?: boolean;
+  need_all?: boolean;
   offset?: number;
   count?: number;
 }
@@ -38,7 +38,7 @@ export type TGetCitiesResult = IPager<IIdTitlePair & {
  * @see https://vk.com/dev/database.getCitiesById
  */
 export interface IGetCitiesByIdParams {
-  cityIds?: number[];
+  city_ids?: number[];
 }
 
 export type TGetCitiesByIdResult = IIdTitlePair[];
@@ -47,7 +47,7 @@ export type TGetCitiesByIdResult = IIdTitlePair[];
  * @see https://vk.com/dev/database.getCountries
  */
 export interface IGetCountriesParams {
-  needAll?: boolean;
+  need_all?: boolean;
   code?: string[];
   offset?: number;
   count?: number;
@@ -59,7 +59,7 @@ export type TGetCountriesResult = TDefaultPager;
  * @see https://vk.com/dev/database.getCountriesById
  */
 export interface IGetCountriesByIdParams {
-  countryIds?: number[];
+  country_ids?: number[];
 }
 
 export type TGetCountriesByIdResult = IIdTitlePair[];
@@ -68,7 +68,7 @@ export type TGetCountriesByIdResult = IIdTitlePair[];
  * @see https://vk.com/dev/database.getFaculties
  */
 export interface IGetFacultiesParams {
-  universityId: number;
+  university_id: number;
   offset?: number;
   count?: number;
 }
@@ -79,7 +79,7 @@ export type TGetFacultiesResult = TDefaultPager;
  * @see https://vk.com/dev/database.getMetroStations
  */
 export interface IGetMetroStationsParams {
-  cityId: number;
+  city_id: number;
   offset?: number;
   count?: number;
   extended?: boolean;
@@ -95,21 +95,21 @@ export type TGetMetroStationsResult = IPager<{
  * @see https://vk.com/dev/database.getMetroStationsById
  */
 export interface IGetMetroStationsByIdParams {
-  stationIds?: number[];
+  station_ids?: number[];
 }
 
 export type TGetMetroStationsByIdResult = Array<{
   id: number;
   name: string;
   color: string;
-  cityId: number;
+  city_id: number;
 }>
 
 /**
  * @see https://vk.com/dev/database.getRegions
  */
 export interface IGetRegionsParams {
-  countryId: number;
+  country_id: number;
   q?: string;
   offset?: number;
   count?: number;
@@ -121,7 +121,7 @@ export type TGetRegionsResult = TDefaultPager;
  * @see https://vk.com/dev/database.getSchoolClasses
  */
 export interface IGetSchoolClassesParams {
-  countryId?: number;
+  country_id?: number;
 }
 
 type TSchoolClassId = number;
@@ -133,7 +133,7 @@ export type TGetSchoolClassesResult = [TSchoolClassId, TSchoolClassLetter][];
  * @see https://vk.com/dev/database.getSchools
  */
 export interface IGetSchoolsParams {
-  cityId: number;
+  city_id: number;
   q?: string;
   offset?: number;
   count?: number;
@@ -145,8 +145,8 @@ export type TGetSchoolsResult = TDefaultPager;
  * @see https://vk.com/dev/database.getUniversities
  */
 export interface IGetUniversitiesParams {
-  countryId?: number;
-  cityId: number;
+  country_id?: number;
+  city_id: number;
   q?: string;
   offset?: number;
   count?: number;

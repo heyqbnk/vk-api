@@ -12,12 +12,12 @@ export interface IMarkAsViewedParams {
  * @see https://vk.com/dev/notifications.sendMessage
  */
 export interface ISendMessageResultOk {
-  userId: number;
+  user_id: number;
   status: true;
 }
 
 export interface ISendMessageResultError {
-  userId: number;
+  user_id: number;
   status: false;
   error: {
     code: number;
@@ -28,8 +28,8 @@ export interface ISendMessageResultError {
 export type TSendMessageResult = Array<ISendMessageResultOk | ISendMessageResultError>;
 
 export interface ISendMessageParams {
-  userIds: Array<string | number>;
+  user_ids: Array<string | number>;
   message: string;
   fragment?: string;
-  groupId?: number;
+  group_id?: number;
 }

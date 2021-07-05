@@ -1,9 +1,9 @@
-import {IAudio} from '../../types/objects';
+import {IAudio} from '../../types';
 
 /**
  * @see https://vk.com/dev/status.get
  */
-export type TGetParams = {userId: number} | {groupId: number};
+export type TGetParams = {user_id: number} | {group_id: number};
 
 export interface IGetResult {
   text: string;
@@ -15,7 +15,7 @@ export interface IGetResult {
  */
 export interface ISetParams {
   text: string;
-  groupId?: number;
+  group_id?: number;
 }
 
 export type TSetResult = 1;

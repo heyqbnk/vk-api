@@ -14,7 +14,6 @@ export class NotificationsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/notifications.markAsViewed
-   * @type {TRepositoryMethod<IMarkAsViewedParams, TMarkAsViewedResult>}
    */
   markAsViewed = this.r<IMarkAsViewedParams, TMarkAsViewedResult>(
     'markAsViewed',
@@ -22,13 +21,12 @@ export class NotificationsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/notifications.sendMessage
-   * @type {TRepositoryMethod<ISendMessageParams, TSendMessageResult>}
    */
   sendMessage = this.r<ISendMessageParams, TSendMessageResult>(
     'sendMessage',
-    ({userIds, ...rest}) => ({
+    ({user_ids, ...rest}) => ({
       ...rest,
-      userIds: formatOptionalArray(userIds),
+      user_ids: formatOptionalArray(user_ids),
     }),
   );
 }

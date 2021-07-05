@@ -19,7 +19,6 @@ export class DonutRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/donut.getFriends
-   * @type {(params: (IGetFriendsParams & IRequestOptionalParams)) => Promise<IGetFriendsResult>}
    */
   getFriends = this.r<IGetFriendsParams, IGetFriendsResult>(
     'getFriends',
@@ -31,7 +30,6 @@ export class DonutRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/donut.getSubscription
-   * @type {(params: (IGetSubscriptionParams & IRequestOptionalParams)) => Promise<IGetSubscriptionResult>}
    */
   getSubscription = this.r<IGetSubscriptionParams, IGetSubscriptionResult>(
     'getSubscription',
@@ -39,7 +37,6 @@ export class DonutRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/donut.getSubscriptions
-   * @type {(params: (IGetSubscriptionsParams & IRequestOptionalParams)) => Promise<IGetSubscriptionsResult>}
    */
   getSubscriptions = this.r<IGetSubscriptionsParams, IGetSubscriptionsResult>(
     'getSubscriptions',
@@ -47,7 +44,6 @@ export class DonutRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/donut.isDon
-   * @type {(params: (IIsDonParams & IRequestOptionalParams)) => Promise<0 | 1>}
    */
   isDon = this.r<IIsDonParams, TIsDonResult>('isDon');
 }

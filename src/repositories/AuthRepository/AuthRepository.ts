@@ -9,7 +9,6 @@ export class AuthRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/auth.restore
-   * @type {(params: (IRestoreParams & IRequestOptionalParams)) => Promise<IRestoreResult>}
    */
   restore = this.r<IRestoreParams, IRestoreResult>('restore');
 }

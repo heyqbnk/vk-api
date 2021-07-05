@@ -11,7 +11,7 @@ function compile() {
     .pipe(tsProject())
     .pipe(minify({
       ext: {
-        src: '-[source].js',
+        src: '.src.js',
         min: '.js'
       },
     }))
@@ -20,7 +20,7 @@ function compile() {
 
 function removeSource() {
   return gulp
-    .src('dist/**/*-[source].js')
+    .src('dist/**/*.src.js')
     .pipe(clean({force: true}));
 }
 

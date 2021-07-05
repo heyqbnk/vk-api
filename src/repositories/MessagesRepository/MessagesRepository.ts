@@ -10,15 +10,15 @@ export class MessagesRepository extends Repository {
 
   send = this.r<TSendParams, TSendResult>(
     'send',
-    ({randomId: _randomId, ...rest}) => {
+    ({random_id: _randomId, ...rest}) => {
       const randomId = typeof _randomId === 'undefined'
         ? Math.floor(Math.random() * 10000000)
         : _randomId;
 
-      if ('userIds' in rest) {
+      if ('user_ids' in rest) {
         return {
           ...rest,
-          userIds: formatOptionalArray(rest.userIds),
+          user_ids: formatOptionalArray(rest.user_ids),
           randomId,
         };
       }

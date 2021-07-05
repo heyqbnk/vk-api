@@ -25,7 +25,7 @@ export interface IGetSettingsParams {
 }
 
 export interface IGetSettingsResult {
-  monthlyLimit: TMonthlyTier;
+  monthly_limit: TMonthlyTier;
 }
 
 /**
@@ -34,12 +34,12 @@ export interface IGetSettingsResult {
 export interface IGetStatsParams {
   type: 'received' | 'prepared';
   interval?: '5m' | '1h' | '24h';
-  startTime?: number;
-  endTime?: number;
+  start_time?: number;
+  end_time?: number;
 }
 
 export interface IGetStatsResult {
-  eventType: 'post' | 'comment' | 'share';
+  event_type: 'post' | 'comment' | 'share';
   stats: Array<{ timestamp: number; value: number }>;
 }
 
@@ -58,7 +58,7 @@ export interface IGetStemResult {
  * @see https://vk.com/dev/streaming.setSettings
  */
 export interface ISetSettingsParams {
-  monthlyTier: TMonthlyTier;
+  monthly_tier: TMonthlyTier;
 }
 
 export type TSetSettingsResult = 1;

@@ -15,7 +15,6 @@ export class WidgetsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/widgets.getComments
-   * @type {TRepositoryMethod<IGetCommentsParams, IGetCommentsResult>}
    */
   getComments = this.r<IGetCommentsParams, IGetCommentsResult>(
     'getComments',
@@ -27,7 +26,6 @@ export class WidgetsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/widgets.getPages
-   * @type {TRepositoryMethod<IGetPagesParams, IGetPagesResult>}
    */
   getPages = this.r<IGetPagesParams, IGetPagesResult>('getPages');
 }

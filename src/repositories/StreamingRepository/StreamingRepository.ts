@@ -17,7 +17,6 @@ export class StreamingRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/streaming.getServerUrl
-   * @type {TRepositoryMethod<IGetServerUrlParams, IGetServerUrlResult>}
    */
   getServerUrl = this.r<IGetServerUrlParams, IGetServerUrlResult>(
     'getServerUrl',
@@ -25,7 +24,6 @@ export class StreamingRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/streaming.getSettings
-   * @type {TRepositoryMethod<IGetSettingsParams, IGetSettingsResult>}
    */
   getSettings = this.r<IGetSettingsParams, IGetSettingsResult>(
     'getSettings',
@@ -33,19 +31,16 @@ export class StreamingRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/streaming.getStats
-   * @type {TRepositoryMethod<IGetStatsParams, IGetStatsResult>}
    */
   getStats = this.r<IGetStatsParams, IGetStatsResult>('getStats');
 
   /**
    * @see https://vk.com/dev/streaming.getStem
-   * @type {TRepositoryMethod<IGetStemParams, IGetStemResult>}
    */
   getStem = this.r<IGetStemParams, IGetStemResult>('getStem');
 
   /**
    * @see https://vk.com/dev/streaming.setSettings
-   * @type {TRepositoryMethod<ISetSettingsParams, TSetSettingsResult>}
    */
   setSettings = this.r<ISetSettingsParams, TSetSettingsResult>(
     'setSettings',

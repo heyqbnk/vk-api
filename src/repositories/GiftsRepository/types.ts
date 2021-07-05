@@ -10,22 +10,22 @@ export enum EGiftPrivacy {
  * @see https://vk.com/dev/gifts.get
  */
 export interface IGetParams {
-  userId?: number;
+  user_id?: number;
   count?: number;
   offset?: number;
 }
 
 export type TGetResult = IPager<{
   id: number;
-  fromId: number;
+  from_id: number;
   message: string;
   date: number;
   gift: {
     id: number;
-    thumb256: string;
-    thumb96: string;
-    thumb48: string;
+    thumb_256: string;
+    thumb_96: string;
+    thumb_48: string;
   };
   privacy: EGiftPrivacy;
-  giftHash: string;
+  gift_hash: string;
 }>;
