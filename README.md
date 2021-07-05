@@ -4,9 +4,7 @@
 [<img src="https://i.imgur.com/uOIQBBR.png">](https://vk.com/dev)
 # vkontakte-api [![NPM][npm-badge]][npm-link]
 
-TypeScript library to make requests performing to VK API simple. 
-
-Docs: [EN](https://github.com/wolframdeus/vk-api/blob/master/README.md) / [RU](https://github.com/wolframdeus/vk-api/blob/master/README-RU.md)
+TypeScript library to make requests performing to VK API simple.
 
 ## Installation
 ```bash
@@ -46,9 +44,9 @@ It is allowed to pass `rps` (which is `3` by default) property which means
 `requests per second`. VK API has its restriction, so make sure you have 
 passed correct value. 
 
-Additionally, you can pass properties `accessToken` and `lang` which will be 
-used as default parameters for each request. So, you have no need to pass them
-each time until overriding is needed:
+Additionally, you can pass suck properties as `accessToken` and `lang` which 
+will be used as default parameters for each request. So, you have no need to 
+pass them each time until overriding is needed:
 
 ```typescript
 const api = new VKAPI({
@@ -66,14 +64,13 @@ currently implemented) you could use such code:
 ```typescript
 import {VKAPI, TSendRequest, Repository} from 'vkontakte-api';
 
-// Firstly, describe parameters and result. Dont forget that sent parameters
-// will be snake cased, and result - camel cased.
+// Firstly, describe parameters and result.
 /**
  * @see https://vk.com/dev/auth.restore
  */
 export interface IRestoreParams {
   phone: string;
-  lastName: string;
+  last_name: string;
 }
 
 export interface IRestoreResult {
@@ -81,7 +78,7 @@ export interface IRestoreResult {
   sid: string;
 }
 
-// Create repository class which should extends abstract Repository.
+// Create repository class which should extend abstract Repository.
 export class AuthRepository extends Repository {
   constructor(sendRequest: TSendRequest) {
     // Call Repository's constructor and as the first argument, we pass
@@ -92,12 +89,14 @@ export class AuthRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/auth.restore
-   * @type {(params: (IRestoreParams & IRequestOptionalParams)) => Promise<IRestoreResult>}
    */
-  // Describe all repository methods. As the first we should pass method name.
-  // As a second one - function which modifies passed parameters however we
-  // want. You could use such functions as "formatOptionalArray" or
-  // "formatOptionalBoolean" from 'vkontakte-api'. 
+  // Describe all repository methods. 
+  // As the first argument we should pass method name. 
+  // As the second one - function which modifies passed parameters 
+  // the way we want. 
+  // And as the third one - function, which formats server's response. 
+  // You could use such functions as "formatOptionalArray" or
+  // "formatOptionalBoolean" from this package. 
   restore = this.r<IRestoreParams, IRestoreResult>('restore');
 }
 
@@ -105,7 +104,7 @@ export class AuthRepository extends Repository {
 const api = new VKAPI().addRepository('auth', AuthRepository);
 
 // At this moment, TypeScript knows about such repository as 'auth'.
-api.auth.restore({phone: '...', lastName: '...'});
+api.auth.restore({phone: '...', last_name: '...'});
 ```
 
 In case, you are trying to add an already existing repository, TypeScript will 
@@ -136,13 +135,13 @@ import {VKAPI} from 'vkontakte-api';
 
 const api = new VKAPI({accessToken: 'my personal token'});
 
-api.users.get({userIds: ['vladkibenko']}).then(console.log);
+api.users.get({user_ids: ['vladkibenko']}).then(console.log);
 ```
 
 Sending some notification:
 ```typescript
 api.notifications.sendMessage({
-  userIds: ['vladkibenko'],
+  user_ids: ['vladkibenko'],
   message: 'Hello Vlad!',
 });
 ```
@@ -155,17 +154,15 @@ const api = new VKAPI({accessToken: 'my personal token'});
 
 // Here we will get english-localized data on behalf of on app.
 api.users.get({
-  userIds: ['vladkibenko'],
-  accessToken: 'some application token',
+  user_ids: ['vladkibenko'],
+  access_token: 'some application token',
   // Or you could just use 'en' or 3.
   lang: ELang.EN,
 }).then(console.log);
 ```
 
 Some methods or repositories are still not implemented. Nevertheless, you are 
-free to perform custom requests. **Make sure, all of `Params` and `Response` 
-fields are camel cased, because internally, `vkontakte-api` moves them from 
-snake to camel case for easier usage**:
+free to perform custom requests.
 
 ```typescript
 import {VKAPI} from 'vkontakte-api';
@@ -174,20 +171,17 @@ const api = new VKAPI({accessToken: 'my token'});
 
 // Description of parameters.
 interface Params {
-  cityIds: string;
+  city_ids: string;
 }
 
 // Description of response.
-type Response = Array<{
-  id: number;
-  title: string;
-}>;
+type Response = {id: number; title: string}[];
 
 // @see https://vk.com/dev/database.getCitiesById
 api.addRequestToQueue<Params, Response>({
   method: 'database.getCitiesById',
   params: {
-    cityIds: [1].join(','),
+    city_ids: [1].join(','),
   },
 }).then(console.log);
 ```
@@ -208,7 +202,7 @@ and `VKAPIConsumer`.
 `VKAPIProvider` should be used in a main thread and `VKAPIConsumer`s in slave
 threads. 
 
-Here is simple example:
+Here is the simple example:
 ```typescript
 import {fork, isMaster, Worker} from 'cluster';
 import os from 'os';
@@ -220,7 +214,7 @@ import {VKAPIProvider, VKAPIConsumer} from 'vkontakte-api/dist/multithreading';
 // VKAPIConsumer.
 function http(api: IVKAPI) {
   // Here we can use all of the VKAPI methods
-  api.users.get({userIds: ['vladkibenko']}).then(console.log);
+  api.users.get({user_ids: ['vladkibenko']}).then(console.log);
 }
 
 // Just a stub. You can use the logic you need
