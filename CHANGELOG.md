@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/wolframdeus/vk-api/compare/v2.5.4...v3.0.0) (2021-07-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **response and params:** Now, parameters and responses are not formatted in casing. So, your parameters will
+be sent as they are passed, and response returned will not be modified
+* **response and params:** Now, parameters and responses are not formatted in casing. So, your parameters will
+be sent as they are passed, and response returned will not be modified
+
+### Features
+
+* **response and params:** response and parameters are not camlized now ([faf2cf5](https://github.com/wolframdeus/vk-api/commit/faf2cf5a6ec93e0d474f1db505ff7e2bdf554a8f))
+
 ### [2.5.4](https://github.com/wolframdeus/vk-api/compare/v2.5.3...v2.5.4) (2021-06-25)
 
 
