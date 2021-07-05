@@ -1,11 +1,10 @@
 import {
   IRepositories,
-  IRequestOptionalParams,
-  TAddRepository,
+  TAddRepository, TLang,
   TSendRequest,
 } from '../types';
 
-export interface IVKAPIConstructorProps extends IRequestOptionalParams {
+export interface IVKAPIConstructorProps {
   /**
    * Requests per second instance can perform. Required to prevent block from
    * VK API.
@@ -23,6 +22,20 @@ export interface IVKAPIConstructorProps extends IRequestOptionalParams {
    * @default "https://api.vk.com/method"
    */
   baseUrl?: string;
+  /**
+   * Access token.
+   */
+  accessToken?: string;
+  /**
+   * Language.
+   * @default "ru"
+   */
+  lang?: TLang;
+  /**
+   * API version.
+   * @default "5.110"
+   */
+  v?: string;
 }
 
 export interface IVKAPI extends IRepositories {

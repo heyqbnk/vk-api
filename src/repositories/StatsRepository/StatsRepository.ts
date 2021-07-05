@@ -15,7 +15,6 @@ export class StatsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/stats.get
-   * @type {TRepositoryMethod<TGetParams, TGetResult>}
    */
   get = this.r<TGetParams, TGetResult>(
     'get',
@@ -28,19 +27,17 @@ export class StatsRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/stats.getPostReach
-   * @type {TRepositoryMethod<IGetPostReachParams, IGetPostReachResult>}
    */
   getPostReach = this.r<IGetPostReachParams, IGetPostReachResult>(
     'getPostReach',
-    ({postIds, ...rest}) => ({
+    ({post_ids, ...rest}) => ({
       ...rest,
-      postIds: formatOptionalArray(postIds),
+      post_ids: formatOptionalArray(post_ids),
     }),
   );
 
   /**
    * @see https://vk.com/dev/stats.trackVisitor
-   * @type {TRepositoryMethod<ITrackVisitorParams, TTrackVisitorResult>}
    */
   trackVisitor = this.r<ITrackVisitorParams, TTrackVisitorResult>(
     'trackVisitor',

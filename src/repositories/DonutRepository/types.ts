@@ -7,8 +7,8 @@ import {
 } from '../../types';
 
 interface ISubscription {
-  ownerId: number;
-  nextPaymentDate: number;
+  owner_id: number;
+  next_payment_date: number;
   amount: number;
   status: string;
 }
@@ -17,7 +17,7 @@ interface ISubscription {
  * @see https://vk.com/dev/donut.getFriends
  */
 export interface IGetFriendsParams {
-  ownerId: number;
+  owner_id: number;
   offset?: number;
   count?: number;
   fields?: TUserField[];
@@ -30,7 +30,7 @@ export interface IGetFriendsResult extends IPager<TUser> {
  * @see https://vk.com/dev/donut.getSubscription
  */
 export interface IGetSubscriptionParams {
-  ownerId: number;
+  owner_id: number;
 }
 
 export interface IGetSubscriptionResult extends ISubscription {
@@ -56,7 +56,7 @@ export interface IGetSubscriptionsResult {
  * @see https://vk.com/dev/donut.isDon
  */
 export interface IIsDonParams {
-  ownerId: number;
+  owner_id: number;
 }
 
 export type TIsDonResult = TPseudoBoolean;

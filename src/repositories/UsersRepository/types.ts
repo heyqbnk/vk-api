@@ -12,9 +12,9 @@ import {
  * @see https://vk.com/dev/users.get
  */
 export interface TGetParams {
-  userIds: Array<string | number>;
+  user_ids: Array<string | number>;
   fields?: TUserField[];
-  nameCase?: TNameCase;
+  name_case?: TNameCase;
 }
 
 export type TGetResult = TUser[];
@@ -23,11 +23,11 @@ export type TGetResult = TUser[];
  * @see https://vk.com/dev/users.getFollowers
  */
 export interface IGetFollowersParams {
-  userId?: number;
+  user_id?: number;
   offset?: number;
   count?: number;
   fields?: TUserField[];
-  nameCase?: TNameCase;
+  name_case?: TNameCase;
 }
 
 export type TGetFollowersResult = IPager<TUser>;
@@ -36,7 +36,7 @@ export type TGetFollowersResult = IPager<TUser>;
  * @see https://vk.com/dev/users.getSubscriptions
  */
 export interface IGetSubscriptionsParams {
-  userId?: number;
+  user_id?: number;
   extended?: TBoolean;
   offset?: number;
   count?: number;
@@ -49,7 +49,7 @@ export type TGetSubscriptionsResult = IPager<TUser>;
  * @see https://vk.com/dev/users.report
  */
 export interface IReportParams {
-  userId: number;
+  user_id: number;
   type: 'porn' | 'spam' | 'insult' | 'advertisеment';
   comment: string;
 }
@@ -69,29 +69,29 @@ export interface ISearchParams {
   city?: number;
   country?: number;
   hometown?: string;
-  universityCountry?: number;
+  university_country?: number;
   university?: number;
-  universityFaculty?: number;
-  universityChair?: number;
+  university_faculty?: number;
+  university_chair?: number;
   sex?: ESex;
   status?: ERelationsStatus;
-  ageFrom?: number;
-  ageTo?: number;
-  birthDay?: number;
-  birthMonth?: number;
-  birthYear?: number;
+  age_from?: number;
+  age_to?: number;
+  birth_day?: number;
+  birth_month?: number;
+  birth_year?: number;
   online?: TBoolean;
-  hasPhoto?: TBoolean;
-  schoolCountry?: number;
-  schoolCity?: number;
-  schoolClass?: number;
+  has_photo?: TBoolean;
+  school_country?: number;
+  school_city?: number;
+  school_class?: number;
   school?: number;
-  schoolYear?: number;
+  school_year?: number;
   religion?: string;
   company?: string;
   position?: string;
-  groupId?: number;
-  fromList?: Array<'friends' | 'subscriptions'>;
+  group_id?: number;
+  from_list?: Array<'friends' | 'subscriptions'>;
 }
 
 export type TSearchResult = IPager<TUser & { trackCode?: string }>;

@@ -1,10 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import {TAddRepository, TLang, TSendRequest} from '../types';
 import {IVKAPI, IVKAPIConstructorProps} from './types';
-import {VKError} from '../VKError';
-import {recursiveToCamelCase, recursiveToSnakeCase} from '../utils';
 import {Core} from '../Core';
 import {Queue} from '../Queue';
+import {validateResponse} from './utils';
 
 /**
  * Class to perform requests to VK API.
@@ -66,18 +65,17 @@ export class VKAPI extends Core implements IVKAPI {
   sendRequest: TSendRequest = async config => {
     const {method, params, format = response => response} = config;
 
-    // Mix data with defaults. Format body to snake case.
+    // Mix data with defaults.
     const fullParams = {
       v: this.v,
-      accessToken: this.accessToken,
+      access_token: this.accessToken,
       lang: this.lang,
       ...params,
     };
-    const formattedParams = recursiveToSnakeCase(fullParams);
 
     // Create urlencoded form.
     const form = Object
-      .entries(formattedParams)
+      .entries(fullParams)
       .filter(([, value]) => value !== undefined)
       .map(([key, value]) => {
         const formattedValue = typeof value === 'object'
@@ -100,18 +98,15 @@ export class VKAPI extends Core implements IVKAPI {
         script.src = `${url}?${form}&callback=${cbName}`;
 
         // Define JSONP callback.
-        (window as any)[cbName] = (data: any) => {
+        (window as any)[cbName] = (data: unknown) => {
           // Remove script tag from DOM.
           document.head.removeChild(script);
 
-          if (data?.response) {
-            return res(format(recursiveToCamelCase(data.response), fullParams));
+          try {
+            res(format(validateResponse(data, config), fullParams));
+          } catch (e) {
+            rej(e);
           }
-
-          rej(new VKError({
-            errorInfo: recursiveToCamelCase(data?.error || {}),
-            config,
-          }));
         };
 
         // Append script to DOM.
@@ -128,21 +123,17 @@ export class VKAPI extends Core implements IVKAPI {
     });
     if (!response.ok) {
       throw new Error(
-        'Unsuccessful response: ' + response.status + '. ' + response.statusText
+        `Unsuccessful response: ${response.status}. ${response.statusText}`,
       );
     }
-    const json = await response.json();
+    let json: unknown;
 
-    // In case, we received response, convert it to camel case.
-    if ('response' in json) {
-      return format(recursiveToCamelCase(json.response), fullParams);
+    try {
+      json = await response.json();
+    } catch (e) {
+      throw new Error('Response from server was not JSON');
     }
-
-    // Otherwise, throw an error.
-    throw new VKError({
-      errorInfo: recursiveToCamelCase(json?.error || {}),
-      config,
-    });
+    return format(validateResponse(json, config), fullParams);
   };
 
   addRequestToQueue: TSendRequest = async config => {

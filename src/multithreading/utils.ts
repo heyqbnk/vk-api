@@ -1,5 +1,5 @@
 import {IVKAPIMessage} from './types';
-import {isNonNullObject} from '../utils';
+import {isRecord} from '../utils';
 
 /**
  * States is value extends VKAPIMessage.
@@ -9,7 +9,7 @@ import {isNonNullObject} from '../utils';
 export function isVKAPIMessage(
   value: any,
 ): value is IVKAPIMessage & Record<string, unknown> {
-  return isNonNullObject(value) &&
+  return isRecord(value) &&
     typeof value.tunnelName === 'string' &&
     typeof value.requestId === 'string' &&
     value.isVKAPIMessage === true;

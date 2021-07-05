@@ -15,7 +15,6 @@ export class StorageRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/storage.get
-   * @type {<P extends IGetSingleKeyParams | IGetMultipleKeysParams>(params: P) => Promise<P extends IGetSingleKeyParams ? TGetSingleKeyResult : TGetMultipleKeysResult>}
    */
   get = this.r<TGetParams, TGetResult>('get',
     (params: IRequestOptionalParams & TGetParams) => {
@@ -30,13 +29,11 @@ export class StorageRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/storage.getKeys
-   * @type {(params: (IGetKeysParams & IRequestOptionalParams)) => Promise<string[]>}
    */
   getKeys = this.r<IGetKeysParams, TGetKeysResult>('getKeys');
 
   /**
    * @see https://vk.com/dev/storage.set
-   * @type {(params: (ISetParams & IRequestOptionalParams)) => Promise<1>}
    */
   set = this.r<ISetParams, TSetResult>('set');
 }

@@ -4,9 +4,9 @@ import {IPost} from '../../types';
  * @see https://vk.com/dev/widgets.getComments
  */
 export interface IGetCommentsParams {
-  widgetApiId?: number;
+  widget_api_id?: number;
   url: string;
-  pageId?: string;
+  page_id?: string;
   order?: 'date' | 'likes' | 'last_comment';
   fields?: string[];
   offset?: number;
@@ -22,7 +22,7 @@ export interface IGetCommentsResult {
  * @see https://vk.com/dev/widgets.getPages
  */
 export interface IGetPagesParams {
-  widgetApiId?: number;
+  widget_api_id?: number;
   order?: 'date' | 'comments' | 'likes' | 'friend_likes';
   period?: 'day' | 'week' | 'month' | 'alltime';
   offset?: number;
@@ -45,7 +45,7 @@ export interface IGetPagesResult {
       count: number;
     };
     date: number;
-    pageId: string;
+    page_id: string;
   }>;
 }
 

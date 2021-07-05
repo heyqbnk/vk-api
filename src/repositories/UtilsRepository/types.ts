@@ -32,10 +32,10 @@ export interface IGetLastShortenedLinksParams {
 export type TGetLastShortenedLinksResult = IPager<{
   timestamp: number;
   url: string;
-  shortUrl: string;
+  short_url: string;
   key: string;
   views: number;
-  accessKey?: string;
+  access_key?: string;
 }>;
 
 /**
@@ -44,9 +44,9 @@ export type TGetLastShortenedLinksResult = IPager<{
 export interface IGetLinkStatsParams {
   key: string;
   source?: string;
-  accessKey?: string;
+  access_key?: string;
   interval?: 'hour' | 'day' | 'week' | 'month' | 'forever';
-  intervalsCount?: number;
+  intervals_count?: number;
   extended?: boolean;
 }
 
@@ -55,17 +55,17 @@ export interface IGetLinkStatsResult {
   stats: Array<{
     timestamp: number;
     views: number;
-    sexAge: Array<{
-      ageRange: string;
+    sex_age: Array<{
+      age_range: string;
       female: TPseudoBoolean;
       male: TPseudoBoolean;
     }>;
     countries: Array<{
-      countryId: number;
+      country_id: number;
       views: number;
     }>;
     cities: Array<{
-      cityId: number;
+      city_id: number;
       views: number;
     }>;
   }>;
@@ -88,20 +88,20 @@ export interface IGetShortLinkParams {
 }
 
 export interface IGetShortLinkResult {
-  shortUrl: string;
+  short_url: string;
   url: string;
   key: string;
-  accessKey?: string;
+  access_key?: string;
 }
 
 /**
  * @see https://vk.com/dev/utils.resolveScreenName
  */
 export interface IResolveScreenNameParams {
-  screenName: string;
+  screen_name: string;
 }
 
 export type TResolveScreenNameResult = {
   type: 'user' | 'group' | 'application';
-  objectId: number;
+  object_id: number;
 } | {};

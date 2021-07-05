@@ -18,9 +18,9 @@ type TObjectType =
  */
 export interface IAddParams {
   type: TObjectType;
-  ownerId?: number;
-  itemId: number;
-  accessKey: string;
+  owner_id?: number;
+  item_id: number;
+  access_key: string;
 }
 
 export interface IAddResult {
@@ -41,15 +41,15 @@ export interface IDeleteResult extends IAddResult {
  */
 export interface IGetListParams {
   type: TObjectType;
-  ownerId: number;
-  itemId: number;
-  pageUrl?: string;
+  owner_id: number;
+  item_id: number;
+  page_url?: string;
   filter?: 'likes' | 'copies';
-  friendsOnly?: boolean;
+  friends_only?: boolean;
   extended?: boolean;
   offset?: number;
   count?: number;
-  skipOwn?: boolean;
+  skip_own?: boolean;
 }
 
 export interface IGetListResult extends IPager<number> {
@@ -59,10 +59,10 @@ export interface IGetListResult extends IPager<number> {
  * @see https://vk.com/dev/likes.isLiked
  */
 export interface IIsLikedParams {
-  userId?: number;
+  user_id?: number;
   type: TObjectType;
-  ownerId?: number;
-  itemId: number;
+  owner_id?: number;
+  item_id: number;
 }
 
 export interface IIsLikedResult {

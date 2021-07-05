@@ -24,10 +24,10 @@ export abstract class Repository {
 
   /**
    * Creates method which sends request.
-   * @param {string} method
+   * @param method
    * @param prepare
    * @param format
-   * @returns {TRepositoryMethod<P, R>}
+   * @protected
    */
   protected r<P, R, FR = R>(
     method: string,
@@ -44,9 +44,8 @@ export abstract class Repository {
   /**
    * Implements new method in repository mutating it. Returns current instance
    * for chaining.
-   * @param {M extends (TRepositoryNonOverridableMethods | "implement") ? never : M} method
-   * @param {(params: P) => any} prepare
-   * @returns {this & {[key in M]: TRepositoryMethod<P, R>}}
+   * @param method
+   * @param prepare
    */
   implement<P, R, M extends string>(
     method: M extends TRepositoryNonOverridableMethods | keyof this ? never : M,

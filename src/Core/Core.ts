@@ -1,4 +1,4 @@
-import {IRepositories, TRepositoryMethod} from '../types';
+import {IRepositories} from '../types';
 import {
   AuthRepository,
   DatabaseRepository,
@@ -69,10 +69,9 @@ export abstract class Core implements IRepositories {
 
   /**
    * Adds new repository if it is not implemented.
-   * @param {N extends keyof this ? never : N} name
-   * @param {{new(sendRequest: TSendRequest): R, prototype: R}} Repo
-   * @param {TSendRequest} addRequestToQueue
-   * @returns {this & Record<N, R>}
+   * @param name - name of repository.
+   * @param Repo - repository class.
+   * @param addRequestToQueue - function which adds request to queue.
    */
   addRepository<N extends string, R extends Repository>(
     name: N extends keyof this ? never : N,

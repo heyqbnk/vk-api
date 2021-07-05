@@ -1,35 +1,36 @@
-import {IButton} from '../../types/objects';
+import {IButton} from '../../types';
 
 /**
  * @see https://vk.com/dev/messages.send
  */
 // TODO: Refactor depending on params
 export type TSendResult = number | Array<{
-  peerId: number;
-  messageId: number;
+  peer_id: number;
+  message_id: number;
   error?: string;
 }>
 
-// TODO: Refactor. Not sure we can pass both userIds and userId at the same time
+// TODO: Refactor. Not sure we can pass both user_ids and user_id at the same
+//  time
 export type TSendParams = {
-    randomId?: number;
-    peerId?: number;
+    random_id?: number;
+    peer_id?: number;
     domain?: string;
-    chatId?: number;
+    chat_id?: number;
     lat?: number;
     long?: number;
-    replyTo?: number;
-    forwardMessages?: number[];
-    stickerId?: number;
-    groupId?: number;
+    reply_to?: number;
+    forward_messages?: number[];
+    sticker_id?: number;
+    group_id?: number;
     keyboard?: { buttons: IButton[][] }
       & ({ inline: true } | { inline: false; oneTime: boolean });
     payload?: any;
-    dontParseLinks?: boolean;
-    disableMentions?: boolean;
+    dont_parse_links?: boolean;
+    disable_mentions?: boolean;
     intent?: 'promo_newsletter' | 'bot_ad_invite' | 'bot_ad_promo';
   }
-  & ({ userId?: number } | { userIds?: number[] })
+  & ({ user_id?: number } | { user_ids?: number[] })
   & ({ message: string } | {
   message?: string;
   // TODO: Create separate class

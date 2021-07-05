@@ -2,7 +2,7 @@
  * @see https://vk.com/dev/storage.get
  */
 interface IGetSharedParams {
-  userId?: number;
+  user_id?: number;
 }
 
 export interface IGetSingleKeyParams extends IGetSharedParams {
@@ -21,7 +21,7 @@ export type TGetResult = {key: string; value: string}[]
  * @see https://vk.com/dev/storage.getKeys
  */
 export interface IGetKeysParams {
-  userId?: number;
+  user_id?: number;
   offset?: number;
   count?: number;
 }
@@ -32,7 +32,7 @@ export type TGetKeysResult = string[];
  * @see https://vk.com/dev/storage.set
  */
 export interface ISetParams {
-  userId?: number;
+  user_id?: number;
   key: string;
   value: string;
 }

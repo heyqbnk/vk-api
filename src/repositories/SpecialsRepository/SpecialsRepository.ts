@@ -11,20 +11,14 @@ export class SpecialsRepository extends Repository {
     super('specials', sendRequest);
   }
 
-  /**
-   * @type {(params: (IAddStickersParams & IRequestOptionalParams)) => Promise<IAddStickersResult>}
-   */
   addStickers = this.r<IAddStickersParams, TAddStickersResult>(
     'addStickers',
-    ({userIds, stickerIds, ...rest}) => ({
+    ({user_ids, sticker_ids, ...rest}) => ({
       ...rest,
-      userIds: formatOptionalArray(userIds),
-      stickerIds: formatOptionalArray(stickerIds),
+      user_ids: formatOptionalArray(user_ids),
+      sticker_ids: formatOptionalArray(sticker_ids),
     }),
   );
 
-  /**
-   * @type {(params: (IGetStickersParams & IRequestOptionalParams)) => Promise<IPager<{stickerId: number, isPurchased: boolean}>>}
-   */
   getStickers = this.r<IGetStickersParams, TGetStickersResult>('getStickers');
 }

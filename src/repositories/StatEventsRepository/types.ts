@@ -4,17 +4,17 @@
 export type TAddMiniAppsCustomParams = {
   events: Array<{
     event: string;
-    userId: number;
+    user_id: number;
     timezone?: string;
-    miniAppId: number;
+    mini_app_id: number;
     url: string;
-    vkPlatform: string;
+    vk_platform: string;
     json?: Record<any, any>;
     timestamp?: Date | number;
   } & (
-    { typeNavgo: { type: 'type_mini_app_custom_event_item' } }
-    | { typeView: { type: 'type_mini_app_custom_event_item' } }
-    | { typeClick: { type: 'type_mini_app_custom_event_item' } }
+    { type_navgo: { type: 'type_mini_app_custom_event_item' } }
+    | { type_view: { type: 'type_mini_app_custom_event_item' } }
+    | { type_click: { type: 'type_mini_app_custom_event_item' } }
     )>;
 }
 

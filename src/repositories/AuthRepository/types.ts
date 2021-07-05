@@ -3,7 +3,7 @@
  */
 export interface IRestoreParams {
   phone: string;
-  lastName: string;
+  last_name: string;
 }
 
 export interface IRestoreResult {

@@ -26,9 +26,9 @@ export class UsersRepository extends Repository {
    */
   get = this.r<TGetParams, TGetResult>(
     'get',
-    ({userIds, fields, ...rest}) => ({
+    ({user_ids, fields, ...rest}) => ({
       ...rest,
-      userIds: formatOptionalArray(userIds),
+      user_ids: formatOptionalArray(user_ids),
       fields: formatOptionalArray(fields),
     }),
   );
@@ -61,9 +61,12 @@ export class UsersRepository extends Repository {
    */
   report = this.r<IReportParams, TReportResult>('getSubscriptions');
 
+  /**
+   * @see https://vk.com/dev/users.search
+   */
   search = this.r<ISearchParams, TSearchResult>(
     'search',
-    ({sort, online, hasPhoto, ...rest}) => ({
+    ({sort, online, has_photo, ...rest}) => ({
       sort: typeof sort === 'undefined'
         ? undefined
         : (
@@ -72,8 +75,8 @@ export class UsersRepository extends Repository {
             : toPseudoBoolean(sort === 'popularity')
         ),
       online: formatOptionalBoolean(online),
-      hasPhoto: formatOptionalBoolean(hasPhoto),
-      ...rest
+      has_photo: formatOptionalBoolean(has_photo),
+      ...rest,
     }),
   );
 }

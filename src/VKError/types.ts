@@ -76,9 +76,9 @@ export enum EErrors {
  * Error returned from VKontakte.
  */
 export interface IErrorInfo {
-  errorCode: EErrors | number;
-  errorMsg: string;
-  requestParams: Array<{ key: string; value: string }>;
+  error_code: EErrors | number;
+  error_msg: string;
+  request_params: Array<{ key: string; value: string }>;
 }
 
 export interface IVKErrorConstructorProps {

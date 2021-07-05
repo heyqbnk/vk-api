@@ -9,9 +9,8 @@ export class DownloadedGamesRepository extends Repository {
 
   /**
    * @see https://vk.com/dev/downloadedGames.getPaidStatus
-   * @type {(params: (IGetPaidStatusParams & IRequestOptionalParams)) => Promise<IGetPaidStatusResult>}
    */
   getPaidStatus = this.r<IGetPaidStatusParams, IGetPaidStatusResult>(
-    'getPaidStatus'
+    'getPaidStatus',
   );
 }
