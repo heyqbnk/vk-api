@@ -24,7 +24,7 @@ export interface IMarketItem extends IObjectSharedProps {
       id: number;
       name: string;
     };
-    oldAmount: number;
+    old_amount: number;
     text: string;
   };
   category: {
@@ -35,10 +35,10 @@ export interface IMarketItem extends IObjectSharedProps {
       name: string;
     };
   };
-  thumbPhoto: string;
+  thumb_photo: string;
   date: number;
   availability: EMarketItemAvailability;
-  isFavorite: boolean;
+  is_favorite: boolean;
 }
 
 /**
@@ -46,12 +46,12 @@ export interface IMarketItem extends IObjectSharedProps {
  */
 export interface IMarketItemExtended extends IMarketItem {
   photos: IPhoto[];
-  canComment: TPseudoBoolean;
-  canRepost: TPseudoBoolean;
+  can_comment: TPseudoBoolean;
+  can_repost: TPseudoBoolean;
   likes: {
-    userLikes: TPseudoBoolean;
+    user_likes: TPseudoBoolean;
     count: number;
   };
   url: string;
-  buttonTitle: string;
+  button_title: string;
 }

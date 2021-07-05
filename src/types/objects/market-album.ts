@@ -8,5 +8,5 @@ export interface IMarketAlbum extends IObjectSharedProps {
   title: string;
   photo: IPhoto;
   count: number;
-  updatedTime: number;
+  updated_time: number;
 }

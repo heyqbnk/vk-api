@@ -16,15 +16,15 @@ export interface IPoll extends IObjectSharedProps {
   }>;
   anonymous: boolean;
   multiple: boolean;
-  answerIds: number[];
-  endDate: number;
+  answer_ids: number[];
+  end_date: number;
   closed: boolean;
-  isBoard: boolean;
-  canEdit: boolean;
-  canVote: boolean;
-  canReport: boolean;
-  canShare: boolean;
-  authorId: number;
+  is_board: boolean;
+  can_edit: boolean;
+  can_vote: boolean;
+  can_report: boolean;
+  can_share: boolean;
+  author_id: number;
   photo: IPhoto;
   background: {
     id: number;

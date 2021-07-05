@@ -3,7 +3,7 @@
  */
 export interface IObjectSharedProps {
   id: number;
-  ownerId: number;
+  owner_id: number;
 }
 
 /**

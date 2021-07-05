@@ -15,20 +15,20 @@ export enum EPageAccess {
  */
 export interface IPage {
   id: number;
-  groupId: number;
-  creatorId: number;
+  group_id: number;
+  creator_id: number;
   title: string;
-  currentUserCanEdit: TPseudoBoolean;
-  currentUserCanEditAccess: TPseudoBoolean;
-  whoCanView: EPageAccess;
-  whoCanEdit: EPageAccess;
+  current_user_can_edit: TPseudoBoolean;
+  current_user_can_editAccess: TPseudoBoolean;
+  who_can_view: EPageAccess;
+  who_can_edit: EPageAccess;
   edited: number;
   created: number;
-  editorId: number;
+  editor_id: number;
   views: number;
   parent?: string;
   parent2?: string;
   source?: string;
   html?: string;
-  viewUrl: string;
+  view_url: string;
 }

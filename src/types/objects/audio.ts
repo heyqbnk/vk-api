@@ -36,10 +36,10 @@ export interface IAudio extends IObjectSharedProps {
   title: string;
   duration: number;
   url: string;
-  lyricsId?: number;
-  albumId?: number;
-  genreId: EAudioGenre;
+  lyrics_id?: number;
+  album_id?: number;
+  genre_id: EAudioGenre;
   date: number;
-  noSearch?: 1;
-  isHq?: 1;
+  no_search?: 1;
+  is_hq?: 1;
 }

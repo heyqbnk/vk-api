@@ -8,6 +8,6 @@ export interface INote extends IObjectSharedProps {
   text: string;
   date: number;
   comments: number;
-  readComments: number;
-  viewUrl: string;
+  read_comments: number;
+  view_url: string;
 }

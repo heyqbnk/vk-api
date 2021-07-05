@@ -179,17 +179,17 @@ export enum ESex {
   Male = 2,
 }
 
-export type TCareer = ({ groupId: number } | { company: string })
+export type TCareer = ({ group_id: number } | { company: string })
   & {
-  countryId: number;
+  country_id: number;
   from: number;
   until: number;
   position: string;
-} & ({ cityId: number } | { cityName: string })
+} & ({ city_id: number } | { city_name: string })
 
 type TOnline =
   { online: TPseudoBoolean }
-  & ({} | { onlineMobile: 1; onlineApp: number })
+  & ({} | { online_mobile: 1; online_app: number })
 
 type TSocial =
   | 'skype'
@@ -203,31 +203,31 @@ type TSocial =
  */
 export type TUser = {
   id: number;
-  firstName: string;
-  lastName: string;
-  isClosed: boolean;
-  canAccessClosed: boolean;
+  first_name: string;
+  last_name: string;
+  is_closed: boolean;
+  can_access_closed: boolean;
 } & ({ deactivated: 'deleted' | 'banned' } | {
   about?: string;
   activities?: string;
   bdate?: string;
   blacklisted?: TPseudoBoolean;
-  blacklistedByMe?: TPseudoBoolean;
+  blacklisted_by_me?: TPseudoBoolean;
   books?: string;
-  canPost?: TPseudoBoolean;
-  canSeeAllPosts?: TPseudoBoolean;
-  canSeeAudio?: TPseudoBoolean;
-  canSendFriendRequest?: TPseudoBoolean;
-  canWritePrivateMessage?: TPseudoBoolean;
+  can_post?: TPseudoBoolean;
+  can_see_all_posts?: TPseudoBoolean;
+  can_see_audio?: TPseudoBoolean;
+  can_send_friend_request?: TPseudoBoolean;
+  can_write_private_message?: TPseudoBoolean;
   career?: TCareer;
   city?: IIdTitlePair;
-  commonCount?: number;
+  common_count?: number;
   connections?: {
     [key in TSocial]?: string;
   };
   contacts?: {
-    mobilePhone?: string;
-    homePhone?: string;
+    mobile_phone?: string;
+    home_phone?: string;
   };
   counters?: {
     albums: number;
@@ -237,54 +237,54 @@ export type TUser = {
     notes: number;
     friends: number;
     groups: number;
-    onlineFriends: number;
-    mutualFriends: number;
-    userVideos: number;
+    online_friends: number;
+    mutual_friends: number;
+    user_videos: number;
     followers: number;
     pages: number;
   };
   country?: IIdTitlePair;
-  cropPhoto?: ICropPhoto;
+  crop_photo?: ICropPhoto;
   domain?: string;
   education?: {
     university: number;
-    universityName: string;
+    university_name: string;
     faculty: number;
-    facultyName: string;
+    faculty_name: string;
     graduation: number;
   };
-  firstNameNom?: string;
-  firstNameGen?: string;
-  firstNameDat?: string;
-  firstNameAcc?: string;
-  firstNameIns?: string;
-  firstNameAbl?: string;
-  followersCount?: number;
-  friendStatus?: EFriendStatus;
+  first_name_nom?: string;
+  first_name_gen?: string;
+  first_name_dat?: string;
+  first_name_acc?: string;
+  first_name_ins?: string;
+  first_name_abl?: string;
+  followers_count?: number;
+  friend_status?: EFriendStatus;
   games?: string;
-  hasMobile?: TPseudoBoolean;
-  hasPhoto?: TPseudoBoolean;
-  homeTown?: string;
+  has_mobile?: TPseudoBoolean;
+  has_photo?: TPseudoBoolean;
+  home_town?: string;
   interests?: string;
-  isFavorite?: TPseudoBoolean;
-  isFriend?: TPseudoBoolean;
-  isHiddenFromFeed?: TPseudoBoolean;
-  lastNameNom?: string;
-  lastNameGen?: string;
-  lastNameDat?: string;
-  lastNameAcc?: string;
-  lastNameIns?: string;
-  lastNameAbl?: string;
-  lastSeen?: {
+  is_favorite?: TPseudoBoolean;
+  is_friend?: TPseudoBoolean;
+  is_hidden_from_feed?: TPseudoBoolean;
+  last_name_nom?: string;
+  last_name_gen?: string;
+  last_name_dat?: string;
+  last_name_acc?: string;
+  last_name_ins?: string;
+  last_name_abl?: string;
+  last_seen?: {
     time: number;
     platform: EPlatform;
   };
   lists?: string;
-  maidenName?: string;
+  maiden_name?: string;
   military?: {
     unit: string;
-    unitId: number;
-    countryId: number;
+    unit_id: number;
+    country_id: number;
     from: number;
     until: number;
   };
@@ -302,20 +302,20 @@ export type TUser = {
     // TODO: API doc is piece of shit
     langs?: (string | number)[];
     religion?: string;
-    inspiredBy?: string;
-    peopleMain?: EPeopleMain;
-    lifeMain?: ELifeMain;
+    inspired_by?: string;
+    people_main?: EPeopleMain;
+    life_main?: ELifeMain;
     smoking?: ESmoking;
     alcohol?: EAlcohol;
   };
-  photo50?: string;
-  photo100?: string;
-  photo200orig?: string;
-  photo200?: string;
-  photo400orig?: string;
-  photoId?: string;
-  photoMax?: string;
-  photoMaxOrig?: string;
+  photo_50?: string;
+  photo_100?: string;
+  photo_200_orig?: string;
+  photo_200?: string;
+  photo_400_orig?: string;
+  photo_id?: string;
+  photo_max?: string;
+  photo_max_orig?: string;
   quotes?: string;
   relatives?: Array<{
     id: number;
@@ -328,7 +328,7 @@ export type TUser = {
       | 'grandchild';
   }>;
   relation?: ERelationsStatus;
-  relationPartner?: {
+  relation_partner?: {
     id?: number;
     name?: string;
   };
@@ -337,19 +337,19 @@ export type TUser = {
     country: number;
     city: number;
     name: string;
-    yearFrom: number;
-    yearTo: number;
-    yearGraduated: number;
+    year_from: number;
+    year_to: number;
+    year_graduated: number;
     class: string;
     speciality: string;
     type: ESchoolType;
-    typeStr: string;
+    type_str: string;
   }>;
-  screenName?: string;
+  screen_name?: string;
   sex?: ESex;
   site?: string;
   status?: number;
-  statusAudio?: IAudio;
+  status_audio?: IAudio;
   timezone?: number;
   trending?: TPseudoBoolean;
   tv?: string;
@@ -359,13 +359,13 @@ export type TUser = {
     city: number;
     name: string;
     faculty: number;
-    facultyName: string;
+    faculty_name: string;
     chair: number;
-    chairName: string;
+    chair_name: string;
     graduation: number;
-    educationForm: string;
-    educationStatus: string;
+    education_form: string;
+    education_status: string;
   }>;
   verified?: TPseudoBoolean;
-  wallDefault?: 'owner' | 'all';
+  wall_default?: 'owner' | 'all';
 });

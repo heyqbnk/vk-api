@@ -34,11 +34,11 @@ export interface IDoc extends IObjectSharedProps {
       width: number;
       height: number;
     };
-    audioMessage?: {
+    audio_message?: {
       duration: number;
       waveform: number[];
-      linkOgg: string;
-      linkMp3: string;
+      link_ogg: string;
+      link_mp3: string;
     };
   };
 }

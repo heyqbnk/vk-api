@@ -26,6 +26,6 @@ export interface ILink {
       url: string;
     };
   };
-  previewPage: string;
-  previewUrl: string;
+  preview_page: string;
+  preview_url: string;
 }

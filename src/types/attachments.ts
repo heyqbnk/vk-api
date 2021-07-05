@@ -35,23 +35,23 @@ type TGenericAttachment<T extends string, Item = any> = {
 
 export type TPhotoAttachment = TGenericAttachment<'photo', IPhoto>;
 export type TPostedPhotoAttachment = TGenericAttachment<'posted_photo', IObjectSharedProps & {
-  photo130: string;
-  photo604: string;
+  photo_130: string;
+  photo_604: string;
 }>;
 export type TVideoAttachment = TGenericAttachment<'video', IVideo>;
 export type TAudioAttachment = TGenericAttachment<'audio', IAudio>;
 export type TDocAttachment = TGenericAttachment<'doc', IDoc>;
 export type TGraffitiAttachment = TGenericAttachment<'graffiti', IObjectSharedProps & {
-  photo130: string;
-  photo604: string;
+  photo_130: string;
+  photo_604: string;
 }>
 export type TLinkAttachment = TGenericAttachment<'link', ILink>;
 export type TNoteAttachment = TGenericAttachment<'note', INote>;
 export type TAppAttachment = TGenericAttachment<'app', IObjectSharedProps & {
   id: number;
   name: string;
-  photo130: string;
-  photo604: string;
+  photo_130: string;
+  photo_604: string;
 }>
 export type TPollAttachment = TGenericAttachment<'poll', IPoll>;
 export type TPageAttachment = TGenericAttachment<'page', IPage>;
@@ -69,23 +69,23 @@ export type TMarketAlbumAttachment = TGenericAttachment<'market_album', IMarketA
 export type TStickerAttachment = TGenericAttachment<'sticker', ISticker>;
 export type TPrettyCardsAttachment = TGenericAttachment<'pretty_cards', {
   cards: Array<{
-    cardId: number;
-    linkUrl: string;
+    card_id: number;
+    link_url: string;
     title: string;
     images: IImage[];
     button: IButton;
     price: number;
-    priceOld: number;
+    price_old: number;
   }>;
 }>;
 export type TEventAttachment = TGenericAttachment<'event', {
   id: number;
   time: number;
-  memberStatus: EEventAttachmentMemberStatus;
-  isFavorite: boolean;
+  member_status: EEventAttachmentMemberStatus;
+  is_favorite: boolean;
   address: string;
   text: string;
-  buttonText: string;
+  button_text: string;
   friends: number[];
 }>;
 

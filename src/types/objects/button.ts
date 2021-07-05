@@ -24,8 +24,8 @@ interface IVKPayButtonAction {
 
 interface IVKAppsButtonAction {
   type: 'open_app';
-  appId: number;
-  ownerId?: number;
+  app_id: number;
+  owner_id?: number;
   payload: string;
   label: string;
   hash?: string;

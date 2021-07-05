@@ -50,37 +50,37 @@ export enum ECommunityWallPrivacy {
 export interface ICommunity {
   id: number;
   name: string;
-  screenName: string;
-  isClosed: ECommunityPrivacy;
+  screen_name: string;
+  is_closed: ECommunityPrivacy;
   deactivated?: 'deleted' | 'banned';
-  isAdmin?: TPseudoBoolean;
-  adminLevel?: ECommunityAdminLevel;
-  isMember?: TPseudoBoolean;
-  isAdvertiser?: TPseudoBoolean;
-  invitedBy?: number;
+  is_admin?: TPseudoBoolean;
+  admin_level?: ECommunityAdminLevel;
+  is_member?: TPseudoBoolean;
+  is_advertiser?: TPseudoBoolean;
+  invited_by?: number;
   type: 'group' | 'page' | 'event';
-  photo50: string;
-  photo100: string;
-  photo200: string;
+  photo_50: string;
+  photo_100: string;
+  photo_200: string;
   activity?: string;
   addresses?: {
-    isEnabled: boolean;
-    mainAddressId: number;
+    is_enabled: boolean;
+    main_address_id: number;
   };
-  ageLimits?: ECommunityAgeLimits;
-  banInfo?: {
-    endDate: number;
+  age_limits?: ECommunityAgeLimits;
+  ban_info?: {
+    end_date: number;
     comment: string;
   };
-  canCreateTopic?: TPseudoBoolean;
-  canMessage?: TPseudoBoolean;
-  canPost?: TPseudoBoolean;
-  canSeeAllPosts?: TPseudoBoolean;
-  canUploadDoc?: TPseudoBoolean;
-  canUploadVideo?: TPseudoBoolean;
+  can_create_topic?: TPseudoBoolean;
+  can_message?: TPseudoBoolean;
+  can_post?: TPseudoBoolean;
+  can_see_all_posts?: TPseudoBoolean;
+  can_upload_doc?: TPseudoBoolean;
+  can_upload_video?: TPseudoBoolean;
   city?: IIdTitlePair;
   contacts?: {
-    userId: number;
+    user_id: number;
     desc: string;
     phone: string;
     email: string;
@@ -102,40 +102,40 @@ export interface ICommunity {
       height: number;
     }[];
   };
-  cropPhoto?: ICropPhoto;
+  crop_photo?: ICropPhoto;
   description?: string;
-  fixedPost?: number;
+  fixed_post?: number;
   has_photo?: TPseudoBoolean;
-  isFavorite?: TPseudoBoolean;
-  isHiddenFromFeed?: TPseudoBoolean;
-  isMessagesBlocked?: TPseudoBoolean;
+  is_favorite?: TPseudoBoolean;
+  is_hidden_from_feed?: TPseudoBoolean;
+  is_messages_blocked?: TPseudoBoolean;
   links?: {
     id: number;
     url: string;
     name: string;
     desc: string;
-    photo50: string;
-    photo100: string;
+    photo_50: string;
+    photo_100: string;
   }[];
-  mainAlbumId?: number;
-  mainSection?: ECommunitySection;
+  main_album_id?: number;
+  main_section?: ECommunitySection;
   market?: {
     enabled: 0;
   } | {
     enabled: 1;
     type: 'basic' | 'advanced';
-    priceMin: number;
-    priceMax: number;
-    mainAlbumId: number;
-    contactId: number;
+    price_min: number;
+    price_max: number;
+    main_album_id: number;
+    contact_id: number;
     currency: {
       id: number;
       name: string;
     };
-    currencyText: string;
+    currency_text: string;
   };
-  memberStatus?: ECommunityMemberStatus;
-  membersCount?: number;
+  member_status?: ECommunityMemberStatus;
+  members_count?: number;
   place?: {
     id: number;
     title: string;

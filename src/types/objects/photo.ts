@@ -4,12 +4,12 @@ import {IObjectSharedProps, IPhotoSize} from './shared';
  * @see https://vk.com/dev/objects/photo
  */
 export interface IPhoto extends IObjectSharedProps {
-  albumId: number;
-  userId: number;
+  album_id: number;
+  user_id: number;
   text: string;
   date: number;
   sizes: IPhotoSize[];
-  postId?: number;
+  post_id?: number;
   width: number;
   height: number;
 }

@@ -62,9 +62,9 @@ export class UtilsRepository extends Repository {
    */
   getShortLink = this.r<IGetShortLinkParams, IGetShortLinkResult>(
     'getShortLink',
-    ({private: isPrivate, ...rest}) => ({
+    ({private: is_private, ...rest}) => ({
       ...rest,
-      private: formatOptionalBoolean(isPrivate),
+      private: formatOptionalBoolean(is_private),
     }),
   );
 

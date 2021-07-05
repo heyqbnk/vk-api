@@ -4,8 +4,8 @@ import {IImage} from './shared';
  * @see https://vk.com/dev/objects/sticker
  */
 export interface ISticker {
-  productId: number;
-  stickerId: number;
+  product_id: number;
+  sticker_id: number;
   images: IImage[];
-  imagesWithBackground: IImage[];
+  images_with_background: IImage[];
 }

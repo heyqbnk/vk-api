@@ -85,7 +85,6 @@ export interface IPager<Item> {
    * Records count
    */
   count: number;
-
   /**
    * List of records
    */
