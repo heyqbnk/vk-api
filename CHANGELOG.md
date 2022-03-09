@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.3](https://github.com/wolframdeus/vk-api/compare/v3.0.2...v3.0.3) (2022-03-09)
+
+
+### Bug Fixes
+
+* **vkapi:** accept other format of baseURL ([2896cb1](https://github.com/wolframdeus/vk-api/commit/2896cb19f65e6e92ea8793681e32cbbdb9778398))
+
 ### [3.0.2](https://github.com/wolframdeus/vk-api/compare/v3.0.1...v3.0.2) (2021-07-05)
 
 
