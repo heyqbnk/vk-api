@@ -46,7 +46,7 @@ export class VKAPI extends Core implements IVKAPI {
       v = '5.110',
       lang = 'ru',
       isBrowser = false,
-      baseUrl = 'https://api.vk.com/method',
+      baseUrl = 'https://api.vk.com',
     } = props;
 
     this.accessToken = accessToken || null;
@@ -86,7 +86,7 @@ export class VKAPI extends Core implements IVKAPI {
           encodeURIComponent(formattedValue);
       })
       .join('&');
-    const url = `${this.baseUrl}/${method}`;
+    const url = `${this.baseUrl}/method/${method}`;
 
     // In case, we are in browser, it is required to use JSONP.
     if (this.isBrowser) {

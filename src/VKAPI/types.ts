@@ -19,7 +19,7 @@ export interface IVKAPIConstructorProps {
   isBrowser?: boolean;
   /**
    * API URL.
-   * @default "https://api.vk.com/method"
+   * @default "https://api.vk.com"
    */
   baseUrl?: string;
   /**
